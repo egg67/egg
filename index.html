@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBOYOACHC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@300;400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --void: #000000;
+            --starlight: #FFFFFF;
+            --dust: #888888;
+            --signal: #FF6B00;
+            --signal-glow: rgba(255, 107, 0, 0.6);
+            --signal-dim: rgba(255, 107, 0, 0.2);
+            --dark-glow: rgba(255, 107, 0, 0.15);
+        }
+        
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--void);
+            color: var(--starlight);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-weight: 300;
+        }
+        
+        ::selection {
+            background: var(--signal);
+            color: var(--void);
+        }
+        
+        /* ===== SUBTLE STAR BACKGROUND ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 6s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.9; 
+                transform: scale(1.1);
+            }
+        }
+        
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        /* ===== REFINED HERO SECTION ===== */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* ===== EGG WITH HORIZONTAL CRACK LINES ===== */
+        .egg-container {
+            margin: 0 0 30px 0;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        
+        .egg-container:hover {
+            transform: translateY(-8px);
+            filter: drop-shadow(0 10px 25px rgba(255, 107, 0, 0.2));
+        }
+        
+        .egg {
+            width: 180px;
+            height: 240px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .egg-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 25%, rgba(20, 20, 20, 0.9) 0%, transparent 60%),
+                radial-gradient(circle at 70% 65%, rgba(40, 40, 40, 0.5) 0%, transparent 60%),
+                linear-gradient(145deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 
+                inset 0 -30px 70px rgba(0, 0, 0, 0.95),
+                inset 0 30px 60px rgba(255, 255, 255, 0.04),
+                inset 0 0 80px rgba(255, 107, 0, 0.07),
+                0 0 30px rgba(0, 0, 0, 0.8),
+                0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(80, 80, 80, 0.2);
+            overflow: hidden;
+        }
+        
+        /* Pulsing crack effect - HORIZONTAL LINES */
+        .crack {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        .crack-line {
+            position: absolute;
+            height: 1.5px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--signal) 10%, 
+                var(--signal) 90%, 
+                transparent 100%);
+            filter: blur(0.8px);
+            animation: crackPulse 4s infinite ease-in-out;
+            opacity: 0.7;
+        }
+        
+        /* HORIZONTAL crack line positions */
+        .crack-line:nth-child(1) {
+            top: 30%;
+            transform: rotate(0deg);
+            width: 90%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .crack-line:nth-child(2) {
+            top: 50%;
+            transform: rotate(0deg);
+            width: 85%;
+            left: 7%;
+            animation-delay: 0.5s;
+        }
+        
+        .crack-line:nth-child(3) {
+            top: 70%;
+            transform: rotate(0deg);
+            width: 80%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+        
+        @keyframes crackPulse {
+            0%, 100% { 
+                opacity: 0.4;
+                box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
+            }
+            50% { 
+                opacity: 1;
+                box-shadow: 0 0 15px var(--signal),
+                            0 0 25px rgba(255, 107, 0, 0.6);
+            }
+        }
+        
+        /* Subtle inner glow */
+        .egg-glow {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, 
+                rgba(255, 107, 0, 0.1) 0%, 
+                rgba(255, 107, 0, 0.03) 40%,
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            z-index: 1;
+            animation: eggGlowPulse 6s infinite ease-in-out;
+        }
+        
+        @keyframes eggGlowPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* ===== ARAMAIC TEXT ===== */
+        .aramaic-text {
+            color: var(--signal);
+            font-size: 1.8rem;
+            margin: 25px 0 35px 0;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;
+        }
+        
+        .aramaic-text::before,
+        .aramaic-text::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 0, 0.3), transparent);
+        }
+        
+        .aramaic-text::before {
+            right: 100%;
+        }
+        
+        .aramaic-text::after {
+            left: 100%;
+        }
+        
+        /* ===== SLIMMER COUNTER SECTION ===== */
+        .counter-section {
+            margin: 20px 0;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .counter-display {
+            font-size: 5.2rem;
+            font-weight: 250;
+            color: var(--signal);
+            margin-bottom: 15px;
+            font-variant-numeric: tabular-nums;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: -2px;
+            transition: all 0.3s ease;
+            font-stretch: 85%;
+            text-shadow: 0 0 20px var(--signal-glow);
+        }
+        
+        /* NEW: Notification button */
+        .notification-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--signal);
+            color: var(--void);
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .notification-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--signal-glow);
+        }
+        
+        .counter-label {
+            font-size: 0.85rem;
+            color: var(--dust);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 25px;
+            font-family: 'IBM Plex Mono', monospace;
+            opacity: 0.6;
+            font-weight: 300;
+        }
+        
+        /* ===== PROGRESS SECTION ===== */
+        .progress-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto 15px auto;
+        }
+        
+        .progress {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                var(--signal), 
+                rgba(255, 107, 0, 0.8));
+            width: 4.139%;
+            box-shadow: 0 0 10px var(--signal);
+            z-index: 2;
+        }
+        
+        /* Goal Number */
+        .goal-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 0 5px;
+        }
+        
+        .current-goal {
+            font-size: 0.9rem;
+            color: var(--starlight);
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 300;
+            opacity: 0.5;
+            letter-spacing: 0.1em;
+        }
+        
+        .goal-number {
+            font-size: 1.3rem;
+            color: var(--starlight);
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 300;
+            letter-spacing: -1px;
+            opacity: 0.8;
+            font-stretch: 90%;
+        }
+        
+        /* ===== SCROLL INDICATOR ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--signal);
+            opacity: 0.5;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-family: 'IBM Plex Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-indicator:hover {
+            opacity: 0.8;
+        }
+        
+        .scroll-arrow {
+            margin-top: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        /* ===== SEPARATOR ===== */
+        .separator {
+            text-align: center;
+            margin: 30px 0;
+            color: var(--signal);
+            opacity: 0.3;
+            font-size: 1.5rem;
+            letter-spacing: 0.5em;
+        }
+        
+        /* ===== ADDRESS SECTION ===== */
+        .address-section {
+            margin: 60px auto;
+            max-width: 800px;
+            padding: 0 30px;
+        }
+        
+        .address-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .address-item {
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .address-item:hover {
+            border-color: rgba(255, 107, 0, 0.1);
+        }
+        
+        .chain-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--signal);
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .address {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--starlight);
+            word-break: break-all;
+            line-height: 1.5;
+            padding: 15px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 1px solid rgba(255, 107, 0, 0.05);
+        }
+        
+        .copy-btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            margin-top: 15px;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        /* ===== TERMS BUTTON SECTION ===== */
+        .terms-section {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 800px;
+            padding: 0 30px;
+        }
+        
+        .terms-btn {
+            display: block;
+            background: transparent;
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            color: rgba(255, 107, 0, 0.7);
+            padding: 12px 40px;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 0 auto;
+            text-transform: uppercase;
+            opacity: 0.7;
+            width: 250px;
+        }
+        
+        .terms-btn:hover {
+            background: rgba(255, 107, 0, 0.08);
+            border-color: rgba(255, 107, 0, 0.6);
+            color: rgba(255, 107, 0, 0.95);
+            opacity: 0.9;
+        }
+        
+        /* ===== NEW MAIN TEXT SECTION ===== */
+        .main-text-section {
+            max-width: 700px;
+            margin: 50px auto 30px auto;
+            padding: 0 30px;
+        }
+        
+        .main-text {
+            color: var(--dust);
+            font-size: 1.25rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+        
+        .main-text p {
+            margin-bottom: 20px;
+        }
+        
+        /* ===== ORIGINAL ELEGANT TEXT SECTION ===== */
+        .text-section {
+            max-width: 700px;
+            margin: 60px auto 40px auto;
+            padding: 0 30px;
+        }
+        
+        .elegant-text {
+            color: var(--dust);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+        
+        .elegant-text p {
+            margin-bottom: 20px;
+        }
+        
+        /* ===== CLICKABLE GBOYOACHC TEXT WITH LINE ===== */
+        .gboyoachc-container {
+            text-align: center;
+            margin: 60px 0 40px 0;
+            position: relative;
+        }
+        
+        .gboyoachc-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--signal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 10px 30px;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .gboyoachc-text:hover {
+            opacity: 0.8;
+        }
+        
+        .gboyoachc-line {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--signal), transparent);
+            opacity: 0.2;
+        }
+        
+        /* ===== COORDINATES AT BOTTOM ===== */
+        .coordinates {
+            text-align: center;
+            margin: 20px 0 30px 0;
+            padding: 15px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dust);
+            letter-spacing: 0.5px;
+            opacity: 0.35;
+            line-height: 1.4;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 25px 0 40px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--dust);
+            letter-spacing: 0.2em;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 2;
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+        }
+        
+        /* ===== GALLERY PAGE STYLES ===== */
+        .gallery-page {
+            display: none;
+            min-height: 100vh;
+            padding: 60px 20px;
+            position: relative;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .gallery-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--signal);
+            margin-bottom: 20px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 107, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--void);
+            padding: 20px;
+            transition: transform 0.8s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.03);
+        }
+        
+        .image-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--signal);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            opacity: 0.5;
+        }
+        
+        /* ===== EGG POP-UP MODAL ===== */
+        .egg-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .egg-popup-content {
+            text-align: center;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 90%;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        /* Egg Container in Popup - SMALLER SIZE */
+        .egg-popup-container {
+            margin: 0 auto 30px auto;
+            position: relative;
+            cursor: default;
+            width: 140px;
+            height: 186px;
+        }
+        
+        .egg-popup-container .egg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .egg-popup-container .egg-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 25%, rgba(20, 20, 20, 0.9) 0%, transparent 60%),
+                radial-gradient(circle at 70% 65%, rgba(40, 40, 40, 0.5) 0%, transparent 60%),
+                linear-gradient(145deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 
+                inset 0 -30px 70px rgba(0, 0, 0, 0.95),
+                inset 0 30px 60px rgba(255, 255, 255, 0.04),
+                inset 0 0 80px rgba(255, 107, 0, 0.07),
+                0 0 30px rgba(0, 0, 0, 0.8),
+                0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(80, 80, 80, 0.2);
+            overflow: hidden;
+        }
+        
+        .egg-popup-container .egg-glow {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, 
+                rgba(255, 107, 0, 0.2) 0%, 
+                rgba(255, 107, 0, 0.08) 40%,
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(15px);
+            z-index: 1;
+            animation: eggGlowPulse 4s infinite ease-in-out;
+        }
+        
+        /* Enhanced crack effect for popup */
+        .egg-popup-container .crack {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        .egg-popup-container .crack-line {
+            position: absolute;
+            height: 1.5px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--signal) 10%, 
+                var(--signal) 90%, 
+                transparent 100%);
+            filter: blur(0.8px);
+            animation: crackPulse 3s infinite ease-in-out;
+            opacity: 0.8;
+        }
+        
+        .egg-popup-container .crack-line:nth-child(1) {
+            top: 30%;
+            transform: rotate(0deg);
+            width: 90%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .egg-popup-container .crack-line:nth-child(2) {
+            top: 50%;
+            transform: rotate(0deg);
+            width: 85%;
+            left: 7%;
+            animation-delay: 0.3s;
+        }
+        
+        .egg-popup-container .crack-line:nth-child(3) {
+            top: 70%;
+            transform: rotate(0deg);
+            width: 80%;
+            left: 10%;
+            animation-delay: 0.6s;
+        }
+        
+        /* Greek Text Styling */
+        .greek-text {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--signal);
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+            line-height: 1.4;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.6);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        
+        /* Close button for the popup */
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--signal);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+        
+        .popup-close:hover {
+            color: var(--starlight);
+            transform: scale(1.1);
+        }
+        
+        /* ===== TERMS MODAL POPUP ===== */
+        .terms-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+            padding: 20px;
+        }
+        
+        .terms-content {
+            text-align: left;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: rgba(5, 5, 5, 0.9);
+            border: 1px solid rgba(255, 107, 0, 0.15);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .terms-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: var(--signal);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+        
+        .terms-close:hover {
+            color: var(--starlight);
+            transform: scale(1.1);
+        }
+        
+        .terms-text {
+            color: var(--starlight);
+            font-size: 1rem;
+            line-height: 1.7;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        .terms-text h3 {
+            color: var(--signal);
+            font-size: 1.2rem;
+            margin: 35px 0 15px 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+            padding-bottom: 8px;
+        }
+        
+        .terms-text h3:first-child {
+            margin-top: 0;
+        }
+        
+        .terms-text p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+        
+        /* ===== IMAGE POPUP MODAL ===== */
+        .image-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+            padding: 20px;
+        }
+        
+        .image-popup-content {
+            text-align: center;
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid rgba(255, 107, 0, 0.15);
+            border-radius: 2px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .image-popup-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: var(--signal);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+        
+        .image-popup-close:hover {
+            color: var(--starlight);
+            transform: scale(1.1);
+        }
+        
+        /* Aramaic Text - Larger and centered */
+        .image-aramaic-text {
+            color: var(--signal);
+            font-size: 2.2rem;
+            margin: 40px 0 60px 0;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 600px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+        }
+        
+        /* ===== ORANGE LOCK BUTTON STYLES ===== */
+        .lock-button-container {
+            margin: 20px 0 10px 0;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .lock-button {
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 18px 50px;
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 107, 0, 0.03);
+        }
+        
+        .lock-button:hover {
+            background: rgba(255, 107, 0, 0.08);
+            border-color: rgba(255, 107, 0, 0.8);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+        }
+        
+        .lock-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+        
+        .lock-text {
+            font-size: 1.2rem;
+        }
+        
+        /* ===== NOTIFICATION MODAL ===== */
+        .notification-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .notification-content {
+            text-align: center;
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 90%;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .notification-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: var(--signal);
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+        
+        .notification-close:hover {
+            color: var(--starlight);
+            transform: scale(1.1);
+        }
+        
+        .notification-title {
+            color: var(--signal);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            letter-spacing: 0.1em;
+        }
+        
+        .notification-text {
+            color: var(--starlight);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.5px;
+            text-align: left;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        .notification-text p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight {
+            color: var(--signal);
+            font-weight: bold;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .counter-display {
+                font-size: 3.8rem;
+                letter-spacing: -1px;
+            }
+            
+            .notification-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+            }
+            
+            .egg {
+                width: 150px;
+                height: 200px;
+            }
+            
+            .aramaic-text {
+                font-size: 1.6rem;
+            }
+            
+            .aramaic-text::before,
+            .aramaic-text::after {
+                width: 30px;
+            }
+            
+            .goal-number {
+                font-size: 1.1rem;
+            }
+            
+            .main-text, .elegant-text {
+                font-size: 1.1rem;
+            }
+            
+            .gboyoachc-text {
+                font-size: 2.5rem;
+            }
+            
+            .gboyoachc-line {
+                width: 120px;
+            }
+            
+            .terms-btn {
+                width: 220px;
+                padding: 10px 30px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .gallery-item {
+                height: 350px;
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+            }
+            
+            .back-button {
+                top: 20px;
+                left: 20px;
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .egg-popup-container {
+                width: 120px;
+                height: 160px;
+            }
+            
+            .greek-text {
+                font-size: 1.5rem;
+            }
+            
+            .egg-popup-content {
+                padding: 30px 20px;
+            }
+            
+            .terms-content {
+                padding: 30px;
+                max-height: 80vh;
+            }
+            
+            .terms-text {
+                font-size: 0.95rem;
+            }
+            
+            .terms-text h3 {
+                font-size: 1.1rem;
+            }
+            
+            .image-popup-content {
+                padding: 40px 20px;
+                max-width: 95%;
+            }
+            
+            .image-aramaic-text {
+                font-size: 1.8rem;
+                margin: 30px 0 50px 0;
+                min-height: 120px;
+            }
+            
+            .lock-button {
+                padding: 16px 40px;
+                font-size: 1.1rem;
+                height: 70px;
+                max-width: 280px;
+            }
+            
+            .lock-icon {
+                font-size: 1.8rem;
+                margin-right: 12px;
+            }
+            
+            .notification-content {
+                padding: 40px 30px;
+            }
+            
+            .notification-title {
+                font-size: 1.8rem;
+            }
+            
+            .notification-text {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .counter-display {
+                font-size: 3rem;
+                letter-spacing: -0.5px;
+            }
+            
+            .notification-btn {
+                width: 22px;
+                height: 22px;
+                font-size: 13px;
+                margin-left: 8px;
+            }
+            
+            .egg {
+                width: 130px;
+                height: 180px;
+            }
+            
+            .progress-container {
+                max-width: 280px;
+            }
+            
+            .goal-number {
+                font-size: 1rem;
+            }
+            
+            .main-text, .elegant-text {
+                font-size: 1rem;
+            }
+            
+            .address {
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+            
+            .gboyoachc-text {
+                font-size: 2rem;
+            }
+            
+            .gboyoachc-line {
+                width: 100px;
+            }
+            
+            .terms-btn {
+                width: 200px;
+                padding: 8px 25px;
+                font-size: 0.85rem;
+            }
+            
+            .aramaic-text {
+                font-size: 1.4rem;
+                margin: 20px 0;
+            }
+            
+            .coordinates {
+                font-size: 0.75rem;
+            }
+            
+            .gallery-item {
+                height: 300px;
+            }
+            
+            .egg-popup-container {
+                width: 100px;
+                height: 133px;
+            }
+            
+            .greek-text {
+                font-size: 1.3rem;
+            }
+            
+            .popup-close {
+                top: 10px;
+                right: 15px;
+                font-size: 1.8rem;
+            }
+            
+            .terms-content {
+                padding: 25px 20px;
+            }
+            
+            .terms-text {
+                font-size: 0.9rem;
+            }
+            
+            .terms-text h3 {
+                font-size: 1rem;
+            }
+            
+            .terms-close {
+                top: 15px;
+                right: 20px;
+                font-size: 1.8rem;
+            }
+            
+            .image-popup-content {
+                padding: 30px 15px;
+            }
+            
+            .image-aramaic-text {
+                font-size: 1.5rem;
+                margin: 25px 0 40px 0;
+                min-height: 100px;
+                line-height: 1.6;
+            }
+            
+            .lock-button {
+                padding: 14px 30px;
+                font-size: 1rem;
+                height: 65px;
+                max-width: 260px;
+            }
+            
+            .lock-icon {
+                font-size: 1.6rem;
+                margin-right: 10px;
+            }
+            
+            .lock-button-container {
+                max-width: 260px;
+            }
+            
+            .notification-content {
+                padding: 30px 20px;
+            }
+            
+            .notification-title {
+                font-size: 1.6rem;
+            }
+            
+            .notification-text {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- MAIN PAGE -->
+    <div id="mainPage">
+        <!-- SUBTLE STAR BACKGROUND -->
+        <div class="stars" id="stars"></div>
+        
+        <!-- EGG & COUNTER -->
+        <div class="main-content">
+            <div class="hero-section">
+                <!-- Clickable Egg -->
+                <div class="egg-container" onclick="scrollToAddresses()">
+                    <div class="egg">
+                        <div class="egg-body"></div>
+                        <div class="egg-glow"></div>
+                        <div class="crack">
+                            <div class="crack-line"></div>
+                            <div class="crack-line"></div>
+                            <div class="crack-line"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ܐܬܦܬܚ under egg -->
+                <div class="aramaic-text">ܐܬܓܠܝ</div>
+                
+                <!-- Counter Section -->
+                <div class="counter-section">
+                    <div class="counter-label">Current Signal</div>
+                    <!-- Current Number with Typewriter Font -->
+                    <div class="counter-display" id="counter">$0.00<button class="notification-btn" onclick="showNotification()">!</button></div>
+                    
+                    <!-- Progress Line -->
+                    <div class="progress-container">
+                        <div class="progress">
+                            <div class="progress-fill" id="progress"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Goal Number -->
+                    <div class="goal-section">
+                        <div class="current-goal">Progress</div>
+                        <div class="goal-number">$67,393</div>
+                    </div>
+                    
+                    <!-- Scroll Indicator -->
+                    <div class="scroll-indicator" onclick="scrollToAddresses()">
+                        <span>Contribute</span>
+                        <div class="scroll-arrow">↓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SEPARATOR -->
+        <div class="separator">• • •</div>
+        
+        <!-- NEW MAIN TEXT SECTION -->
+        <div class="main-text-section">
+            <div class="main-text">
+                <p>Something is always in motion here, even when the surface appears still.</p>
+                <p>What you are seeing is not a beginning, and not an ending. It is a moment within an ongoing process, patterns forming, dissolving, and returning in altered shapes. No single view contains the whole. No fragment stands alone.</p>
+                <p>This space gathers traces.</p>
+                <p>Images, symbols, structures, and silences pass through it. Some remain visible for a time. Others fade, leaving only the impression that something once moved there. Meaning is not fixed in advance. It condenses slowly, like breath on glass, and vanishes just as easily.</p>
+                <p>Nothing here asks to be believed.<br>
+                Nothing insists on being understood.</p>
+                <p>Attention is the only door.</p>
+                <p>Those who linger may begin to notice repetitions, subtle echoes between forms, intervals that feel less accidental than they first appeared. Whether these connections are discovered or imagined is part of the same unfolding. The work does not separate the two.</p>
+                <p>This is not a place of conclusions. It is a place of emergence.</p>
+                <p>What appears today may shift tomorrow. What seems silent may later reveal structure. The visible layer is only one surface among many, and even that surface is never still.</p>
+                <p>Some encounter this space briefly, as a passing signal. Others return, sensing that something is changing just beyond the edge of perception.</p>
+                <p>There is no single correct way to move through it. Only presence alters what is seen.</p>
+                <p>The rest continues, with or without witnesses.</p>
+            </div>
+        </div>
+        
+        <!-- SEPARATOR -->
+        <div class="separator">• • •</div>
+        
+        <!-- TERMS BUTTON SECTION -->
+        <div class="terms-section">
+            <button class="terms-btn" onclick="showTerms()">Contribution Terms</button>
+        </div>
+        
+        <!-- SEPARATOR -->
+        <div class="separator">• • •</div>
+        
+        <!-- ADDRESS SECTION -->
+        <div class="address-section" id="addresses">
+            <div class="text-section">
+                <div class="elegant-text"></div>
+            </div>
+            
+            <div class="address-grid">
+                <!-- Bitcoin Taproot -->
+                <div class="address-item">
+                    <div class="chain-name">Bitcoin (Taproot)</div>
+                    <div class="address" id="btc-taproot">bc1pva4k65zra36dc7wkrxyay4u4yx72pz7ux3hdrge8zx5alzn00w0s3y2gxx</div>
+                    <button class="copy-btn" onclick="copyAddress('btc-taproot', this)">Copy</button>
+                </div>
+                
+                <!-- Bitcoin Native Segwit -->
+                <div class="address-item">
+                    <div class="chain-name">Bitcoin (Native Segwit)</div>
+                    <div class="address" id="btc-segwit">bc1qyga2qme2w9sxyxcdk75fsdyxsfxddrrnn3tqf9</div>
+                    <button class="copy-btn" onclick="copyAddress('btc-segwit', this)">Copy</button>
+                </div>
+                
+                <!-- Ethereum -->
+                <div class="address-item">
+                    <div class="chain-name">Ethereum</div>
+                    <div class="address" id="eth">0xd5009716a1F55bFCd94f0954c534147Dee8501f3</div>
+                    <button class="copy-btn" onclick="copyAddress('eth', this)">Copy</button>
+                </div>
+                
+                <!-- Solana -->
+                <div class="address-item">
+                    <div class="chain-name">Solana</div>
+                    <div class="address" id="solana">CXQJPKEsYMep4NXWxnVCwGpM9wiDT3Hhd6xy82d2VPRE</div>
+                    <button class="copy-btn" onclick="copyAddress('solana', this)">Copy</button>
+                </div>
+                
+                <!-- Polygon -->
+                <div class="address-item">
+                    <div class="chain-name">Polygon</div>
+                    <div class="address" id="polygon">0xd5009716a1F55bFCd94f0954c534147Dee8501f3</div>
+                    <button class="copy-btn" onclick="copyAddress('polygon', this)">Copy</button>
+                </div>
+            </div>
+            
+            <!-- Clickable GBOYOACHC with separate line -->
+            <div class="gboyoachc-container">
+                <a href="#" class="gboyoachc-text" onclick="openGallery(event)">GBOYOACHC</a>
+                <div class="gboyoachc-line"></div>
+            </div>
+        </div>
+        
+        <!-- COORDINATES AT BOTTOM -->
+        <div class="coordinates">
+            31.77686464752928, 35.235649411249824
+        </div>
+        
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-text">
+                Transactions are permanent. Addresses are recorded. There is nothing else.
+            </div>
+            <div style="margin-top: 30px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 0.2em;">
+                RECORDED • PERMANENT • OBSERVED
+            </div>
+        </footer>
+    </div>
+
+    <!-- GALLERY PAGE -->
+    <div class="gallery-page" id="galleryPage">
+        <!-- SUBTLE STAR BACKGROUND -->
+        <div class="stars" id="galleryStars"></div>
+        
+        <!-- Back Button -->
+        <button class="back-button" onclick="closeGallery()">← BACK</button>
+        
+        <!-- Gallery Header -->
+        <div class="gallery-header">
+            <div class="gallery-title">GBOYOACHC</div>
+            <div style="color: var(--dust); font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; letter-spacing: 0.2em;">
+                COLLECTED SIGNALS
+            </div>
+        </div>
+        
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <!-- Image 1 -->
+            <div class="gallery-item" onclick="showImagePopup('a.png', 'ܡܘܚܐ ܕܪܗܛ ܩܕܡ ܢܦܫܗ<br>ܒܢܐ ܟܘܪܣܝܐ ܡܢ ܩܠ̈ܐ ܘܛܠ̈ܠܐ<br>ܘܐܝܟ ܢܒܝܐ ܕܨܐܚ ܠܗ ܗܘ ܫܡܥ')">
+                <div class="image-number">01</div>
+                <img src="https://i.postimg.cc/B68hQNp7/a.png" alt="a" class="gallery-image">
+            </div>
+            
+            <!-- Image 2 -->
+            <div class="gallery-item" onclick="showImagePopup('evidence.png', 'ܨܘܪܬܐ ܬܠܝܐ ܒܟܠ ܐܘܢܐ<br>ܕܠܐ ܬܛܥܐ ܟܐܦܐ ܡܢ ܡܢ ܩܐܡ<br>ܐܦ ܫܬܝܩܘܬܐ ܬܩܘܡ ܐܝܟ ܚܝܠܐ')">
+                <div class="image-number">02</div>
+                <img src="https://i.postimg.cc/QMY43vQc/evidence.png" alt="evidence" class="gallery-image">
+            </div>
+            
+            <!-- Image 3 -->
+            <div class="gallery-item" onclick="showImagePopup('is.png', 'ܫܡܐ ܕܐܫܬܒܩ ܐܝܟ ܪܝܚܐ ܒܗܝܟܠܐ<br>ܬܪ̈ܥܐ ܐܬܐܚܕܘ ܐܒܠ ܐܐܪ ܥܕܟܝܠ ܙܥ<br>ܟܐܦ̈ܐ ܕܐܝܬ ܠܗܝܢ ܕܘܟܪܢܐ')">
+                <div class="image-number">03</div>
+                <img src="https://i.postimg.cc/ZR1w93DT/is.png" alt="is" class="gallery-image">
+            </div>
+            
+            <!-- Image 4 -->
+            <div class="gallery-item" onclick="showImagePopup('not.png', 'ܩܠܐ ܕܐܬܥܒܕ ܡܢ ܫܢ̈ܝܐ ܣܓܝ̈ܐܐ<br>ܩܐܡ ܒܐܬܪܐ ܕܬܚܘܡ̈ܐ ܡܫܬܚܠܦܝܢ<br>ܫܘܠܛܢܐ ܡܣܝܒ ܫܝܒܬܐ ܕܠܐ ܚܙܝܢ')">
+                <div class="image-number">04</div>
+                <img src="https://i.postimg.cc/3RyLJ995/not.png" alt="not" class="gallery-image">
+            </div>
+            
+            <!-- Image 5 -->
+            <div class="gallery-item" onclick="showImagePopup('show.png', 'ܚܙܘܬܐ ܕܟܘܟܒ̈ܐ ܒܥܝܢ̈ܘܗܝ<br>ܐܒܠ ܐܝܕ̈ܘܗܝ ܥܕܟܝܠ ܒܢܘܪܐ<br>ܟܠ ܟܘܟܒܐ ܕܠܗܛ ܐܦ ܐܟܠ')">
+                <div class="image-number">05</div>
+                <img src="https://i.postimg.cc/sXBnDKKF/show.png" alt="show" class="gallery-image">
+            </div>
+            
+            <!-- Image 6 -->
+            <div class="gallery-item" onclick="showImagePopup('this.png', 'ܡܓܕܠܐ ܕܕܗܒܐ ܣܠܩ ܒܩܠ̈ܐ<br>ܟܠ ܙܓܓܐ ܡܚܙܐ ܠܗ ܚܕ ܐܦܐ<br>ܐܒܠ ܙܓܓ̈ܐ ܕܟܝܢ ܟܪܝܗܝܢ ܒܠܒܗ')">
+                <div class="image-number">06</div>
+                <img src="https://i.postimg.cc/PxBSLZFJ/this.png" alt="this" class="gallery-image">
+            </div>
+            
+            <!-- Image 7 -->
+            <div class="gallery-item" onclick="showImagePopup('this-is.png', 'ܢܘܗܪܐ ܪܗܛ ܒܬܪ ܐܦܐ ܕܥܠܡܐ<br>ܩܕܡ ܕܐܬܟܬܒ ܣܦܪܐ ܕܗܝ<br>ܫܡܐ ܐܬܪܫܡ ܒܝܕ̈ܐ ܕܠܐ ܚܙܝܢ')">
+                <div class="image-number">07</div>
+                <img src="https://i.postimg.cc/G2BMhzzR/this-is.png" alt="this-is" class="gallery-image">
+            </div>
+            
+            <!-- Image 8 -->
+            <div class="gallery-item" onclick="showImagePopup('6.png', 'ܡܠܐ ܗܘܐ ܐܝܟ ܢܘܪܐ ܒܠܒܐ ܕܕܪܐ<br>ܠܒܫ ܩܪܒܐ ܐܝܟ ܬܟܫܝܛܐ<br>ܩܠܗ ܐܙܠ ܪܚܝܩ ܝܬܝܪ ܡܢ ܚܝ̈ܘܗܝ')">
+                <div class="image-number">08</div>
+                <img src="https://i.postimg.cc/8PxNrjVj/6.png" alt="6" class="gallery-image">
+            </div>
+            
+            <!-- Image 9 -->
+            <div class="gallery-item" onclick="showImagePopup('7.png', 'ܦܬܚ ܟܘ̈ܬܐ ܠܥܠܡܐ ܒܚܟܡܬܗ<br>ܘܗܫܐ ܡܣܬܟܠܝܢ ܒܙܓܓܐ ܕܒܢܐ<br>ܟܕ ܢܘܗܪܐ ܪܒܐ ܛܠܠ̈ܐ ܢܦܠܝܢ')">
+                <div class="image-number">09</div>
+                <img src="https://i.postimg.cc/ZKX4yChh/7.png" alt="7" class="gallery-image">
+            </div>
+        </div>
+        
+        <!-- Gallery Footer -->
+        <div class="coordinates" style="margin-top: 80px;">
+            NINE SIGNALS • NINE FRAGMENTS
+        </div>
+    </div>
+
+    <!-- EGG POP-UP MODAL -->
+    <div class="egg-popup" id="eggPopup">
+        <div class="egg-popup-content">
+            <button class="popup-close" onclick="closeEggPopup()">×</button>
+            
+            <!-- Egg Container (Smaller version) -->
+            <div class="egg-popup-container">
+                <div class="egg">
+                    <div class="egg-body"></div>
+                    <div class="egg-glow"></div>
+                    <div class="crack">
+                        <div class="crack-line"></div>
+                        <div class="crack-line"></div>
+                        <div class="crack-line"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Greek Text Only -->
+            <div class="greek-text">πάντα ἀποκαλυφθήσεται</div>
+        </div>
+    </div>
+
+    <!-- IMAGE POPUP MODAL -->
+    <div class="image-popup" id="imagePopup">
+        <div class="image-popup-content">
+            <button class="image-popup-close" onclick="closeImagePopup()">×</button>
+            
+            <!-- Aramaic Text Only (No Image) -->
+            <div class="image-aramaic-text" id="popupAramaicText"></div>
+            
+            <!-- Orange Lock Button -->
+            <div class="lock-button-container">
+                <button class="lock-button">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <span class="lock-text">ܚܬܝܡ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION MODAL -->
+    <div class="notification-modal" id="notificationModal">
+        <div class="notification-content">
+            <button class="notification-close" onclick="closeNotification()">×</button>
+            
+            <div class="notification-title">UPDATE SCHEDULE</div>
+            
+            <div class="notification-text">
+                <p>The progress counter will be updated according to the following schedule:</p>
+                <p>• First update: <span class="highlight">29/2/2026</span></p>
+                <p>• Second update: <span class="highlight">13/3/2026</span></p>
+                <p>• Subsequent updates: <span class="highlight">Every ten days thereafter</span></p>
+                <p></p>
+            </div>
+            
+            <button class="terms-btn" onclick="closeNotification()" style="width: 200px; margin: 0 auto;">Understood</button>
+        </div>
+    </div>
+
+    <!-- TERMS MODAL POPUP -->
+    <div class="terms-modal" id="termsModal">
+        <div class="terms-content">
+            <button class="terms-close" onclick="closeTerms()">×</button>
+            <div class="terms-text">
+                <h3>IMPORTANT NOTICE</h3>
+                <p>This is a voluntary contribution platform supporting an independent digital art and philosophical exploration project. Contributions fund ongoing creative work and are treated as voluntary contributions with no expectation of financial return, profit, or ownership. No products, services, or investment opportunities are being offered. Cryptocurrency transactions are irreversible and may fluctuate in value.</p>
+                
+                <p>• • •</p>
+                <p>This is a platform for supporting philosophical and artistic exploration.</p>
+                <p>Your contributions directly fund the creation of digital art, research, and conceptual development.</p>
+                <p>We believe in transparent creative processes and documenting the journey of ideas.</p>
+                <p>Every contribution helps sustain this ongoing work and allows for deeper exploration.</p>
+                <p>Participation is voluntary and represents support for artistic and philosophical inquiry.</p>
+                <p>All contributions are recorded as part of the project's historical documentation.</p>
+                <p>This is not a commercial venture—it is an exploration of ideas through digital medium.</p>
+                <p>Your support helps create works that examine meaning, pattern, and connection in digital spaces.</p>
+                
+                <h3>LEGAL DISCLAIMER</h3>
+                <p>Contributions are voluntary and support artistic and philosophical work. No financial returns, profits, dividends, or ownership interests are offered or implied. This is not an investment opportunity. All contributions are final and non-refundable. The project goal represents a creative target for sustained development, not a financial guarantee. Participation is at your own discretion with no promised outcomes. Cryptocurrency transactions are irreversible and may fluctuate in value.</p>
+                <p>This project is operated by an independent digital creator working under the pseudonym "GBOYOACHC".</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== CREATE SUBTLE STARS =====
+        function createStars(containerId) {
+            const starsContainer = document.getElementById(containerId);
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2.2 + 0.5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 6 + 3;
+                const delay = Math.random() * 6;
+                const brightness = Math.random() * 0.8 + 0.2;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${posX}%`;
+                star.style.top = `${posY}%`;
+                star.style.opacity = brightness;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${delay}s`;
+                
+                if (Math.random() > 0.8) {
+                    star.style.backgroundColor = 'rgba(255, 107, 0, 0.7)';
+                } else if (Math.random() > 0.9) {
+                    star.style.backgroundColor = 'rgba(255, 255, 200, 0.9)';
+                }
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars('stars');
+            createStars('galleryStars');
+            
+            const totalContributions = 41390.00;
+            const progressPercent = (totalContributions / 1167393) * 100;
+            document.getElementById('progress').style.width = `${progressPercent}%`;
+            
+            // Initialize popup close functionality
+            setupPopupClose();
+            setupTermsPopupClose();
+            setupImagePopupClose();
+            setupNotificationPopupClose();
+        });
+
+        // ===== SETUP POPUP CLOSE FUNCTIONALITY =====
+        function setupPopupClose() {
+            const eggPopup = document.getElementById('eggPopup');
+            eggPopup.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeEggPopup();
+                }
+            });
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && eggPopup.style.display === 'flex') {
+                    closeEggPopup();
+                }
+            });
+        }
+        
+        // ===== SETUP TERMS POPUP CLOSE FUNCTIONALITY =====
+        function setupTermsPopupClose() {
+            const termsPopup = document.getElementById('termsModal');
+            termsPopup.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeTerms();
+                }
+            });
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && termsPopup.style.display === 'flex') {
+                    closeTerms();
+                }
+            });
+        }
+        
+        // ===== SETUP IMAGE POPUP CLOSE FUNCTIONALITY =====
+        function setupImagePopupClose() {
+            const imagePopup = document.getElementById('imagePopup');
+            imagePopup.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeImagePopup();
+                }
+            });
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && imagePopup.style.display === 'flex') {
+                    closeImagePopup();
+                }
+            });
+        }
+        
+        // ===== SETUP NOTIFICATION POPUP CLOSE FUNCTIONALITY =====
+        function setupNotificationPopupClose() {
+            const notificationPopup = document.getElementById('notificationModal');
+            notificationPopup.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeNotification();
+                }
+            });
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && notificationPopup.style.display === 'flex') {
+                    closeNotification();
+                }
+            });
+        }
+
+        // ===== PAGE NAVIGATION =====
+        function openGallery(e) {
+            e.preventDefault();
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('galleryPage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===== IMAGE POPUP FUNCTIONS =====
+        function showImagePopup(imageName, aramaicText) {
+            const imagePopup = document.getElementById('imagePopup');
+            const popupAramaicText = document.getElementById('popupAramaicText');
+            
+            // Set Aramaic text
+            popupAramaicText.innerHTML = aramaicText;
+            
+            // Show popup
+            imagePopup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImagePopup() {
+            const imagePopup = document.getElementById('imagePopup');
+            imagePopup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== NOTIFICATION FUNCTIONS =====
+        function showNotification() {
+            const notificationModal = document.getElementById('notificationModal');
+            notificationModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNotification() {
+            const notificationModal = document.getElementById('notificationModal');
+            notificationModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== EGG POPUP FUNCTIONS =====
+        function showEggPopup() {
+            const eggPopup = document.getElementById('eggPopup');
+            eggPopup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEggPopup() {
+            const eggPopup = document.getElementById('eggPopup');
+            eggPopup.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // ===== TERMS MODAL FUNCTIONS =====
+        function showTerms() {
+            const termsModal = document.getElementById('termsModal');
+            termsModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTerms() {
+            const termsModal = document.getElementById('termsModal');
+            termsModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== EXISTING FUNCTIONS =====
+        function scrollToAddresses() {
+            const addressSection = document.getElementById('addresses');
+            addressSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Add subtle pulse to egg on click
+            const egg = document.querySelector('.egg-container');
+            egg.style.transform = 'translateY(-8px) scale(1.05)';
+            
+            // Enhanced crack pulse on click
+            const crackLines = document.querySelectorAll('.crack-line');
+            crackLines.forEach(line => {
+                line.style.animation = 'none';
+                void line.offsetWidth;
+                line.style.animation = null;
+                line.style.opacity = '1';
+                line.style.boxShadow = '0 0 20px var(--signal), 0 0 40px rgba(255, 107, 0, 0.8)';
+            });
+            
+            setTimeout(() => {
+                egg.style.transform = 'translateY(-8px)';
+                crackLines.forEach(line => {
+                    line.style.opacity = '';
+                    line.style.boxShadow = '';
+                });
+            }, 500);
+        }
+
+        // ===== COPY ADDRESS FUNCTION - FIXED =====
+        function copyAddress(addressId, button) {
+            const addressElement = document.getElementById(addressId);
+            const address = addressElement.textContent;
+            
+            // Create a temporary textarea to copy from
+            const textArea = document.createElement('textarea');
+            textArea.value = address;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied';
+                    button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
+                    
+                    addressElement.style.backgroundColor = 'rgba(255, 107, 0, 0.08)';
+                    addressElement.style.borderColor = 'rgba(255, 107, 0, 0.2)';
+                    
+                    // Create subtle star effect
+                    const star = document.createElement('div');
+                    star.style.position = 'fixed';
+                    star.style.width = '8px';
+                    star.style.height = '8px';
+                    star.style.background = 'var(--signal)';
+                    star.style.borderRadius = '50%';
+                    star.style.opacity = '0';
+                    star.style.zIndex = '1000';
+                    star.style.pointerEvents = 'none';
+                    
+                    const rect = button.getBoundingClientRect();
+                    star.style.left = `${rect.left + rect.width/2}px`;
+                    star.style.top = `${rect.top + rect.height/2}px`;
+                    
+                    document.body.appendChild(star);
+                    
+                    // Animate star
+                    star.animate([
+                        { opacity: 0, transform: 'scale(0) translateY(0)' },
+                        { opacity: 1, transform: 'scale(1) translateY(-20px)' },
+                        { opacity: 0, transform: 'scale(0.5) translateY(-40px)' }
+                    ], {
+                        duration: 1000,
+                        easing: 'ease-out'
+                    });
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.backgroundColor = '';
+                        addressElement.style.backgroundColor = '';
+                        addressElement.style.borderColor = '';
+                        star.remove();
+                    }, 2000);
+                } else {
+                    button.textContent = 'Failed';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Copy failed:', err);
+                button.textContent = 'Error';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        }
+    </script>
+</body>
+</html>
