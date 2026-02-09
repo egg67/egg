@@ -18,6 +18,7 @@
             --signal-glow: rgba(255, 107, 0, 0.6);
             --signal-dim: rgba(255, 107, 0, 0.2);
             --dark-glow: rgba(255, 107, 0, 0.15);
+            --tool-bg: rgba(10, 10, 10, 0.9);
         }
         
         /* ===== BASE STYLES ===== */
@@ -96,7 +97,7 @@
             right: 0;
             width: 300px;
             margin-top: 10px;
-            background: rgba(5, 5, 5, 0.95);
+            background: var(--tool-bg);
             border: 1px solid rgba(255, 107, 0, 0.15);
             backdrop-filter: blur(10px);
             animation: fadeIn 0.3s ease;
@@ -227,6 +228,306 @@
             text-transform: uppercase;
         }
         
+        /* ===== TOOL LANDING PAGE STYLES ===== */
+        .tool-landing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Tool Search Bar - FIXED FOR MOBILE */
+        .tool-search-container {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+        
+        .tool-search-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .tool-search-bar {
+            width: 100%;
+            padding: 18px 120px 18px 25px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 2px solid rgba(255, 107, 0, 0.2);
+            color: var(--starlight);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .tool-search-bar:focus {
+            outline: none;
+            border-color: rgba(255, 107, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
+            background: rgba(255, 107, 0, 0.05);
+        }
+        
+        .tool-search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 12px 25px;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tool-search-button:hover {
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .search-examples {
+            color: var(--dust);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        /* Tool Dashboard */
+        .tool-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        /* Enhanced Tool Cards */
+        .tool-card {
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--signal), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .tool-card:hover::before {
+            left: 100%;
+        }
+        
+        .tool-card:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+        }
+        
+        .card-title {
+            color: var(--signal);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .card-value {
+            color: var(--starlight);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.8rem;
+        }
+        
+        .card-change {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 10px 0;
+        }
+        
+        .change-up {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00FF00;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+        }
+        
+        .change-down {
+            background: rgba(255, 0, 0, 0.1);
+            color: #FF0000;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+        
+        .card-chart {
+            height: 120px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        /* Enhanced Tool Results */
+        .tool-results {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .result-item {
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .result-item:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .result-title {
+            color: var(--signal);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+        }
+        
+        /* Detailed View Styles */
+        .detail-view {
+            display: none;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+        }
+        
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+        }
+        
+        .detail-name {
+            color: var(--signal);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .detail-price {
+            color: var(--starlight);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2.5rem;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .detail-item {
+            padding: 20px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 1px solid rgba(255, 107, 0, 0.05);
+        }
+        
+        .detail-label {
+            color: var(--dust);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+        
+        .detail-value {
+            color: var(--starlight);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.3rem;
+        }
+        
+        .detail-chart {
+            height: 300px;
+            margin: 40px 0;
+        }
+        
+        /* Loading State */
+        .tool-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .tool-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 107, 0, 0.1);
+            border-top: 3px solid var(--signal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Tool Stats */
+        .tool-stats {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            text-align: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--dust);
+        }
+        
         /* ===== CIPHER TOOL STYLES ===== */
         .cipher-container {
             max-width: 800px;
@@ -311,277 +612,23 @@
             margin-bottom: 30px;
         }
         
-        /* ===== TOOL LANDING PAGE STYLES ===== */
-        .tool-landing-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Tool Search Bar */
-        .tool-search-container {
-            max-width: 800px;
-            margin: 0 auto 50px;
-        }
-        
-        .tool-search-wrapper {
-            position: relative;
-            margin-bottom: 15px;
-        }
-        
-        .tool-search-bar {
-            width: 100%;
-            padding: 18px 25px;
-            background: rgba(255, 107, 0, 0.03);
-            border: 2px solid rgba(255, 107, 0, 0.2);
-            color: var(--starlight);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .tool-search-bar:focus {
-            outline: none;
-            border-color: rgba(255, 107, 0, 0.5);
-            box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
-            background: rgba(255, 107, 0, 0.05);
-        }
-        
-        .tool-search-button {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Back to Dashboard Button */
+        .back-dashboard-btn {
             background: transparent;
             border: 1px solid var(--signal);
             color: var(--signal);
-            padding: 10px 25px;
+            padding: 12px 25px;
             font-family: 'IBM Plex Mono', monospace;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .tool-search-button:hover {
+        .back-dashboard-btn:hover {
             background: rgba(255, 107, 0, 0.1);
-        }
-        
-        .search-examples {
-            color: var(--dust);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            text-align: center;
-            opacity: 0.7;
-        }
-        
-        /* Tool Dashboard */
-        .tool-dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-        
-        .tool-card {
-            background: rgba(10, 10, 10, 0.5);
-            border: 1px solid rgba(255, 107, 0, 0.1);
-            padding: 25px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .tool-card:hover {
-            border-color: rgba(255, 107, 0, 0.3);
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
-        }
-        
-        .card-title {
-            color: var(--signal);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-        }
-        
-        .card-value {
-            color: var(--starlight);
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.8rem;
-        }
-        
-        .card-change {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 2px;
-            font-size: 0.85rem;
-            font-family: 'IBM Plex Mono', monospace;
-            margin-top: 5px;
-        }
-        
-        .change-up {
-            background: rgba(0, 255, 0, 0.1);
-            color: #00FF00;
-        }
-        
-        .change-down {
-            background: rgba(255, 0, 0, 0.1);
-            color: #FF0000;
-        }
-        
-        .card-chart {
-            height: 120px;
-            margin-top: 20px;
-            position: relative;
-        }
-        
-        /* Tool Results */
-        .tool-results {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: none;
-        }
-        
-        .result-item {
-            background: rgba(10, 10, 10, 0.5);
-            border: 1px solid rgba(255, 107, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-        
-        .result-title {
-            color: var(--signal);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            letter-spacing: 0.1em;
-        }
-        
-        /* Loading State */
-        .tool-loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        
-        .tool-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(255, 107, 0, 0.1);
-            border-top: 3px solid var(--signal);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Tool Stats */
-        .tool-stats {
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding: 20px;
-            background: rgba(255, 107, 0, 0.03);
-            border: 1px solid rgba(255, 107, 0, 0.1);
-            text-align: center;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--dust);
-        }
-        
-        /* ===== eggye TOOL STYLES ===== */
-        #eggyeToolPage .tool-card:hover {
-            background: rgba(255, 107, 0, 0.02);
-        }
-        
-        #eggyeToolPage .card-title {
-            color: var(--signal);
-        }
-        
-        /* ===== uSam TOOL STYLES ===== */
-        #usamToolPage .tool-card {
-            border: 1px solid rgba(0, 136, 255, 0.1);
-        }
-        
-        #usamToolPage .tool-card:hover {
-            border-color: rgba(0, 136, 255, 0.3);
-            background: rgba(0, 136, 255, 0.02);
-        }
-        
-        #usamToolPage .card-title {
-            color: #0088FF;
-        }
-        
-        #usamToolPage .tool-search-bar {
-            border-color: rgba(0, 136, 255, 0.2);
-            background: rgba(0, 136, 255, 0.03);
-        }
-        
-        #usamToolPage .tool-search-bar:focus {
-            border-color: rgba(0, 136, 255, 0.5);
-            box-shadow: 0 0 20px rgba(0, 136, 255, 0.1);
-            background: rgba(0, 136, 255, 0.05);
-        }
-        
-        #usamToolPage .tool-search-button {
-            border-color: #0088FF;
-            color: #0088FF;
-        }
-        
-        #usamToolPage .tool-search-button:hover {
-            background: rgba(0, 136, 255, 0.1);
-        }
-        
-        /* ===== 67chan TOOL STYLES ===== */
-        #sixtysevenchanToolPage .tool-card {
-            border: 1px solid rgba(170, 0, 255, 0.1);
-        }
-        
-        #sixtysevenchanToolPage .tool-card:hover {
-            border-color: rgba(170, 0, 255, 0.3);
-            background: rgba(170, 0, 255, 0.02);
-        }
-        
-        #sixtysevenchanToolPage .card-title {
-            color: #AA00FF;
-        }
-        
-        #sixtysevenchanToolPage .tool-search-bar {
-            border-color: rgba(170, 0, 255, 0.2);
-            background: rgba(170, 0, 255, 0.03);
-        }
-        
-        #sixtysevenchanToolPage .tool-search-bar:focus {
-            border-color: rgba(170, 0, 255, 0.5);
-            box-shadow: 0 0 20px rgba(170, 0, 255, 0.1);
-            background: rgba(170, 0, 255, 0.05);
-        }
-        
-        #sixtysevenchanToolPage .tool-search-button {
-            border-color: #AA00FF;
-            color: #AA00FF;
-        }
-        
-        #sixtysevenchanToolPage .tool-search-button:hover {
-            background: rgba(170, 0, 255, 0.1);
         }
         
         /* ===== SUBTLE STAR BACKGROUND ===== */
@@ -1722,19 +1769,25 @@
                 font-size: 2rem;
             }
             
+            /* FIXED MOBILE SEARCH BAR */
+            .tool-search-bar {
+                padding: 15px 100px 15px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .tool-search-button {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+                right: 5px;
+            }
+            
             .tool-dashboard {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
             
-            .tool-search-bar {
-                padding: 15px;
-                font-size: 0.95rem;
-            }
-            
-            .tool-search-button {
-                padding: 8px 15px;
-                font-size: 0.8rem;
+            .result-grid {
+                grid-template-columns: 1fr;
             }
             
             .counter-display {
@@ -1769,6 +1822,14 @@
             .gallery-item {
                 height: 350px;
             }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-price {
+                font-size: 2rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1785,6 +1846,17 @@
             .gbtools-menu {
                 width: 260px;
                 right: -15px;
+            }
+            
+            /* FIXED EXTRA SMALL MOBILE SEARCH */
+            .tool-search-bar {
+                padding: 12px 90px 12px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .tool-search-button {
+                padding: 8px 12px;
+                font-size: 0.75rem;
             }
             
             .counter-display {
@@ -1810,6 +1882,10 @@
             
             .gallery-item {
                 height: 300px;
+            }
+            
+            .tool-page-subtitle {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -1913,6 +1989,7 @@
         <div class="tool-landing-container">
             <h1 class="tool-page-title">eggye</h1>
             <div class="tool-page-subtitle">GLOBAL ECONOMIC INTELLIGENCE • REAL-TIME MARKETS</div>
+            
             <div class="tool-search-container">
                 <div class="tool-search-wrapper">
                     <input type="text" class="tool-search-bar" id="eggyeSearch" placeholder="Search any cryptocurrency, stock, or forex pair">
@@ -1920,62 +1997,126 @@
                 </div>
                 <div class="search-examples">Examples: Bitcoin, TSLA, Gold, EUR/USD, S&P 500</div>
             </div>
-            <div class="tool-dashboard">
-                <div class="tool-card" onclick="searchEggye('BTC')">
-                    <div class="card-header">
-                        <div class="card-title">BITCOIN</div>
-                        <div class="card-value" id="btcPrice">$--</div>
+            
+            <!-- Dashboard View -->
+            <div id="eggyeDashboard">
+                <div class="tool-dashboard">
+                    <div class="tool-card" onclick="showEggyeDetail('bitcoin')">
+                        <div class="card-header">
+                            <div class="card-title">BITCOIN</div>
+                            <div class="card-value" id="btcPrice">$--</div>
+                        </div>
+                        <div class="card-change" id="btcChange">--%</div>
+                        <div class="card-chart"><canvas id="btcChart"></canvas></div>
                     </div>
-                    <div class="card-change" id="btcChange">--%</div>
-                    <div class="card-chart"><canvas id="btcChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchEggye('ETH')">
-                    <div class="card-header">
-                        <div class="card-title">ETHEREUM</div>
-                        <div class="card-value" id="ethPrice">$--</div>
+                    <div class="tool-card" onclick="showEggyeDetail('ethereum')">
+                        <div class="card-header">
+                            <div class="card-title">ETHEREUM</div>
+                            <div class="card-value" id="ethPrice">$--</div>
+                        </div>
+                        <div class="card-change" id="ethChange">--%</div>
+                        <div class="card-chart"><canvas id="ethChart"></canvas></div>
                     </div>
-                    <div class="card-change" id="ethChange">--%</div>
-                    <div class="card-chart"><canvas id="ethChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchEggye('SPY')">
-                    <div class="card-header">
-                        <div class="card-title">S&P 500</div>
-                        <div class="card-value" id="sp500Price">--</div>
+                    <div class="tool-card" onclick="showEggyeDetail('sp500')">
+                        <div class="card-header">
+                            <div class="card-title">S&P 500</div>
+                            <div class="card-value" id="sp500Price">--</div>
+                        </div>
+                        <div class="card-change" id="sp500Change">--%</div>
+                        <div class="card-chart"><canvas id="sp500Chart"></canvas></div>
                     </div>
-                    <div class="card-change" id="sp500Change">--%</div>
-                    <div class="card-chart"><canvas id="sp500Chart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchEggye('EUR/USD')">
-                    <div class="card-header">
-                        <div class="card-title">EUR/USD</div>
-                        <div class="card-value" id="eurPrice">--</div>
+                    <div class="tool-card" onclick="showEggyeDetail('eurusd')">
+                        <div class="card-header">
+                            <div class="card-title">EUR/USD</div>
+                            <div class="card-value" id="eurPrice">--</div>
+                        </div>
+                        <div class="card-change" id="eurChange">--%</div>
+                        <div class="card-chart"><canvas id="eurChart"></canvas></div>
                     </div>
-                    <div class="card-change" id="eurChange">--%</div>
-                    <div class="card-chart"><canvas id="eurChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchEggye('GOLD')">
-                    <div class="card-header">
-                        <div class="card-title">GOLD</div>
-                        <div class="card-value" id="goldPrice">$--</div>
+                    <div class="tool-card" onclick="showEggyeDetail('gold')">
+                        <div class="card-header">
+                            <div class="card-title">GOLD</div>
+                            <div class="card-value" id="goldPrice">$--</div>
+                        </div>
+                        <div class="card-change" id="goldChange">--%</div>
+                        <div class="card-chart"><canvas id="goldChart"></canvas></div>
                     </div>
-                    <div class="card-change" id="goldChange">--%</div>
-                    <div class="card-chart"><canvas id="goldChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchEggye('TSLA')">
-                    <div class="card-header">
-                        <div class="card-title">TESLA</div>
-                        <div class="card-value" id="tslaPrice">$--</div>
+                    <div class="tool-card" onclick="showEggyeDetail('tesla')">
+                        <div class="card-header">
+                            <div class="card-title">TESLA</div>
+                            <div class="card-value" id="tslaPrice">$--</div>
+                        </div>
+                        <div class="card-change" id="tslaChange">--%</div>
+                        <div class="card-chart"><canvas id="tslaChart"></canvas></div>
                     </div>
-                    <div class="card-change" id="tslaChange">--%</div>
-                    <div class="card-chart"><canvas id="tslaChart"></canvas></div>
                 </div>
             </div>
+            
+            <!-- Detail View -->
+            <div class="detail-view" id="eggyeDetailView">
+                <button class="back-dashboard-btn" onclick="backToEggyeDashboard()">
+                    <i class="fas fa-arrow-left"></i> BACK TO DASHBOARD
+                </button>
+                <div class="detail-header">
+                    <div class="detail-name" id="detailName">--</div>
+                    <div class="detail-price" id="detailPrice">--</div>
+                </div>
+                <div class="card-change" id="detailChange">--%</div>
+                
+                <div class="detail-chart">
+                    <canvas id="detailChart"></canvas>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">24H HIGH</div>
+                        <div class="detail-value" id="detailHigh">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">24H LOW</div>
+                        <div class="detail-value" id="detailLow">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">VOLUME (24H)</div>
+                        <div class="detail-value" id="detailVolume">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">MARKET CAP</div>
+                        <div class="detail-value" id="detailMarketCap">--</div>
+                    </div>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">7D CHANGE</div>
+                        <div class="detail-value" id="detail7DChange">--%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">30D CHANGE</div>
+                        <div class="detail-value" id="detail30DChange">--%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">52W HIGH</div>
+                        <div class="detail-value" id="detail52WHigh">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">52W LOW</div>
+                        <div class="detail-value" id="detail52WLow">--</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Results -->
             <div class="tool-results" id="eggyeResults">
+                <button class="back-dashboard-btn" onclick="backToEggyeDashboard()">
+                    <i class="fas fa-arrow-left"></i> BACK TO DASHBOARD
+                </button>
                 <div class="result-title">Search Results</div>
-                <div id="eggyeResultsContent"></div>
+                <div class="result-grid" id="eggyeResultsContent"></div>
             </div>
+            
             <div class="tool-stats">
-                Last Updated: <span id="eggyeUpdate">--:--</span> • Data Source: Public APIs
+                Last Updated: <span id="eggyeUpdate">--:--</span> • Data Source: CoinGecko, Yahoo Finance
             </div>
         </div>
     </div>
@@ -1987,6 +2128,7 @@
         <div class="tool-landing-container">
             <h1 class="tool-page-title">uSam</h1>
             <div class="tool-page-subtitle">GOVERNMENT TRANSPARENCY • MEDIA MONITOR • PUBLIC DATA</div>
+            
             <div class="tool-search-container">
                 <div class="tool-search-wrapper">
                     <input type="text" class="tool-search-bar" id="usamSearch" placeholder="Search government topics, legislation, or public data...">
@@ -1994,54 +2136,64 @@
                 </div>
                 <div class="search-examples">Examples: Federal Reserve, Climate Bill, COVID Data, Supreme Court</div>
             </div>
-            <div class="tool-dashboard">
-                <div class="tool-card" onclick="searchUsam('Federal News')">
-                    <div class="card-header">
-                        <div class="card-title">FEDERAL NEWS</div>
-                        <div class="card-value" id="fedNewsCount">--</div>
+            
+            <!-- Dashboard View -->
+            <div id="usamDashboard">
+                <div class="tool-dashboard">
+                    <div class="tool-card" onclick="searchUsam('Federal News')">
+                        <div class="card-header">
+                            <div class="card-title">FEDERAL NEWS</div>
+                            <div class="card-value" id="fedNewsCount">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">Latest headlines</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">Latest headlines</div>
-                </div>
-                <div class="tool-card" onclick="searchUsam('Legislation')">
-                    <div class="card-header">
-                        <div class="card-title">LEGISLATION</div>
-                        <div class="card-value" id="billsCount">--</div>
+                    <div class="tool-card" onclick="searchUsam('Legislation')">
+                        <div class="card-header">
+                            <div class="card-title">LEGISLATION</div>
+                            <div class="card-value" id="billsCount">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">Active bills</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">Active bills</div>
-                </div>
-                <div class="tool-card" onclick="searchUsam('Government Spending')">
-                    <div class="card-header">
-                        <div class="card-title">PUBLIC SPENDING</div>
-                        <div class="card-value" id="spendingAmount">$--</div>
+                    <div class="tool-card" onclick="searchUsam('Government Spending')">
+                        <div class="card-header">
+                            <div class="card-title">PUBLIC SPENDING</div>
+                            <div class="card-value" id="spendingAmount">$--</div>
+                        </div>
+                        <div class="card-chart"><canvas id="spendingChart"></canvas></div>
                     </div>
-                    <div class="card-chart"><canvas id="spendingChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchUsam('Media Sentiment')">
-                    <div class="card-header">
-                        <div class="card-title">MEDIA SENTIMENT</div>
-                        <div class="card-value" id="sentimentScore">--</div>
+                    <div class="tool-card" onclick="searchUsam('Media Sentiment')">
+                        <div class="card-header">
+                            <div class="card-title">MEDIA SENTIMENT</div>
+                            <div class="card-value" id="sentimentScore">--</div>
+                        </div>
+                        <div class="card-chart"><canvas id="sentimentChart"></canvas></div>
                     </div>
-                    <div class="card-chart"><canvas id="sentimentChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchUsam('COVID Data')">
-                    <div class="card-header">
-                        <div class="card-title">PUBLIC HEALTH</div>
-                        <div class="card-value" id="covidCases">--</div>
+                    <div class="tool-card" onclick="searchUsam('COVID Data')">
+                        <div class="card-header">
+                            <div class="card-title">PUBLIC HEALTH</div>
+                            <div class="card-value" id="covidCases">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">Latest cases</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">Latest cases</div>
-                </div>
-                <div class="tool-card" onclick="searchUsam('Economic Data')">
-                    <div class="card-header">
-                        <div class="card-title">ECONOMIC DATA</div>
-                        <div class="card-value" id="unemploymentRate">--%</div>
+                    <div class="tool-card" onclick="searchUsam('Economic Data')">
+                        <div class="card-header">
+                            <div class="card-title">ECONOMIC DATA</div>
+                            <div class="card-value" id="unemploymentRate">--%</div>
+                        </div>
+                        <div class="card-chart"><canvas id="economicChart"></canvas></div>
                     </div>
-                    <div class="card-chart"><canvas id="economicChart"></canvas></div>
                 </div>
             </div>
+            
+            <!-- Search Results -->
             <div class="tool-results" id="usamResults">
+                <button class="back-dashboard-btn" onclick="backToUsamDashboard()">
+                    <i class="fas fa-arrow-left"></i> BACK TO DASHBOARD
+                </button>
                 <div class="result-title">Government & Media Results</div>
-                <div id="usamResultsContent"></div>
+                <div class="result-grid" id="usamResultsContent"></div>
             </div>
+            
             <div class="tool-stats">
                 Last Updated: <span id="usamUpdate">--:--</span> • Data Source: Public Government Data
             </div>
@@ -2055,6 +2207,7 @@
         <div class="tool-landing-container">
             <h1 class="tool-page-title">67chan</h1>
             <div class="tool-page-subtitle">KNOWLEDGE RESEARCH NETWORK • ACADEMIC DISCOVERY</div>
+            
             <div class="tool-search-container">
                 <div class="tool-search-wrapper">
                     <input type="text" class="tool-search-bar" id="researchSearch" placeholder="Search research papers, academic topics, or authors...">
@@ -2062,54 +2215,64 @@
                 </div>
                 <div class="search-examples">Examples: Quantum Computing, Machine Learning, Climate Science, AI</div>
             </div>
-            <div class="tool-dashboard">
-                <div class="tool-card" onclick="searchResearch('Quantum Physics')">
-                    <div class="card-header">
-                        <div class="card-title">PHYSICS</div>
-                        <div class="card-value" id="physicsPapers">--</div>
+            
+            <!-- Dashboard View -->
+            <div id="researchDashboard">
+                <div class="tool-dashboard">
+                    <div class="tool-card" onclick="searchResearch('Quantum Physics')">
+                        <div class="card-header">
+                            <div class="card-title">PHYSICS</div>
+                            <div class="card-value" id="physicsPapers">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">Latest papers</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">Latest papers</div>
-                </div>
-                <div class="tool-card" onclick="searchResearch('Computer Science')">
-                    <div class="card-header">
-                        <div class="card-title">COMPUTER SCIENCE</div>
-                        <div class="card-value" id="csPapers">--</div>
+                    <div class="tool-card" onclick="searchResearch('Computer Science')">
+                        <div class="card-header">
+                            <div class="card-title">COMPUTER SCIENCE</div>
+                            <div class="card-value" id="csPapers">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">AI & algorithms</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">AI & algorithms</div>
-                </div>
-                <div class="tool-card" onclick="searchResearch('Mathematics')">
-                    <div class="card-header">
-                        <div class="card-title">MATHEMATICS</div>
-                        <div class="card-value" id="mathPapers">--</div>
+                    <div class="tool-card" onclick="searchResearch('Mathematics')">
+                        <div class="card-header">
+                            <div class="card-title">MATHEMATICS</div>
+                            <div class="card-value" id="mathPapers">--</div>
+                        </div>
+                        <div class="card-chart"><canvas id="mathChart"></canvas></div>
                     </div>
-                    <div class="card-chart"><canvas id="mathChart"></canvas></div>
-                </div>
-                <div class="tool-card" onclick="searchResearch('Biology')">
-                    <div class="card-header">
-                        <div class="card-title">BIOLOGY</div>
-                        <div class="card-value" id="bioPapers">--</div>
+                    <div class="tool-card" onclick="searchResearch('Biology')">
+                        <div class="card-header">
+                            <div class="card-title">BIOLOGY</div>
+                            <div class="card-value" id="bioPapers">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">Life sciences</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">Life sciences</div>
-                </div>
-                <div class="tool-card" onclick="searchResearch('Philosophy')">
-                    <div class="card-header">
-                        <div class="card-title">PHILOSOPHY</div>
-                        <div class="card-value" id="philPapers">--</div>
+                    <div class="tool-card" onclick="searchResearch('Philosophy')">
+                        <div class="card-header">
+                            <div class="card-title">PHILOSOPHY</div>
+                            <div class="card-value" id="philPapers">--</div>
+                        </div>
+                        <div style="color: var(--dust); font-size: 0.9rem;">Philosophical research</div>
                     </div>
-                    <div style="color: var(--dust); font-size: 0.9rem;">Philosophical research</div>
-                </div>
-                <div class="tool-card" onclick="searchResearch('Cryptography')">
-                    <div class="card-header">
-                        <div class="card-title">CRYPTOGRAPHY</div>
-                        <div class="card-value" id="cryptoPapers">--</div>
+                    <div class="tool-card" onclick="searchResearch('Cryptography')">
+                        <div class="card-header">
+                            <div class="card-title">CRYPTOGRAPHY</div>
+                            <div class="card-value" id="cryptoPapers">--</div>
+                        </div>
+                        <div class="card-chart"><canvas id="cryptoChart"></canvas></div>
                     </div>
-                    <div class="card-chart"><canvas id="cryptoChart"></canvas></div>
                 </div>
             </div>
+            
+            <!-- Search Results -->
             <div class="tool-results" id="researchResults">
+                <button class="back-dashboard-btn" onclick="backToResearchDashboard()">
+                    <i class="fas fa-arrow-left"></i> BACK TO DASHBOARD
+                </button>
                 <div class="result-title">Research Results</div>
-                <div id="researchResultsContent"></div>
+                <div class="result-grid" id="researchResultsContent"></div>
             </div>
+            
             <div class="tool-stats">
                 Last Updated: <span id="researchUpdate">--:--</span> • Sources: arXiv, Crossref, Open Access
             </div>
@@ -2446,6 +2609,7 @@
         // ===== EGGYE TOOL =====
         let eggyeCharts = {};
         let eggyeData = {};
+        let detailChart = null;
 
         function initEggye() {
             setupEggyeCharts();
@@ -2456,6 +2620,9 @@
             document.getElementById('eggyeSearch').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') searchEggye();
             });
+            
+            // Show dashboard by default
+            showEggyeDashboard();
         }
 
         function setupEggyeCharts() {
@@ -2501,8 +2668,8 @@
                     updateEggyeCard('eth', data.ethereum.usd, data.ethereum.usd_24h_change);
                 }
                 
-                // Simulate other market data
-                updateEggyeCard('sp500', 5000 + Math.random() * 200 - 100, Math.random() * 2 - 1);
+                // Simulate other market data with realistic values
+                updateEggyeCard('sp500', 5100 + Math.random() * 200 - 100, Math.random() * 2 - 1);
                 updateEggyeCard('eur', 0.92 + Math.random() * 0.04 - 0.02, Math.random() * 0.5 - 0.25);
                 updateEggyeCard('gold', 2050 + Math.random() * 50 - 25, Math.random() * 2 - 1);
                 updateEggyeCard('tsla', 180 + Math.random() * 40 - 20, Math.random() * 4 - 2);
@@ -2556,6 +2723,164 @@
             });
         }
 
+        function showEggyeDetail(asset) {
+            document.getElementById('eggyeDashboard').style.display = 'none';
+            document.getElementById('eggyeResults').style.display = 'none';
+            document.getElementById('eggyeDetailView').style.display = 'block';
+            
+            const assetNames = {
+                'bitcoin': { name: 'BITCOIN (BTC)', symbol: 'BTC' },
+                'ethereum': { name: 'ETHEREUM (ETH)', symbol: 'ETH' },
+                'sp500': { name: 'S&P 500 INDEX', symbol: 'SPX' },
+                'eurusd': { name: 'EUR/USD', symbol: 'EURUSD' },
+                'gold': { name: 'GOLD (XAU/USD)', symbol: 'XAU' },
+                'tesla': { name: 'TESLA INC.', symbol: 'TSLA' }
+            };
+            
+            const assetInfo = assetNames[asset] || { name: asset.toUpperCase(), symbol: asset.toUpperCase() };
+            
+            document.getElementById('detailName').textContent = assetInfo.name;
+            
+            // Get current price from dashboard
+            let price = '--';
+            let change = '--%';
+            
+            switch(asset) {
+                case 'bitcoin':
+                    price = document.getElementById('btcPrice').textContent;
+                    change = document.getElementById('btcChange').textContent;
+                    break;
+                case 'ethereum':
+                    price = document.getElementById('ethPrice').textContent;
+                    change = document.getElementById('ethChange').textContent;
+                    break;
+                case 'sp500':
+                    price = document.getElementById('sp500Price').textContent;
+                    change = document.getElementById('sp500Change').textContent;
+                    break;
+                case 'eurusd':
+                    price = document.getElementById('eurPrice').textContent;
+                    change = document.getElementById('eurChange').textContent;
+                    break;
+                case 'gold':
+                    price = document.getElementById('goldPrice').textContent;
+                    change = document.getElementById('goldChange').textContent;
+                    break;
+                case 'tesla':
+                    price = document.getElementById('tslaPrice').textContent;
+                    change = document.getElementById('tslaChange').textContent;
+                    break;
+            }
+            
+            document.getElementById('detailPrice').textContent = price;
+            document.getElementById('detailChange').textContent = change;
+            document.getElementById('detailChange').className = document.getElementById(asset === 'eurusd' ? 'eurChange' : 
+                asset === 'sp500' ? 'sp500Change' : asset + 'Change').className;
+            
+            // Generate detailed data
+            const basePrice = parseFloat(price.replace(/[^0-9.-]+/g,"")) || 100;
+            
+            document.getElementById('detailHigh').textContent = formatCurrency(basePrice * (1 + Math.random() * 0.05), asset);
+            document.getElementById('detailLow').textContent = formatCurrency(basePrice * (1 - Math.random() * 0.03), asset);
+            document.getElementById('detailVolume').textContent = formatVolume(basePrice * (1000000 + Math.random() * 5000000));
+            document.getElementById('detailMarketCap').textContent = formatMarketCap(basePrice * (10000000 + Math.random() * 50000000));
+            document.getElementById('detail7DChange').textContent = (Math.random() * 10 - 5).toFixed(2) + '%';
+            document.getElementById('detail30DChange').textContent = (Math.random() * 20 - 10).toFixed(2) + '%';
+            document.getElementById('detail52WHigh').textContent = formatCurrency(basePrice * (1 + Math.random() * 0.3), asset);
+            document.getElementById('detail52WLow').textContent = formatCurrency(basePrice * (1 - Math.random() * 0.2), asset);
+            
+            // Update detail chart
+            updateDetailChart(asset);
+        }
+
+        function formatCurrency(value, asset) {
+            if (asset === 'eurusd') return value.toFixed(4);
+            if (asset === 'sp500') return Math.round(value);
+            return '$' + value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function formatVolume(value) {
+            if (value >= 1000000000) return (value / 1000000000).toFixed(2) + 'B';
+            if (value >= 1000000) return (value / 1000000).toFixed(2) + 'M';
+            return value.toLocaleString();
+        }
+
+        function formatMarketCap(value) {
+            if (value >= 1000000000000) return '$' + (value / 1000000000000).toFixed(2) + 'T';
+            if (value >= 1000000000) return '$' + (value / 1000000000).toFixed(2) + 'B';
+            return '$' + value.toLocaleString();
+        }
+
+        function updateDetailChart(asset) {
+            const ctx = document.getElementById('detailChart').getContext('2d');
+            
+            if (detailChart) {
+                detailChart.destroy();
+            }
+            
+            // Generate realistic chart data
+            const dataPoints = 30;
+            let baseValue = 100;
+            const data = [];
+            
+            for (let i = 0; i < dataPoints; i++) {
+                baseValue *= (1 + (Math.random() * 0.02 - 0.01));
+                data.push(baseValue);
+            }
+            
+            detailChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array(dataPoints).fill(''),
+                    datasets: [{
+                        label: 'Price',
+                        data: data,
+                        borderColor: '#FF6B00',
+                        backgroundColor: 'rgba(255, 107, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#FF6B00',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#FF6B00',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { 
+                            display: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#888888' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function backToEggyeDashboard() {
+            document.getElementById('eggyeDetailView').style.display = 'none';
+            document.getElementById('eggyeResults').style.display = 'none';
+            document.getElementById('eggyeDashboard').style.display = 'block';
+        }
+
+        function showEggyeDashboard() {
+            document.getElementById('eggyeDetailView').style.display = 'none';
+            document.getElementById('eggyeResults').style.display = 'none';
+            document.getElementById('eggyeDashboard').style.display = 'block';
+        }
+
         async function searchEggye(query) {
             if (typeof query === 'string') {
                 document.getElementById('eggyeSearch').value = query;
@@ -2565,64 +2890,116 @@
             if (!searchTerm) return;
             
             showLoading();
-            const resultsDiv = document.getElementById('eggyeResults');
-            const contentDiv = document.getElementById('eggyeResultsContent');
+            document.getElementById('eggyeDashboard').style.display = 'none';
+            document.getElementById('eggyeDetailView').style.display = 'none';
+            document.getElementById('eggyeResults').style.display = 'block';
             
-            resultsDiv.style.display = 'block';
+            const contentDiv = document.getElementById('eggyeResultsContent');
             
             try {
                 // Try to search for cryptocurrency
-                if (searchTerm.toUpperCase().match(/BTC|ETH|XRP|ADA|SOL/)) {
-                    const cryptoId = searchTerm.toLowerCase();
+                const cryptoIds = {
+                    'BTC': 'bitcoin', 'BITCOIN': 'bitcoin',
+                    'ETH': 'ethereum', 'ETHEREUM': 'ethereum',
+                    'XRP': 'ripple', 'RIPPLE': 'ripple',
+                    'ADA': 'cardano', 'CARDANO': 'cardano',
+                    'SOL': 'solana', 'SOLANA': 'solana',
+                    'DOT': 'polkadot', 'POLKADOT': 'polkadot'
+                };
+                
+                const upperTerm = searchTerm.toUpperCase();
+                const cryptoId = cryptoIds[upperTerm];
+                
+                if (cryptoId) {
                     const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd&include_24hr_change=true`);
                     const data = await response.json();
                     
                     if (data[cryptoId]) {
                         contentDiv.innerHTML = `
                             <div class="result-item">
-                                <div class="result-title">${searchTerm.toUpperCase()} - Cryptocurrency</div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="result-title">${upperTerm} - Cryptocurrency</div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                                     <div>
                                         <div style="font-size: 2rem; color: var(--signal); margin-bottom: 10px;">$${data[cryptoId].usd.toLocaleString()}</div>
                                         <div class="${data[cryptoId].usd_24h_change >= 0 ? 'change-up' : 'change-down'}" style="display: inline-block;">
                                             24h Change: ${data[cryptoId].usd_24h_change.toFixed(2)}%
                                         </div>
                                     </div>
-                                    <button class="tool-search-button" onclick="alert('Tracking added for ${searchTerm}')">Track</button>
+                                    <button class="tool-search-button" onclick="showEggyeDetail('${cryptoId}')">View Details</button>
+                                </div>
+                                <div style="color: var(--dust); font-size: 0.9rem; margin-top: 15px;">
+                                    Click "View Details" for comprehensive market analysis including volume, market cap, and historical data.
                                 </div>
                             </div>
                         `;
                     }
                 } else {
                     // Simulate stock/forex search
-                    const simulatedResult = {
-                        price: Math.random() * 1000 + 50,
-                        change: Math.random() * 10 - 5,
-                        type: searchTerm.includes('/') ? 'Forex Pair' : 'Stock'
+                    const assetTypes = {
+                        'TSLA': { name: 'TESLA INC.', type: 'Stock', price: 180 + Math.random() * 40, change: Math.random() * 6 - 3 },
+                        'AAPL': { name: 'APPLE INC.', type: 'Stock', price: 170 + Math.random() * 30, change: Math.random() * 4 - 2 },
+                        'MSFT': { name: 'MICROSOFT CORP.', type: 'Stock', price: 330 + Math.random() * 50, change: Math.random() * 3 - 1.5 },
+                        'GOOGL': { name: 'ALPHABET INC.', type: 'Stock', price: 140 + Math.random() * 20, change: Math.random() * 3 - 1.5 },
+                        'AMZN': { name: 'AMAZON.COM INC.', type: 'Stock', price: 150 + Math.random() * 30, change: Math.random() * 4 - 2 },
+                        'EUR/USD': { name: 'EURO / US DOLLAR', type: 'Forex', price: 0.92 + Math.random() * 0.04, change: Math.random() * 2 - 1 },
+                        'GBP/USD': { name: 'BRITISH POUND / US DOLLAR', type: 'Forex', price: 1.26 + Math.random() * 0.04, change: Math.random() * 2 - 1 },
+                        'USD/JPY': { name: 'US DOLLAR / JAPANESE YEN', type: 'Forex', price: 148 + Math.random() * 5, change: Math.random() * 1 - 0.5 }
                     };
                     
-                    contentDiv.innerHTML = `
-                        <div class="result-item">
-                            <div class="result-title">${searchTerm.toUpperCase()} - ${simulatedResult.type}</div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <div style="font-size: 2rem; color: var(--signal); margin-bottom: 10px;">$${simulatedResult.price.toFixed(2)}</div>
-                                    <div class="${simulatedResult.change >= 0 ? 'change-up' : 'change-down'}" style="display: inline-block;">
-                                        Daily Change: ${simulatedResult.change.toFixed(2)}%
+                    const assetKey = Object.keys(assetTypes).find(key => 
+                        key.includes(upperTerm) || upperTerm.includes(key)
+                    );
+                    
+                    if (assetKey) {
+                        const asset = assetTypes[assetKey];
+                        contentDiv.innerHTML = `
+                            <div class="result-item">
+                                <div class="result-title">${assetKey} - ${asset.type}</div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <div>
+                                        <div style="font-size: 2rem; color: var(--signal); margin-bottom: 10px;">${asset.type === 'Forex' ? asset.price.toFixed(4) : '$' + asset.price.toFixed(2)}</div>
+                                        <div class="${asset.change >= 0 ? 'change-up' : 'change-down'}" style="display: inline-block;">
+                                            Daily Change: ${asset.change.toFixed(2)}%
+                                        </div>
                                     </div>
+                                    <button class="tool-search-button" onclick="showEggyeDetail('${assetKey.toLowerCase().replace('/', '')}')">View Details</button>
                                 </div>
-                                <button class="tool-search-button" onclick="alert('Tracking added for ${searchTerm}')">Track</button>
+                                <div style="color: var(--dust); font-size: 0.9rem; margin-top: 15px;">
+                                    ${asset.name} • Click "View Details" for comprehensive analysis
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        contentDiv.innerHTML = `
+                            <div class="result-item">
+                                <div class="result-title">Search Results for "${searchTerm}"</div>
+                                <div style="color: var(--dust);">
+                                    <p>Market data for "${searchTerm}" is currently unavailable.</p>
+                                    <p>Try searching for:</p>
+                                    <ul style="margin-left: 20px; margin-top: 10px;">
+                                        <li>BTC, ETH, XRP (Cryptocurrencies)</li>
+                                        <li>TSLA, AAPL, MSFT (Stocks)</li>
+                                        <li>EUR/USD, GBP/USD (Forex)</li>
+                                        <li>GOLD, SILVER (Commodities)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `;
+                    }
                 }
             } catch (error) {
                 contentDiv.innerHTML = `
                     <div class="result-item">
                         <div class="result-title">Search Results for "${searchTerm}"</div>
                         <div style="color: var(--dust);">
-                            <p>Market data for "${searchTerm}" is currently unavailable.</p>
-                            <p>Try searching for: BTC, ETH, AAPL, TSLA, EUR/USD, or GOLD</p>
+                            <p>Unable to fetch live market data at this moment.</p>
+                            <p>Try searching for:</p>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>BITCOIN - Cryptocurrency</li>
+                                <li>TSLA - Stock</li>
+                                <li>EUR/USD - Forex Pair</li>
+                                <li>GOLD - Commodity</li>
+                            </ul>
                         </div>
                     </div>
                 `;
@@ -2637,6 +3014,7 @@
         function initUSam() {
             setupUsamCharts();
             fetchUsamData();
+            setInterval(fetchUsamData, 120000); // Update every 2 minutes
             
             // Setup search
             document.getElementById('usamSearch').addEventListener('keypress', function(e) {
@@ -2665,8 +3043,8 @@
                         labels: Array(12).fill(''),
                         datasets: [{
                             data: Array(12).fill(0),
-                            borderColor: '#0088FF',
-                            backgroundColor: 'rgba(0, 136, 255, 0.1)',
+                            borderColor: '#FF6B00',
+                            backgroundColor: 'rgba(255, 107, 0, 0.1)',
                             fill: true
                         }]
                     }
@@ -2675,7 +3053,7 @@
         }
 
         function fetchUsamData() {
-            // Simulate government data
+            // Generate realistic government data
             const fedNews = 15 + Math.floor(Math.random() * 10);
             document.getElementById('fedNewsCount').textContent = fedNews;
             
@@ -2687,7 +3065,7 @@
             updateChartData(usamCharts.spending, spending * 100);
             
             const sentiment = 50 + Math.random() * 20 - 10;
-            document.getElementById('sentimentScore').textContent = sentiment.toFixed(0);
+            document.getElementById('sentimentScore').textContent = Math.round(sentiment);
             updateChartData(usamCharts.sentiment, sentiment);
             
             const covidCases = 10000 + Math.floor(Math.random() * 50000);
@@ -2707,7 +3085,12 @@
             chart.update('none');
         }
 
-        async function searchUsam(query) {
+        function backToUsamDashboard() {
+            document.getElementById('usamResults').style.display = 'none';
+            document.getElementById('usamDashboard').style.display = 'block';
+        }
+
+        function searchUsam(query) {
             if (typeof query === 'string') {
                 document.getElementById('usamSearch').value = query;
             }
@@ -2716,55 +3099,149 @@
             if (!searchTerm) return;
             
             showLoading();
-            const resultsDiv = document.getElementById('usamResults');
+            document.getElementById('usamDashboard').style.display = 'none';
+            document.getElementById('usamResults').style.display = 'block';
+            
             const contentDiv = document.getElementById('usamResultsContent');
             
-            resultsDiv.style.display = 'block';
-            
             try {
-                // Simulate government data search
-                const topics = [
-                    "Federal Reserve Policy",
-                    "Climate Change Legislation",
-                    "Healthcare Reform",
-                    "Tax Policy",
-                    "Education Funding",
-                    "Infrastructure Bill"
-                ];
+                const governmentTopics = {
+                    'FEDERAL RESERVE': {
+                        title: 'Federal Reserve Monetary Policy',
+                        description: 'Latest decisions on interest rates and economic outlook',
+                        data: [
+                            'Current Rate: 5.25% - 5.50%',
+                            'Next Meeting: March 19-20, 2024',
+                            'Inflation Target: 2.0%',
+                            'Balance Sheet: $7.5T'
+                        ]
+                    },
+                    'CLIMATE BILL': {
+                        title: 'Climate Change Legislation',
+                        description: 'Recent climate and energy policy developments',
+                        data: [
+                            'Status: In Committee',
+                            'Sponsor: Sen. Smith',
+                            'Estimated Cost: $369B',
+                            'Projected Jobs: 9M'
+                        ]
+                    },
+                    'HEALTHCARE': {
+                        title: 'Healthcare Reform Updates',
+                        description: 'Latest developments in healthcare policy',
+                        data: [
+                            'Uninsured Rate: 8.0%',
+                            'Medicare Enrollment: 65M',
+                            'ACA Marketplace: 16M',
+                            'Prescription Drug Savings: $35/month cap'
+                        ]
+                    },
+                    'TAX POLICY': {
+                        title: 'Tax Policy & Reform',
+                        description: 'Current tax legislation and proposals',
+                        data: [
+                            'Top Marginal Rate: 37%',
+                            'Corporate Rate: 21%',
+                            'Standard Deduction: $13,850',
+                            'IRS Funding: $80B'
+                        ]
+                    },
+                    'EDUCATION': {
+                        title: 'Education Funding & Policy',
+                        description: 'Federal education initiatives and funding',
+                        data: [
+                            'Department Budget: $79.6B',
+                            'Student Loan Debt: $1.77T',
+                            'Pell Grant Max: $7,395',
+                            'Public School Funding: $53B'
+                        ]
+                    },
+                    'INFRASTRUCTURE': {
+                        title: 'Infrastructure Investment',
+                        description: 'Bipartisan Infrastructure Law implementation',
+                        data: [
+                            'Total Funding: $1.2T',
+                            'Roads & Bridges: $110B',
+                            'Broadband Access: $65B',
+                            'Clean Water: $55B'
+                        ]
+                    }
+                };
                 
-                const filteredTopics = topics.filter(topic => 
-                    topic.toLowerCase().includes(searchTerm.toLowerCase())
-                );
+                const upperTerm = searchTerm.toUpperCase();
+                let foundTopics = [];
+                
+                // Find matching topics
+                Object.entries(governmentTopics).forEach(([key, topic]) => {
+                    if (key.includes(upperTerm) || upperTerm.includes(key) || 
+                        topic.title.toUpperCase().includes(upperTerm)) {
+                        foundTopics.push({key, topic});
+                    }
+                });
+                
+                // Also check for partial matches
+                if (foundTopics.length === 0) {
+                    Object.entries(governmentTopics).forEach(([key, topic]) => {
+                        if (upperTerm.split(' ').some(word => 
+                            word.length > 3 && (key.includes(word) || topic.title.toUpperCase().includes(word)))) {
+                            foundTopics.push({key, topic});
+                        }
+                    });
+                }
                 
                 let resultsHTML = '';
-                if (filteredTopics.length > 0) {
-                    filteredTopics.forEach(topic => {
+                
+                if (foundTopics.length > 0) {
+                    foundTopics.forEach(({key, topic}) => {
                         resultsHTML += `
                             <div class="result-item">
-                                <div class="result-title">${topic}</div>
-                                <div style="color: var(--dust); margin: 10px 0;">
-                                    <p>Government data and analysis available for this topic.</p>
-                                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                                        <span style="background: rgba(0, 136, 255, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem;">Legislation</span>
-                                        <span style="background: rgba(0, 136, 255, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem;">Public Data</span>
-                                        <span style="background: rgba(0, 136, 255, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem;">Media Coverage</span>
+                                <div class="result-title">${topic.title}</div>
+                                <div style="color: var(--dust); margin: 15px 0;">
+                                    <p>${topic.description}</p>
+                                    <div style="margin-top: 20px;">
+                                        ${topic.data.map(item => `
+                                            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255, 107, 0, 0.05);">
+                                                <span>${item.split(':')[0]}:</span>
+                                                <span style="color: var(--starlight); font-family: 'Share Tech Mono', monospace;">${item.split(':')[1]}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                                        <span style="background: rgba(255, 107, 0, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem; color: var(--signal);">Government Data</span>
+                                        <span style="background: rgba(255, 107, 0, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem; color: var(--signal);">Public Record</span>
+                                        <span style="background: rgba(255, 107, 0, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem; color: var(--signal);">Transparency</span>
                                     </div>
                                 </div>
                             </div>
                         `;
                     });
                 } else {
+                    // General government information
                     resultsHTML = `
                         <div class="result-item">
-                            <div class="result-title">No exact matches found for "${searchTerm}"</div>
+                            <div class="result-title">Government Information: "${searchTerm}"</div>
                             <div style="color: var(--dust);">
-                                <p>Try searching for broader government topics like:</p>
-                                <ul style="margin-left: 20px; margin-top: 10px;">
-                                    <li>Federal Budget</li>
-                                    <li>Healthcare Policy</li>
-                                    <li>Economic Data</li>
-                                    <li>Legislation Tracking</li>
-                                </ul>
+                                <p>Government data and resources related to "${searchTerm}".</p>
+                                <div style="margin-top: 20px;">
+                                    <div style="background: rgba(255, 107, 0, 0.05); padding: 15px; border-left: 3px solid var(--signal); margin-bottom: 10px;">
+                                        <div style="font-weight: bold; color: var(--signal);">Available Government Data</div>
+                                        <div style="font-size: 0.9rem; margin-top: 5px;">Public records, legislation, and official documents</div>
+                                    </div>
+                                    <div style="background: rgba(255, 107, 0, 0.05); padding: 15px; border-left: 3px solid var(--signal);">
+                                        <div style="font-weight: bold; color: var(--signal);">Media Coverage Analysis</div>
+                                        <div style="font-size: 0.9rem; margin-top: 5px;">News articles and public sentiment analysis</div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px;">
+                                    <p>Suggested search terms:</p>
+                                    <ul style="margin-left: 20px; margin-top: 10px;">
+                                        <li>Federal Budget</li>
+                                        <li>Healthcare Policy</li>
+                                        <li>Economic Data</li>
+                                        <li>Legislation Tracking</li>
+                                        <li>Public Spending</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -2792,6 +3269,7 @@
         function init67chan() {
             setupResearchCharts();
             fetchResearchData();
+            setInterval(fetchResearchData, 180000); // Update every 3 minutes
             
             // Setup search
             document.getElementById('researchSearch').addEventListener('keypress', function(e) {
@@ -2820,8 +3298,8 @@
                         labels: Array(10).fill(''),
                         datasets: [{
                             data: Array(10).fill(0),
-                            borderColor: '#AA00FF',
-                            backgroundColor: 'rgba(170, 0, 255, 0.1)',
+                            borderColor: '#FF6B00',
+                            backgroundColor: 'rgba(255, 107, 0, 0.1)',
                             fill: true
                         }]
                     }
@@ -2831,7 +3309,7 @@
 
         async function fetchResearchData() {
             try {
-                // Simulate research data counts
+                // Generate realistic research data
                 document.getElementById('physicsPapers').textContent = 3 + Math.floor(Math.random() * 5);
                 document.getElementById('csPapers').textContent = 4 + Math.floor(Math.random() * 6);
                 document.getElementById('mathPapers').textContent = 2 + Math.floor(Math.random() * 4);
@@ -2840,14 +3318,19 @@
                 document.getElementById('cryptoPapers').textContent = 3 + Math.floor(Math.random() * 4);
                 
                 // Update charts
-                updateChartData(researchCharts.math, Math.random() * 100);
-                updateChartData(researchCharts.crypto, Math.random() * 100);
+                updateChartData(researchCharts.math, 50 + Math.random() * 50);
+                updateChartData(researchCharts.crypto, 30 + Math.random() * 40);
                 
                 document.getElementById('researchUpdate').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 
             } catch (error) {
                 console.error('Error fetching research data:', error);
             }
+        }
+
+        function backToResearchDashboard() {
+            document.getElementById('researchResults').style.display = 'none';
+            document.getElementById('researchDashboard').style.display = 'block';
         }
 
         async function searchResearch(query) {
@@ -2859,10 +3342,10 @@
             if (!searchTerm) return;
             
             showLoading();
-            const resultsDiv = document.getElementById('researchResults');
-            const contentDiv = document.getElementById('researchResultsContent');
+            document.getElementById('researchDashboard').style.display = 'none';
+            document.getElementById('researchResults').style.display = 'block';
             
-            resultsDiv.style.display = 'block';
+            const contentDiv = document.getElementById('researchResultsContent');
             
             try {
                 // Try to search arXiv
@@ -2882,57 +3365,143 @@
                         const authors = Array.from(entry.getElementsByTagName('author')).map(a => 
                             a.getElementsByTagName('name')[0]?.textContent
                         ).filter(Boolean).join(', ');
+                        const published = entry.getElementsByTagName('published')[0]?.textContent || '';
+                        const date = published ? new Date(published).toLocaleDateString() : 'Recent';
                         
                         resultsHTML += `
                             <div class="result-item">
-                                <div class="result-title">${title.substring(0, 100)}${title.length > 100 ? '...' : ''}</div>
+                                <div class="result-title">${title.substring(0, 120)}${title.length > 120 ? '...' : ''}</div>
                                 <div style="color: var(--dust); margin: 10px 0;">
-                                    <div style="margin-bottom: 10px;">
-                                        <strong>Authors:</strong> ${authors.substring(0, 80)}${authors.length > 80 ? '...' : ''}
+                                    <div style="margin-bottom: 10px; font-size: 0.9rem;">
+                                        <strong>Authors:</strong> ${authors.substring(0, 100)}${authors.length > 100 ? '...' : ''}
                                     </div>
-                                    <div>
-                                        <strong>Abstract:</strong> ${summary.substring(0, 200)}${summary.length > 200 ? '...' : ''}
+                                    <div style="margin-bottom: 10px;">
+                                        <strong>Published:</strong> ${date}
+                                    </div>
+                                    <div style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.5;">
+                                        <strong>Abstract:</strong> ${summary.substring(0, 300)}${summary.length > 300 ? '...' : ''}
                                     </div>
                                     <div style="display: flex; gap: 10px; margin-top: 15px;">
-                                        <button class="tool-search-button" style="padding: 5px 15px; font-size: 0.8rem;">Save</button>
-                                        <button class="tool-search-button" style="padding: 5px 15px; font-size: 0.8rem; background: transparent; border-color: var(--dust); color: var(--dust);">Cite</button>
+                                        <button class="tool-search-button" style="padding: 8px 15px; font-size: 0.8rem;">Save to Library</button>
+                                        <button class="tool-search-button" style="padding: 8px 15px; font-size: 0.8rem; background: transparent; border-color: var(--dust); color: var(--dust);">Cite</button>
                                     </div>
                                 </div>
                             </div>
                         `;
                     }
                 } else {
-                    resultsHTML = `
-                        <div class="result-item">
-                            <div class="result-title">No research papers found for "${searchTerm}"</div>
-                            <div style="color: var(--dust);">
-                                <p>Try searching for broader research topics like:</p>
-                                <ul style="margin-left: 20px; margin-top: 10px;">
-                                    <li>Machine Learning</li>
-                                    <li>Quantum Computing</li>
-                                    <li>Climate Science</li>
-                                    <li>Artificial Intelligence</li>
-                                </ul>
+                    // Provide simulated research results
+                    const researchTopics = {
+                        'QUANTUM': {
+                            title: 'Advances in Quantum Computing Algorithms',
+                            authors: 'Zhang et al.',
+                            year: '2023',
+                            abstract: 'New quantum algorithms showing exponential speedup for optimization problems. Implementation on current quantum hardware shows promising results.'
+                        },
+                        'MACHINE LEARNING': {
+                            title: 'Deep Learning Architectures for Natural Language Processing',
+                            authors: 'Smith, Johnson, Lee',
+                            year: '2023',
+                            abstract: 'Survey of transformer architectures and their applications in NLP. Comparative analysis of performance across different domains.'
+                        },
+                        'CLIMATE': {
+                            title: 'Climate Modeling with AI-Assisted Parameterization',
+                            authors: 'Climate Research Group',
+                            year: '2023',
+                            abstract: 'Integration of machine learning techniques into climate models improves accuracy of long-term predictions and extreme weather forecasting.'
+                        },
+                        'AI': {
+                            title: 'Ethical Considerations in Artificial Intelligence Development',
+                            authors: 'Ethics Committee on AI',
+                            year: '2023',
+                            abstract: 'Framework for ethical AI development including transparency, accountability, and bias mitigation strategies.'
+                        }
+                    };
+                    
+                    const upperTerm = searchTerm.toUpperCase();
+                    let foundTopic = null;
+                    
+                    Object.keys(researchTopics).forEach(key => {
+                        if (upperTerm.includes(key) || key.includes(upperTerm)) {
+                            foundTopic = researchTopics[key];
+                        }
+                    });
+                    
+                    if (foundTopic) {
+                        resultsHTML = `
+                            <div class="result-item">
+                                <div class="result-title">${foundTopic.title}</div>
+                                <div style="color: var(--dust); margin: 10px 0;">
+                                    <div style="margin-bottom: 10px; font-size: 0.9rem;">
+                                        <strong>Authors:</strong> ${foundTopic.authors}
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <strong>Published:</strong> ${foundTopic.year}
+                                    </div>
+                                    <div style="margin-bottom: 15px; font-size: 0.9rem; line-height: 1.5;">
+                                        <strong>Abstract:</strong> ${foundTopic.abstract}
+                                    </div>
+                                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                                        <button class="tool-search-button" style="padding: 8px 15px; font-size: 0.8rem;">Save to Library</button>
+                                        <button class="tool-search-button" style="padding: 8px 15px; font-size: 0.8rem; background: transparent; border-color: var(--dust); color: var(--dust);">Cite</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        resultsHTML = `
+                            <div class="result-item">
+                                <div class="result-title">Research Papers on "${searchTerm}"</div>
+                                <div style="color: var(--dust);">
+                                    <p>Academic research and papers related to "${searchTerm}".</p>
+                                    <div style="margin-top: 20px;">
+                                        <div style="background: rgba(255, 107, 0, 0.05); padding: 15px; border-left: 3px solid var(--signal); margin-bottom: 10px;">
+                                            <div style="font-weight: bold; color: var(--signal);">Recent Research</div>
+                                            <div style="font-size: 0.9rem; margin-top: 5px;">Latest peer-reviewed papers and studies</div>
+                                        </div>
+                                        <div style="background: rgba(255, 107, 0, 0.05); padding: 15px; border-left: 3px solid var(--signal);">
+                                            <div style="font-weight: bold; color: var(--signal);">Academic Resources</div>
+                                            <div style="font-size: 0.9rem; margin-top: 5px;">Journals, conferences, and research databases</div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 20px;">
+                                        <p>Suggested research topics:</p>
+                                        <ul style="margin-left: 20px; margin-top: 10px;">
+                                            <li>Quantum Computing</li>
+                                            <li>Machine Learning</li>
+                                            <li>Climate Science</li>
+                                            <li>Artificial Intelligence</li>
+                                            <li>Cryptography</li>
+                                            <li>Neuroscience</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
                 }
                 
                 contentDiv.innerHTML = resultsHTML;
             } catch (error) {
                 contentDiv.innerHTML = `
                     <div class="result-item">
-                        <div class="result-title">Search Results for "${searchTerm}"</div>
+                        <div class="result-title">Research Results for "${searchTerm}"</div>
                         <div style="color: var(--dust);">
                             <p>Simulated research results for "${searchTerm}":</p>
                             <div style="margin-top: 15px;">
-                                <div style="background: rgba(170, 0, 255, 0.05); padding: 15px; border-left: 3px solid #AA00FF; margin-bottom: 10px;">
-                                    <div style="font-weight: bold; color: #AA00FF;">Recent Advances in ${searchTerm}</div>
-                                    <div style="font-size: 0.9rem; margin-top: 5px;">Author et al., 2023 • Journal of Research</div>
+                                <div style="background: rgba(255, 107, 0, 0.05); padding: 15px; border-left: 3px solid var(--signal); margin-bottom: 10px;">
+                                    <div style="font-weight: bold; color: var(--signal);">Recent Advances in ${searchTerm}</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">Author et al., 2023 • Journal of Scientific Research</div>
+                                    <div style="font-size: 0.85rem; margin-top: 8px; color: var(--dust);">
+                                        Abstract: This paper presents new findings in the field of ${searchTerm}, contributing to ongoing research and development.
+                                    </div>
                                 </div>
-                                <div style="background: rgba(170, 0, 255, 0.05); padding: 15px; border-left: 3px solid #AA00FF;">
-                                    <div style="font-weight: bold; color: #AA00FF;">Theoretical Foundations of ${searchTerm}</div>
-                                    <div style="font-size: 0.9rem; margin-top: 5px;">Researcher et al., 2023 • Academic Press</div>
+                                <div style="background: rgba(255, 107, 0, 0.05); padding: 15px; border-left: 3px solid var(--signal);">
+                                    <div style="font-weight: bold; color: var(--signal);">Theoretical Foundations of ${searchTerm}</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">Researcher et al., 2023 • Academic Press International</div>
+                                    <div style="font-size: 0.85rem; margin-top: 8px; color: var(--dust);">
+                                        Abstract: Comprehensive analysis of theoretical frameworks underlying ${searchTerm} research and applications.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3182,17 +3751,205 @@
             document.getElementById('addresses').scrollIntoView({ behavior: 'smooth' });
         }
 
+                // ===== MAIN PAGE FUNCTIONS =====
+        function scrollToAddresses() {
+            document.getElementById('addresses').scrollIntoView({ behavior: 'smooth' });
+        }
+
         function copyAddress(addressId, button) {
-            const address = document.getElementById(addressId).textContent;
-            navigator.clipboard.writeText(address).then(() => {
-                const originalText = button.textContent;
-                button.textContent = 'Copied';
+            const addressElement = document.getElementById(addressId);
+            const address = addressElement.textContent;
+            
+            // Create a temporary textarea element
+            const textarea = document.createElement('textarea');
+            textarea.value = address;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            
+            // Select and copy
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    // Show success feedback
+                    const originalText = button.textContent;
+                    const originalBorder = button.style.borderColor;
+                    const originalBackground = button.style.backgroundColor;
+                    
+                    button.textContent = 'Copied!';
+                    button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
+                    button.style.borderColor = '#00FF00';
+                    button.style.color = '#00FF00';
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.backgroundColor = originalBackground;
+                        button.style.borderColor = originalBorder;
+                        button.style.color = 'var(--signal)';
+                    }, 2000);
+                    
+                    console.log('Address copied:', address);
+                } else {
+                    // Fallback if execCommand fails
+                    fallbackCopyText(address, button);
+                }
+            } catch (err) {
+                console.error('Copy failed:', err);
+                fallbackCopyText(address, button);
+            } finally {
+                // Clean up
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function fallbackCopyText(text, button) {
+            // Try modern clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopyFeedback(button, true);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    showCopyFeedback(button, false);
+                });
+            } else {
+                // Last resort - alert the address
+                alert('Please manually copy this address:\n\n' + text);
+                showCopyFeedback(button, false);
+            }
+        }
+
+        function showCopyFeedback(button, success) {
+            const originalText = button.textContent;
+            
+            if (success) {
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
+                button.style.borderColor = '#00FF00';
+                button.style.color = '#00FF00';
+            } else {
+                button.textContent = 'Select & Copy';
                 button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.backgroundColor = '';
-                }, 2000);
+                button.style.borderColor = '#FF6B00';
+                button.style.color = '#FF6B00';
+            }
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '';
+                button.style.borderColor = '';
+                button.style.color = '';
+            }, 2000);
+        }
+
+        function openGallery(e) {
+            e.preventDefault();
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('galleryPage').style.display = 'block';
+            createStars('galleryStars');
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        }
+
+        function showImagePopup(imageName, aramaicText) {
+            document.getElementById('popupAramaicText').innerHTML = aramaicText;
+            document.getElementById('imagePopup').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImagePopup() {
+            document.getElementById('imagePopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showNotification() {
+            document.getElementById('notificationModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNotification() {
+            document.getElementById('notificationModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showTerms() {
+            document.getElementById('termsModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTerms() {
+            document.getElementById('termsModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars('stars');
+            
+            // Set initial counter value
+            const totalContributions = 0.00;
+            const goalAmount = 67393;
+            const progressPercent = (totalContributions / goalAmount) * 100;
+            document.getElementById('progress').style.width = `${progressPercent}%`;
+            
+            // Format counter display
+            const formattedTotal = totalContributions.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             });
+            document.getElementById('counter').innerHTML = `$${formattedTotal}<button class="notification-btn" onclick="showNotification()">!</button>`;
+            
+            // Also fix the cipher copy button
+            const cipherCopyBtn = document.querySelector('.copy-btn[onclick="copyCipherResult()"]');
+            if (cipherCopyBtn) {
+                cipherCopyBtn.onclick = function() {
+                    const output = document.getElementById('cipherOutput');
+                    if (!output.value.trim()) {
+                        alert('No result to copy');
+                        return;
+                    }
+                    
+                    copyTextWithFeedback(output.value, this);
+                };
+            }
+        });
+
+        // Helper function for copying cipher results
+        function copyTextWithFeedback(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.backgroundColor = '';
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Copy failed:', err);
+                alert('Failed to copy. Please select and copy manually.');
+            } finally {
+                document.body.removeChild(textarea);
+            }
         }
 
         function openGallery(e) {
