@@ -6,6 +6,8 @@
     <title>GBOYOACHC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@300;400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* ===== CSS VARIABLES ===== */
         :root {
@@ -38,6 +40,548 @@
         ::selection {
             background: var(--signal);
             color: var(--void);
+        }
+        
+        /* ===== GBTOOLS.67 STYLES ===== */
+        #gbtoolsContainer {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+        
+        #gbtoolsBtn {
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            opacity: 0.7;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #gbtoolsBtn:hover {
+            opacity: 1;
+            background: rgba(255, 107, 0, 0.08);
+            border-color: rgba(255, 107, 0, 0.8);
+        }
+        
+        #gbtoolsBtn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--signal);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        #gbtoolsBtn:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* Dropdown Menu */
+        .gbtools-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            margin-top: 10px;
+            background: rgba(5, 5, 5, 0.95);
+            border: 1px solid rgba(255, 107, 0, 0.15);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .gbtools-menu.active {
+            display: block;
+        }
+        
+        .tool-header {
+            padding: 20px;
+            color: var(--signal);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+            text-align: center;
+        }
+        
+        .tool-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            text-decoration: none;
+        }
+        
+        .tool-item:hover {
+            background: rgba(255, 107, 0, 0.05);
+        }
+        
+        .tool-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--signal);
+            opacity: 0.7;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .tool-info {
+            flex: 1;
+        }
+        
+        .tool-name {
+            color: var(--starlight);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        
+        .tool-desc {
+            color: var(--dust);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+            line-height: 1.4;
+        }
+        
+        .tool-separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 0, 0.1), transparent);
+            margin: 15px 20px;
+        }
+        
+        .tool-footer {
+            padding: 15px 20px;
+            color: var(--dust);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-align: center;
+            opacity: 0.4;
+            text-transform: uppercase;
+        }
+        
+        /* Tool Page Styles */
+        .tool-page {
+            display: none;
+            min-height: 100vh;
+            padding: 80px 20px 40px;
+            position: relative;
+            background: var(--void);
+        }
+        
+        .tool-back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .tool-back-btn:hover {
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .tool-page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--signal);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .tool-page-subtitle {
+            color: var(--dust);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-align: center;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+        
+        /* ===== CIPHER TOOL STYLES ===== */
+        .cipher-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .cipher-input-section {
+            margin-bottom: 40px;
+        }
+        
+        .cipher-textarea {
+            width: 100%;
+            height: 150px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            color: var(--starlight);
+            padding: 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            resize: none;
+            margin-bottom: 20px;
+        }
+        
+        .cipher-textarea:focus {
+            outline: none;
+            border-color: rgba(255, 107, 0, 0.3);
+        }
+        
+        .cipher-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .cipher-select {
+            width: 100%;
+            background: rgba(5, 5, 5, 0.9);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            color: var(--signal);
+            padding: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cipher-select:focus {
+            outline: none;
+            border-color: rgba(255, 107, 0, 0.6);
+            background: rgba(255, 107, 0, 0.05);
+        }
+        
+        .cipher-select option {
+            background: var(--void);
+            color: var(--starlight);
+            padding: 10px;
+        }
+        
+        .cipher-shift {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .cipher-shift input {
+            width: 80px;
+            background: rgba(5, 5, 5, 0.9);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            color: var(--starlight);
+            padding: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            text-align: center;
+        }
+        
+        .cipher-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        /* ===== TOOL LANDING PAGE STYLES ===== */
+        .tool-landing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Tool Search Bar */
+        .tool-search-container {
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .tool-search-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .tool-search-bar {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 2px solid rgba(255, 107, 0, 0.2);
+            color: var(--starlight);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-search-bar:focus {
+            outline: none;
+            border-color: rgba(255, 107, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
+            background: rgba(255, 107, 0, 0.05);
+        }
+        
+        .tool-search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 10px 25px;
+            font-family: 'IBM Plex Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-search-button:hover {
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .search-examples {
+            color: var(--dust);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        /* Tool Dashboard */
+        .tool-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .tool-card {
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .tool-card:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+        }
+        
+        .card-title {
+            color: var(--signal);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .card-value {
+            color: var(--starlight);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.8rem;
+        }
+        
+        .card-change {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            font-family: 'IBM Plex Mono', monospace;
+            margin-top: 5px;
+        }
+        
+        .change-up {
+            background: rgba(0, 255, 0, 0.1);
+            color: #00FF00;
+        }
+        
+        .change-down {
+            background: rgba(255, 0, 0, 0.1);
+            color: #FF0000;
+        }
+        
+        .card-chart {
+            height: 120px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        /* Tool Results */
+        .tool-results {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        .result-item {
+            background: rgba(10, 10, 10, 0.5);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .result-title {
+            color: var(--signal);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Loading State */
+        .tool-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .tool-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 107, 0, 0.1);
+            border-top: 3px solid var(--signal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Tool Stats */
+        .tool-stats {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 20px;
+            background: rgba(255, 107, 0, 0.03);
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            text-align: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--dust);
+        }
+        
+        /* ===== eggye TOOL STYLES ===== */
+        #eggyeToolPage .tool-card:hover {
+            background: rgba(255, 107, 0, 0.02);
+        }
+        
+        #eggyeToolPage .card-title {
+            color: var(--signal);
+        }
+        
+        /* ===== uSam TOOL STYLES ===== */
+        #usamToolPage .tool-card {
+            border: 1px solid rgba(0, 136, 255, 0.1);
+        }
+        
+        #usamToolPage .tool-card:hover {
+            border-color: rgba(0, 136, 255, 0.3);
+            background: rgba(0, 136, 255, 0.02);
+        }
+        
+        #usamToolPage .card-title {
+            color: #0088FF;
+        }
+        
+        #usamToolPage .tool-search-bar {
+            border-color: rgba(0, 136, 255, 0.2);
+            background: rgba(0, 136, 255, 0.03);
+        }
+        
+        #usamToolPage .tool-search-bar:focus {
+            border-color: rgba(0, 136, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.1);
+            background: rgba(0, 136, 255, 0.05);
+        }
+        
+        #usamToolPage .tool-search-button {
+            border-color: #0088FF;
+            color: #0088FF;
+        }
+        
+        #usamToolPage .tool-search-button:hover {
+            background: rgba(0, 136, 255, 0.1);
+        }
+        
+        /* ===== 67chan TOOL STYLES ===== */
+        #sixtysevenchanToolPage .tool-card {
+            border: 1px solid rgba(170, 0, 255, 0.1);
+        }
+        
+        #sixtysevenchanToolPage .tool-card:hover {
+            border-color: rgba(170, 0, 255, 0.3);
+            background: rgba(170, 0, 255, 0.02);
+        }
+        
+        #sixtysevenchanToolPage .card-title {
+            color: #AA00FF;
+        }
+        
+        #sixtysevenchanToolPage .tool-search-bar {
+            border-color: rgba(170, 0, 255, 0.2);
+            background: rgba(170, 0, 255, 0.03);
+        }
+        
+        #sixtysevenchanToolPage .tool-search-bar:focus {
+            border-color: rgba(170, 0, 255, 0.5);
+            box-shadow: 0 0 20px rgba(170, 0, 255, 0.1);
+            background: rgba(170, 0, 255, 0.05);
+        }
+        
+        #sixtysevenchanToolPage .tool-search-button {
+            border-color: #AA00FF;
+            color: #AA00FF;
+        }
+        
+        #sixtysevenchanToolPage .tool-search-button:hover {
+            background: rgba(170, 0, 255, 0.1);
         }
         
         /* ===== SUBTLE STAR BACKGROUND ===== */
@@ -80,7 +624,7 @@
             position: relative;
         }
         
-        /* ===== REFINED HERO SECTION ===== */
+        /* ===== HERO SECTION ===== */
         .hero-section {
             display: flex;
             flex-direction: column;
@@ -131,7 +675,7 @@
             overflow: hidden;
         }
         
-        /* Pulsing crack effect - HORIZONTAL LINES */
+        /* Pulsing crack effect */
         .crack {
             position: absolute;
             top: 0;
@@ -154,7 +698,6 @@
             opacity: 0.7;
         }
         
-        /* HORIZONTAL crack line positions */
         .crack-line:nth-child(1) {
             top: 30%;
             transform: rotate(0deg);
@@ -244,7 +787,7 @@
             left: 100%;
         }
         
-        /* ===== SLIMMER COUNTER SECTION ===== */
+        /* ===== COUNTER SECTION ===== */
         .counter-section {
             margin: 20px 0;
             padding: 30px;
@@ -265,7 +808,6 @@
             text-shadow: 0 0 20px var(--signal-glow);
         }
         
-        /* NEW: Notification button */
         .notification-btn {
             display: inline-flex;
             align-items: center;
@@ -520,7 +1062,7 @@
             opacity: 0.9;
         }
         
-        /* ===== NEW MAIN TEXT SECTION ===== */
+        /* ===== MAIN TEXT SECTION ===== */
         .main-text-section {
             max-width: 700px;
             margin: 50px auto 30px auto;
@@ -541,28 +1083,7 @@
             margin-bottom: 20px;
         }
         
-        /* ===== ORIGINAL ELEGANT TEXT SECTION ===== */
-        .text-section {
-            max-width: 700px;
-            margin: 60px auto 40px auto;
-            padding: 0 30px;
-        }
-        
-        .elegant-text {
-            color: var(--dust);
-            font-size: 1.2rem;
-            line-height: 1.7;
-            margin-bottom: 30px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            text-align: left;
-        }
-        
-        .elegant-text p {
-            margin-bottom: 20px;
-        }
-        
-        /* ===== CLICKABLE GBOYOACHC TEXT WITH LINE ===== */
+        /* ===== GBOYOACHC TEXT WITH LINE ===== */
         .gboyoachc-container {
             text-align: center;
             margin: 60px 0 40px 0;
@@ -754,7 +1275,6 @@
             position: relative;
         }
         
-        /* Egg Container in Popup - SMALLER SIZE */
         .egg-popup-container {
             margin: 0 auto 30px auto;
             position: relative;
@@ -805,7 +1325,6 @@
             animation: eggGlowPulse 4s infinite ease-in-out;
         }
         
-        /* Enhanced crack effect for popup */
         .egg-popup-container .crack {
             position: absolute;
             top: 0;
@@ -1173,6 +1692,51 @@
         
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
+            #gbtoolsContainer {
+                top: 20px;
+                right: 20px;
+            }
+            
+            #gbtoolsBtn {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .gbtools-menu {
+                width: 280px;
+                right: -10px;
+            }
+            
+            .tool-page {
+                padding: 70px 15px 30px;
+            }
+            
+            .tool-back-btn {
+                top: 20px;
+                left: 20px;
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .tool-page-title {
+                font-size: 2rem;
+            }
+            
+            .tool-dashboard {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .tool-search-bar {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+            
+            .tool-search-button {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
             .counter-display {
                 font-size: 3.8rem;
                 letter-spacing: -1px;
@@ -1193,30 +1757,8 @@
                 font-size: 1.6rem;
             }
             
-            .aramaic-text::before,
-            .aramaic-text::after {
-                width: 30px;
-            }
-            
-            .goal-number {
-                font-size: 1.1rem;
-            }
-            
-            .main-text, .elegant-text {
-                font-size: 1.1rem;
-            }
-            
             .gboyoachc-text {
                 font-size: 2.5rem;
-            }
-            
-            .gboyoachc-line {
-                width: 120px;
-            }
-            
-            .terms-btn {
-                width: 220px;
-                padding: 10px 30px;
             }
             
             .gallery-grid {
@@ -1227,81 +1769,24 @@
             .gallery-item {
                 height: 350px;
             }
-            
-            .gallery-title {
-                font-size: 2rem;
-            }
-            
-            .back-button {
-                top: 20px;
-                left: 20px;
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .egg-popup-container {
-                width: 120px;
-                height: 160px;
-            }
-            
-            .greek-text {
-                font-size: 1.5rem;
-            }
-            
-            .egg-popup-content {
-                padding: 30px 20px;
-            }
-            
-            .terms-content {
-                padding: 30px;
-                max-height: 80vh;
-            }
-            
-            .terms-text {
-                font-size: 0.95rem;
-            }
-            
-            .terms-text h3 {
-                font-size: 1.1rem;
-            }
-            
-            .image-popup-content {
-                padding: 40px 20px;
-                max-width: 95%;
-            }
-            
-            .image-aramaic-text {
-                font-size: 1.8rem;
-                margin: 30px 0 50px 0;
-                min-height: 120px;
-            }
-            
-            .lock-button {
-                padding: 16px 40px;
-                font-size: 1.1rem;
-                height: 70px;
-                max-width: 280px;
-            }
-            
-            .lock-icon {
-                font-size: 1.8rem;
-                margin-right: 12px;
-            }
-            
-            .notification-content {
-                padding: 40px 30px;
-            }
-            
-            .notification-title {
-                font-size: 1.8rem;
-            }
-            
-            .notification-text {
-                font-size: 1rem;
-            }
         }
         
         @media (max-width: 480px) {
+            #gbtoolsContainer {
+                top: 15px;
+                right: 15px;
+            }
+            
+            #gbtoolsBtn {
+                padding: 5px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .gbtools-menu {
+                width: 260px;
+                right: -15px;
+            }
+            
             .counter-display {
                 font-size: 3rem;
                 letter-spacing: -0.5px;
@@ -1319,134 +1804,345 @@
                 height: 180px;
             }
             
-            .progress-container {
-                max-width: 280px;
-            }
-            
-            .goal-number {
-                font-size: 1rem;
-            }
-            
-            .main-text, .elegant-text {
-                font-size: 1rem;
-            }
-            
-            .address {
-                font-size: 0.85rem;
-                padding: 12px;
-            }
-            
             .gboyoachc-text {
                 font-size: 2rem;
-            }
-            
-            .gboyoachc-line {
-                width: 100px;
-            }
-            
-            .terms-btn {
-                width: 200px;
-                padding: 8px 25px;
-                font-size: 0.85rem;
-            }
-            
-            .aramaic-text {
-                font-size: 1.4rem;
-                margin: 20px 0;
-            }
-            
-            .coordinates {
-                font-size: 0.75rem;
             }
             
             .gallery-item {
                 height: 300px;
             }
-            
-            .egg-popup-container {
-                width: 100px;
-                height: 133px;
-            }
-            
-            .greek-text {
-                font-size: 1.3rem;
-            }
-            
-            .popup-close {
-                top: 10px;
-                right: 15px;
-                font-size: 1.8rem;
-            }
-            
-            .terms-content {
-                padding: 25px 20px;
-            }
-            
-            .terms-text {
-                font-size: 0.9rem;
-            }
-            
-            .terms-text h3 {
-                font-size: 1rem;
-            }
-            
-            .terms-close {
-                top: 15px;
-                right: 20px;
-                font-size: 1.8rem;
-            }
-            
-            .image-popup-content {
-                padding: 30px 15px;
-            }
-            
-            .image-aramaic-text {
-                font-size: 1.5rem;
-                margin: 25px 0 40px 0;
-                min-height: 100px;
-                line-height: 1.6;
-            }
-            
-            .lock-button {
-                padding: 14px 30px;
-                font-size: 1rem;
-                height: 65px;
-                max-width: 260px;
-            }
-            
-            .lock-icon {
-                font-size: 1.6rem;
-                margin-right: 10px;
-            }
-            
-            .lock-button-container {
-                max-width: 260px;
-            }
-            
-            .notification-content {
-                padding: 30px 20px;
-            }
-            
-            .notification-title {
-                font-size: 1.6rem;
-            }
-            
-            .notification-text {
-                font-size: 0.95rem;
-            }
         }
     </style>
 </head>
 <body>
+    <!-- GBtools.67 Button & Apps -->
+    <div id="gbtoolsContainer">
+        <button id="gbtoolsBtn" onclick="toggleGBTools()">GBtools.67</button>
+        <div id="gbtoolsMenu" class="gbtools-menu">
+            <div class="tool-header">EMERGENT TOOLS</div>
+            <a class="tool-item" href="#cipher-tool" onclick="openToolPage('cipher')">
+                <div class="tool-icon">⇄</div>
+                <div class="tool-info">
+                    <div class="tool-name">Signal Cipher</div>
+                    <div class="tool-desc">Encode & decode hidden messages</div>
+                </div>
+            </a>
+            <a class="tool-item" href="#eggye-tool" onclick="openToolPage('eggye')">
+                <div class="tool-icon">🥚</div>
+                <div class="tool-info">
+                    <div class="tool-name">eggye</div>
+                    <div class="tool-desc">Global economic intelligence</div>
+                </div>
+            </a>
+            <a class="tool-item" href="#usam-tool" onclick="openToolPage('usam')">
+                <div class="tool-icon">🗽</div>
+                <div class="tool-info">
+                    <div class="tool-name">uSam</div>
+                    <div class="tool-desc">Government & media monitor</div>
+                </div>
+            </a>
+            <a class="tool-item" href="#sixtysevenchan-tool" onclick="openToolPage('sixtysevenchan')">
+                <div class="tool-icon">📚</div>
+                <div class="tool-info">
+                    <div class="tool-name">67chan</div>
+                    <div class="tool-desc">Knowledge research network</div>
+                </div>
+            </a>
+            <a class="tool-item" href="#threeye" onclick="openToolPage('threeye')">
+                <div class="tool-icon">⌖</div>
+                <div class="tool-info">
+                    <div class="tool-name">3YE Search</div>
+                    <div class="tool-desc">Patterns beyond perception</div>
+                </div>
+            </a>
+            <div class="tool-separator"></div>
+            <div class="tool-footer">Tools emerge through use</div>
+        </div>
+    </div>
+    
+    <!-- TOOL PAGES -->
+    
+    <!-- Cipher Tool -->
+    <div class="tool-page" id="cipherToolPage">
+        <div class="stars" id="cipherStars"></div>
+        <button class="tool-back-btn" onclick="closeToolPage()">← BACK</button>
+        <div class="cipher-container">
+            <h1 class="tool-page-title">Signal Cipher</h1>
+            <div class="tool-page-subtitle">DECODE HIDDEN PATTERNS • ENCODE EMERGENT SIGNALS</div>
+            <div class="cipher-input-section">
+                <textarea class="cipher-textarea" id="cipherInput" placeholder="Enter text to encode or decode..."></textarea>
+                <div class="cipher-controls">
+                    <select class="cipher-select" id="cipherMethod">
+                        <option value="" selected disabled>Select cipher method</option>
+                        <option value="atbash">Atbash Cipher</option>
+                        <option value="caesar">Caesar Cipher</option>
+                        <option value="rot13">ROT13</option>
+                        <option value="vigenere">Vigenère Cipher</option>
+                        <option value="base64">Base64</option>
+                        <option value="binary">Binary</option>
+                        <option value="hex">Hexadecimal</option>
+                        <option value="morse">Morse Code</option>
+                    </select>
+                    <select class="cipher-select" id="cipherAction">
+                        <option value="encode">Encode</option>
+                        <option value="decode">Decode</option>
+                    </select>
+                </div>
+                <div class="cipher-shift" id="caesarShift">
+                    <span style="color: var(--dust); font-family: 'IBM Plex Mono', monospace;">Shift:</span>
+                    <input type="number" id="shiftAmount" min="1" max="25" value="3">
+                </div>
+                <div class="cipher-shift" id="vigenereKey">
+                    <span style="color: var(--dust); font-family: 'IBM Plex Mono', monospace;">Key:</span>
+                    <input type="text" id="vigenereKeyInput" value="SIGNAL" style="flex: 1;">
+                </div>
+                <div class="cipher-buttons">
+                    <button class="copy-btn" style="flex: 1;" onclick="processCipher()">Process</button>
+                    <button class="copy-btn" style="flex: 1; background: rgba(255, 107, 0, 0.1);" onclick="clearCipher()">Clear</button>
+                </div>
+                <textarea class="cipher-textarea" id="cipherOutput" placeholder="Result will appear here..." readonly></textarea>
+                <button class="copy-btn" style="width: 100%;" onclick="copyCipherResult()">Copy Result</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- eggye Tool -->
+    <div class="tool-page" id="eggyeToolPage">
+        <div class="stars" id="eggyeStars"></div>
+        <button class="tool-back-btn" onclick="closeToolPage()">← BACK</button>
+        <div class="tool-landing-container">
+            <h1 class="tool-page-title">eggye</h1>
+            <div class="tool-page-subtitle">GLOBAL ECONOMIC INTELLIGENCE • REAL-TIME MARKETS</div>
+            <div class="tool-search-container">
+                <div class="tool-search-wrapper">
+                    <input type="text" class="tool-search-bar" id="eggyeSearch" placeholder="Search any cryptocurrency, stock, or forex pair">
+                    <button class="tool-search-button" onclick="searchEggye()">SEARCH</button>
+                </div>
+                <div class="search-examples">Examples: Bitcoin, TSLA, Gold, EUR/USD, S&P 500</div>
+            </div>
+            <div class="tool-dashboard">
+                <div class="tool-card" onclick="searchEggye('BTC')">
+                    <div class="card-header">
+                        <div class="card-title">BITCOIN</div>
+                        <div class="card-value" id="btcPrice">$--</div>
+                    </div>
+                    <div class="card-change" id="btcChange">--%</div>
+                    <div class="card-chart"><canvas id="btcChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchEggye('ETH')">
+                    <div class="card-header">
+                        <div class="card-title">ETHEREUM</div>
+                        <div class="card-value" id="ethPrice">$--</div>
+                    </div>
+                    <div class="card-change" id="ethChange">--%</div>
+                    <div class="card-chart"><canvas id="ethChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchEggye('SPY')">
+                    <div class="card-header">
+                        <div class="card-title">S&P 500</div>
+                        <div class="card-value" id="sp500Price">--</div>
+                    </div>
+                    <div class="card-change" id="sp500Change">--%</div>
+                    <div class="card-chart"><canvas id="sp500Chart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchEggye('EUR/USD')">
+                    <div class="card-header">
+                        <div class="card-title">EUR/USD</div>
+                        <div class="card-value" id="eurPrice">--</div>
+                    </div>
+                    <div class="card-change" id="eurChange">--%</div>
+                    <div class="card-chart"><canvas id="eurChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchEggye('GOLD')">
+                    <div class="card-header">
+                        <div class="card-title">GOLD</div>
+                        <div class="card-value" id="goldPrice">$--</div>
+                    </div>
+                    <div class="card-change" id="goldChange">--%</div>
+                    <div class="card-chart"><canvas id="goldChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchEggye('TSLA')">
+                    <div class="card-header">
+                        <div class="card-title">TESLA</div>
+                        <div class="card-value" id="tslaPrice">$--</div>
+                    </div>
+                    <div class="card-change" id="tslaChange">--%</div>
+                    <div class="card-chart"><canvas id="tslaChart"></canvas></div>
+                </div>
+            </div>
+            <div class="tool-results" id="eggyeResults">
+                <div class="result-title">Search Results</div>
+                <div id="eggyeResultsContent"></div>
+            </div>
+            <div class="tool-stats">
+                Last Updated: <span id="eggyeUpdate">--:--</span> • Data Source: Public APIs
+            </div>
+        </div>
+    </div>
+    
+    <!-- uSam Tool -->
+    <div class="tool-page" id="usamToolPage">
+        <div class="stars" id="usamStars"></div>
+        <button class="tool-back-btn" onclick="closeToolPage()">← BACK</button>
+        <div class="tool-landing-container">
+            <h1 class="tool-page-title">uSam</h1>
+            <div class="tool-page-subtitle">GOVERNMENT TRANSPARENCY • MEDIA MONITOR • PUBLIC DATA</div>
+            <div class="tool-search-container">
+                <div class="tool-search-wrapper">
+                    <input type="text" class="tool-search-bar" id="usamSearch" placeholder="Search government topics, legislation, or public data...">
+                    <button class="tool-search-button" onclick="searchUsam()">SEARCH</button>
+                </div>
+                <div class="search-examples">Examples: Federal Reserve, Climate Bill, COVID Data, Supreme Court</div>
+            </div>
+            <div class="tool-dashboard">
+                <div class="tool-card" onclick="searchUsam('Federal News')">
+                    <div class="card-header">
+                        <div class="card-title">FEDERAL NEWS</div>
+                        <div class="card-value" id="fedNewsCount">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">Latest headlines</div>
+                </div>
+                <div class="tool-card" onclick="searchUsam('Legislation')">
+                    <div class="card-header">
+                        <div class="card-title">LEGISLATION</div>
+                        <div class="card-value" id="billsCount">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">Active bills</div>
+                </div>
+                <div class="tool-card" onclick="searchUsam('Government Spending')">
+                    <div class="card-header">
+                        <div class="card-title">PUBLIC SPENDING</div>
+                        <div class="card-value" id="spendingAmount">$--</div>
+                    </div>
+                    <div class="card-chart"><canvas id="spendingChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchUsam('Media Sentiment')">
+                    <div class="card-header">
+                        <div class="card-title">MEDIA SENTIMENT</div>
+                        <div class="card-value" id="sentimentScore">--</div>
+                    </div>
+                    <div class="card-chart"><canvas id="sentimentChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchUsam('COVID Data')">
+                    <div class="card-header">
+                        <div class="card-title">PUBLIC HEALTH</div>
+                        <div class="card-value" id="covidCases">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">Latest cases</div>
+                </div>
+                <div class="tool-card" onclick="searchUsam('Economic Data')">
+                    <div class="card-header">
+                        <div class="card-title">ECONOMIC DATA</div>
+                        <div class="card-value" id="unemploymentRate">--%</div>
+                    </div>
+                    <div class="card-chart"><canvas id="economicChart"></canvas></div>
+                </div>
+            </div>
+            <div class="tool-results" id="usamResults">
+                <div class="result-title">Government & Media Results</div>
+                <div id="usamResultsContent"></div>
+            </div>
+            <div class="tool-stats">
+                Last Updated: <span id="usamUpdate">--:--</span> • Data Source: Public Government Data
+            </div>
+        </div>
+    </div>
+    
+    <!-- 67chan Tool -->
+    <div class="tool-page" id="sixtysevenchanToolPage">
+        <div class="stars" id="sixtysevenchanStars"></div>
+        <button class="tool-back-btn" onclick="closeToolPage()">← BACK</button>
+        <div class="tool-landing-container">
+            <h1 class="tool-page-title">67chan</h1>
+            <div class="tool-page-subtitle">KNOWLEDGE RESEARCH NETWORK • ACADEMIC DISCOVERY</div>
+            <div class="tool-search-container">
+                <div class="tool-search-wrapper">
+                    <input type="text" class="tool-search-bar" id="researchSearch" placeholder="Search research papers, academic topics, or authors...">
+                    <button class="tool-search-button" onclick="searchResearch()">SEARCH</button>
+                </div>
+                <div class="search-examples">Examples: Quantum Computing, Machine Learning, Climate Science, AI</div>
+            </div>
+            <div class="tool-dashboard">
+                <div class="tool-card" onclick="searchResearch('Quantum Physics')">
+                    <div class="card-header">
+                        <div class="card-title">PHYSICS</div>
+                        <div class="card-value" id="physicsPapers">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">Latest papers</div>
+                </div>
+                <div class="tool-card" onclick="searchResearch('Computer Science')">
+                    <div class="card-header">
+                        <div class="card-title">COMPUTER SCIENCE</div>
+                        <div class="card-value" id="csPapers">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">AI & algorithms</div>
+                </div>
+                <div class="tool-card" onclick="searchResearch('Mathematics')">
+                    <div class="card-header">
+                        <div class="card-title">MATHEMATICS</div>
+                        <div class="card-value" id="mathPapers">--</div>
+                    </div>
+                    <div class="card-chart"><canvas id="mathChart"></canvas></div>
+                </div>
+                <div class="tool-card" onclick="searchResearch('Biology')">
+                    <div class="card-header">
+                        <div class="card-title">BIOLOGY</div>
+                        <div class="card-value" id="bioPapers">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">Life sciences</div>
+                </div>
+                <div class="tool-card" onclick="searchResearch('Philosophy')">
+                    <div class="card-header">
+                        <div class="card-title">PHILOSOPHY</div>
+                        <div class="card-value" id="philPapers">--</div>
+                    </div>
+                    <div style="color: var(--dust); font-size: 0.9rem;">Philosophical research</div>
+                </div>
+                <div class="tool-card" onclick="searchResearch('Cryptography')">
+                    <div class="card-header">
+                        <div class="card-title">CRYPTOGRAPHY</div>
+                        <div class="card-value" id="cryptoPapers">--</div>
+                    </div>
+                    <div class="card-chart"><canvas id="cryptoChart"></canvas></div>
+                </div>
+            </div>
+            <div class="tool-results" id="researchResults">
+                <div class="result-title">Research Results</div>
+                <div id="researchResultsContent"></div>
+            </div>
+            <div class="tool-stats">
+                Last Updated: <span id="researchUpdate">--:--</span> • Sources: arXiv, Crossref, Open Access
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3YE Search Tool -->
+    <div class="tool-page" id="threeyeToolPage">
+        <div class="stars" id="threeyeStars"></div>
+        <button class="tool-back-btn" onclick="closeToolPage()">← BACK</button>
+        <div class="tool-landing-container">
+            <h1 class="tool-page-title">3YE Search</h1>
+            <div class="tool-page-subtitle">PATTERNS BEYOND PERCEPTION • HIDDEN INFORMATION FLOW</div>
+            <div style="text-align: center; max-width: 600px; margin: 100px auto;">
+                <div style="font-size: 4rem; color: var(--signal); margin-bottom: 30px;">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div style="color: var(--signal); font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 20px;">
+                    Pattern Locked
+                </div>
+                <div style="color: var(--dust); font-size: 1.1rem; line-height: 1.7;">
+                    This search engine reveals connections that exist beyond conventional observation.<br>
+                    It requires completion of the current signal pattern to activate.
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- MAIN PAGE -->
     <div id="mainPage">
-        <!-- SUBTLE STAR BACKGROUND -->
         <div class="stars" id="stars"></div>
-        
-        <!-- EGG & COUNTER -->
         <div class="main-content">
             <div class="hero-section">
-                <!-- Clickable Egg -->
                 <div class="egg-container" onclick="scrollToAddresses()">
                     <div class="egg">
                         <div class="egg-body"></div>
@@ -1458,30 +2154,19 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- ܐܬܦܬܚ under egg -->
                 <div class="aramaic-text">ܐܬܓܠܝ</div>
-                
-                <!-- Counter Section -->
                 <div class="counter-section">
                     <div class="counter-label">Current Signal</div>
-                    <!-- Current Number with Typewriter Font -->
                     <div class="counter-display" id="counter">$0.00<button class="notification-btn" onclick="showNotification()">!</button></div>
-                    
-                    <!-- Progress Line -->
                     <div class="progress-container">
                         <div class="progress">
                             <div class="progress-fill" id="progress"></div>
                         </div>
                     </div>
-                    
-                    <!-- Goal Number -->
                     <div class="goal-section">
                         <div class="current-goal">Progress</div>
                         <div class="goal-number">$67,393</div>
                     </div>
-                    
-                    <!-- Scroll Indicator -->
                     <div class="scroll-indicator" onclick="scrollToAddresses()">
                         <span>Contribute</span>
                         <div class="scroll-arrow">↓</div>
@@ -1489,11 +2174,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- SEPARATOR -->
         <div class="separator">• • •</div>
-        
-        <!-- NEW MAIN TEXT SECTION -->
         <div class="main-text-section">
             <div class="main-text">
                 <p>Something is always in motion here, even when the surface appears still.</p>
@@ -1511,74 +2192,47 @@
                 <p>The rest continues, with or without witnesses.</p>
             </div>
         </div>
-        
-        <!-- SEPARATOR -->
         <div class="separator">• • •</div>
-        
-        <!-- TERMS BUTTON SECTION -->
         <div class="terms-section">
             <button class="terms-btn" onclick="showTerms()">Contribution Terms</button>
         </div>
-        
-        <!-- SEPARATOR -->
         <div class="separator">• • •</div>
-        
-        <!-- ADDRESS SECTION -->
         <div class="address-section" id="addresses">
-            <div class="text-section">
-                <div class="elegant-text"></div>
-            </div>
-            
             <div class="address-grid">
-                <!-- Bitcoin Taproot -->
                 <div class="address-item">
                     <div class="chain-name">Bitcoin (Taproot)</div>
                     <div class="address" id="btc-taproot">bc1pva4k65zra36dc7wkrxyay4u4yx72pz7ux3hdrge8zx5alzn00w0s3y2gxx</div>
                     <button class="copy-btn" onclick="copyAddress('btc-taproot', this)">Copy</button>
                 </div>
-                
-                <!-- Bitcoin Native Segwit -->
                 <div class="address-item">
                     <div class="chain-name">Bitcoin (Native Segwit)</div>
                     <div class="address" id="btc-segwit">bc1qyga2qme2w9sxyxcdk75fsdyxsfxddrrnn3tqf9</div>
                     <button class="copy-btn" onclick="copyAddress('btc-segwit', this)">Copy</button>
                 </div>
-                
-                <!-- Ethereum -->
                 <div class="address-item">
                     <div class="chain-name">Ethereum</div>
                     <div class="address" id="eth">0xd5009716a1F55bFCd94f0954c534147Dee8501f3</div>
                     <button class="copy-btn" onclick="copyAddress('eth', this)">Copy</button>
                 </div>
-                
-                <!-- Solana -->
                 <div class="address-item">
                     <div class="chain-name">Solana</div>
                     <div class="address" id="solana">CXQJPKEsYMep4NXWxnVCwGpM9wiDT3Hhd6xy82d2VPRE</div>
                     <button class="copy-btn" onclick="copyAddress('solana', this)">Copy</button>
                 </div>
-                
-                <!-- Polygon -->
                 <div class="address-item">
                     <div class="chain-name">Polygon</div>
                     <div class="address" id="polygon">0xd5009716a1F55bFCd94f0954c534147Dee8501f3</div>
                     <button class="copy-btn" onclick="copyAddress('polygon', this)">Copy</button>
                 </div>
             </div>
-            
-            <!-- Clickable GBOYOACHC with separate line -->
             <div class="gboyoachc-container">
                 <a href="#" class="gboyoachc-text" onclick="openGallery(event)">GBOYOACHC</a>
                 <div class="gboyoachc-line"></div>
             </div>
         </div>
-        
-        <!-- COORDINATES AT BOTTOM -->
         <div class="coordinates">
             31.77686464752928, 35.235649411249824
         </div>
-        
-        <!-- FOOTER -->
         <footer>
             <div class="footer-text">
                 Transactions are permanent. Addresses are recorded. There is nothing else.
@@ -1591,89 +2245,61 @@
 
     <!-- GALLERY PAGE -->
     <div class="gallery-page" id="galleryPage">
-        <!-- SUBTLE STAR BACKGROUND -->
         <div class="stars" id="galleryStars"></div>
-        
-        <!-- Back Button -->
         <button class="back-button" onclick="closeGallery()">← BACK</button>
-        
-        <!-- Gallery Header -->
         <div class="gallery-header">
             <div class="gallery-title">GBOYOACHC</div>
             <div style="color: var(--dust); font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; letter-spacing: 0.2em;">
                 COLLECTED SIGNALS
             </div>
         </div>
-        
-        <!-- Gallery Grid -->
         <div class="gallery-grid">
-            <!-- Image 1 -->
-            <div class="gallery-item" onclick="showImagePopup('a.png', 'ܡܘܚܐ ܕܪܗܛ ܩܕܡ ܢܦܫܗ<br>ܒܢܐ ܟܘܪܣܝܐ ܡܢ ܩܠ̈ܐ ܘܛܠ̈ܠܐ<br>ܘܐܝܟ ܢܒܝܐ ܕܨܐܚ ܠܗ ܗܘ ܫܡܥ')">
+            <div class="gallery-item" onclick="showImagePopup('a.png', 'ܡܘܚܐ ܕܪܗܛ ܩܕܡ ܢܦܫܗ<br>ܒܢܐ ܟܘܪܣܝܐ ܡܢ ܩܠ̈ܐ ܘܛܠ̈ܐ<br>ܘܐܝܟ ܢܒܝܐ ܕܨܐܚ ܠܗ ܗܘ ܫܡܥ')">
                 <div class="image-number">01</div>
                 <img src="https://i.postimg.cc/B68hQNp7/a.png" alt="a" class="gallery-image">
             </div>
-            
-            <!-- Image 2 -->
             <div class="gallery-item" onclick="showImagePopup('evidence.png', 'ܨܘܪܬܐ ܬܠܝܐ ܒܟܠ ܐܘܢܐ<br>ܕܠܐ ܬܛܥܐ ܟܐܦܐ ܡܢ ܡܢ ܩܐܡ<br>ܐܦ ܫܬܝܩܘܬܐ ܬܩܘܡ ܐܝܟ ܚܝܠܐ')">
                 <div class="image-number">02</div>
                 <img src="https://i.postimg.cc/QMY43vQc/evidence.png" alt="evidence" class="gallery-image">
             </div>
-            
-            <!-- Image 3 -->
             <div class="gallery-item" onclick="showImagePopup('is.png', 'ܫܡܐ ܕܐܫܬܒܩ ܐܝܟ ܪܝܚܐ ܒܗܝܟܠܐ<br>ܬܪ̈ܥܐ ܐܬܐܚܕܘ ܐܒܠ ܐܐܪ ܥܕܟܝܠ ܙܥ<br>ܟܐܦ̈ܐ ܕܐܝܬ ܠܗܝܢ ܕܘܟܪܢܐ')">
                 <div class="image-number">03</div>
                 <img src="https://i.postimg.cc/ZR1w93DT/is.png" alt="is" class="gallery-image">
             </div>
-            
-            <!-- Image 4 -->
             <div class="gallery-item" onclick="showImagePopup('not.png', 'ܩܠܐ ܕܐܬܥܒܕ ܡܢ ܫܢ̈ܝܐ ܣܓܝ̈ܐܐ<br>ܩܐܡ ܒܐܬܪܐ ܕܬܚܘܡ̈ܐ ܡܫܬܚܠܦܝܢ<br>ܫܘܠܛܢܐ ܡܣܝܒ ܫܝܒܬܐ ܕܠܐ ܚܙܝܢ')">
                 <div class="image-number">04</div>
                 <img src="https://i.postimg.cc/3RyLJ995/not.png" alt="not" class="gallery-image">
             </div>
-            
-            <!-- Image 5 -->
             <div class="gallery-item" onclick="showImagePopup('show.png', 'ܚܙܘܬܐ ܕܟܘܟܒ̈ܐ ܒܥܝܢ̈ܘܗܝ<br>ܐܒܠ ܐܝܕ̈ܘܗܝ ܥܕܟܝܠ ܒܢܘܪܐ<br>ܟܠ ܟܘܟܒܐ ܕܠܗܛ ܐܦ ܐܟܠ')">
                 <div class="image-number">05</div>
                 <img src="https://i.postimg.cc/sXBnDKKF/show.png" alt="show" class="gallery-image">
             </div>
-            
-            <!-- Image 6 -->
             <div class="gallery-item" onclick="showImagePopup('this.png', 'ܡܓܕܠܐ ܕܕܗܒܐ ܣܠܩ ܒܩܠ̈ܐ<br>ܟܠ ܙܓܓܐ ܡܚܙܐ ܠܗ ܚܕ ܐܦܐ<br>ܐܒܠ ܙܓܓ̈ܐ ܕܟܝܢ ܟܪܝܗܝܢ ܒܠܒܗ')">
                 <div class="image-number">06</div>
                 <img src="https://i.postimg.cc/PxBSLZFJ/this.png" alt="this" class="gallery-image">
             </div>
-            
-            <!-- Image 7 -->
             <div class="gallery-item" onclick="showImagePopup('this-is.png', 'ܢܘܗܪܐ ܪܗܛ ܒܬܪ ܐܦܐ ܕܥܠܡܐ<br>ܩܕܡ ܕܐܬܟܬܒ ܣܦܪܐ ܕܗܝ<br>ܫܡܐ ܐܬܪܫܡ ܒܝܕ̈ܐ ܕܠܐ ܚܙܝܢ')">
                 <div class="image-number">07</div>
                 <img src="https://i.postimg.cc/G2BMhzzR/this-is.png" alt="this-is" class="gallery-image">
             </div>
-            
-            <!-- Image 8 -->
             <div class="gallery-item" onclick="showImagePopup('6.png', 'ܡܠܐ ܗܘܐ ܐܝܟ ܢܘܪܐ ܒܠܒܐ ܕܕܪܐ<br>ܠܒܫ ܩܪܒܐ ܐܝܟ ܬܟܫܝܛܐ<br>ܩܠܗ ܐܙܠ ܪܚܝܩ ܝܬܝܪ ܡܢ ܚܝ̈ܘܗܝ')">
                 <div class="image-number">08</div>
                 <img src="https://i.postimg.cc/8PxNrjVj/6.png" alt="6" class="gallery-image">
             </div>
-            
-            <!-- Image 9 -->
             <div class="gallery-item" onclick="showImagePopup('7.png', 'ܦܬܚ ܟܘ̈ܬܐ ܠܥܠܡܐ ܒܚܟܡܬܗ<br>ܘܗܫܐ ܡܣܬܟܠܝܢ ܒܙܓܓܐ ܕܒܢܐ<br>ܟܕ ܢܘܗܪܐ ܪܒܐ ܛܠܠ̈ܐ ܢܦܠܝܢ')">
                 <div class="image-number">09</div>
                 <img src="https://i.postimg.cc/ZKX4yChh/7.png" alt="7" class="gallery-image">
             </div>
         </div>
-        
-        <!-- Gallery Footer -->
         <div class="coordinates" style="margin-top: 80px;">
             NINE SIGNALS • NINE FRAGMENTS
         </div>
     </div>
 
-    <!-- EGG POP-UP MODAL -->
+    <!-- MODALS -->
     <div class="egg-popup" id="eggPopup">
         <div class="egg-popup-content">
             <button class="popup-close" onclick="closeEggPopup()">×</button>
-            
-            <!-- Egg Container (Smaller version) -->
             <div class="egg-popup-container">
                 <div class="egg">
                     <div class="egg-body"></div>
@@ -1685,21 +2311,14 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Greek Text Only -->
             <div class="greek-text">πάντα ἀποκαλυφθήσεται</div>
         </div>
     </div>
 
-    <!-- IMAGE POPUP MODAL -->
     <div class="image-popup" id="imagePopup">
         <div class="image-popup-content">
             <button class="image-popup-close" onclick="closeImagePopup()">×</button>
-            
-            <!-- Aramaic Text Only (No Image) -->
             <div class="image-aramaic-text" id="popupAramaicText"></div>
-            
-            <!-- Orange Lock Button -->
             <div class="lock-button-container">
                 <button class="lock-button">
                     <i class="fas fa-lock lock-icon"></i>
@@ -1709,33 +2328,26 @@
         </div>
     </div>
 
-    <!-- NOTIFICATION MODAL -->
     <div class="notification-modal" id="notificationModal">
         <div class="notification-content">
             <button class="notification-close" onclick="closeNotification()">×</button>
-            
             <div class="notification-title">UPDATE SCHEDULE</div>
-            
             <div class="notification-text">
                 <p>The progress counter will be updated according to the following schedule:</p>
                 <p>• First update: <span class="highlight">29/2/2026</span></p>
                 <p>• Second update: <span class="highlight">13/3/2026</span></p>
                 <p>• Subsequent updates: <span class="highlight">Every ten days thereafter</span></p>
-                <p></p>
             </div>
-            
             <button class="terms-btn" onclick="closeNotification()" style="width: 200px; margin: 0 auto;">Understood</button>
         </div>
     </div>
 
-    <!-- TERMS MODAL POPUP -->
     <div class="terms-modal" id="termsModal">
         <div class="terms-content">
             <button class="terms-close" onclick="closeTerms()">×</button>
             <div class="terms-text">
                 <h3>IMPORTANT NOTICE</h3>
                 <p>This is a voluntary contribution platform supporting an independent digital art and philosophical exploration project. Contributions fund ongoing creative work and are treated as voluntary contributions with no expectation of financial return, profit, or ownership. No products, services, or investment opportunities are being offered. Cryptocurrency transactions are irreversible and may fluctuate in value.</p>
-                
                 <p>• • •</p>
                 <p>This is a platform for supporting philosophical and artistic exploration.</p>
                 <p>Your contributions directly fund the creation of digital art, research, and conceptual development.</p>
@@ -1745,7 +2357,6 @@
                 <p>All contributions are recorded as part of the project's historical documentation.</p>
                 <p>This is not a commercial venture—it is an exploration of ideas through digital medium.</p>
                 <p>Your support helps create works that examine meaning, pattern, and connection in digital spaces.</p>
-                
                 <h3>LEGAL DISCLAIMER</h3>
                 <p>Contributions are voluntary and support artistic and philosophical work. No financial returns, profits, dividends, or ownership interests are offered or implied. This is not an investment opportunity. All contributions are final and non-refundable. The project goal represents a creative target for sustained development, not a financial guarantee. Participation is at your own discretion with no promised outcomes. Cryptocurrency transactions are irreversible and may fluctuate in value.</p>
                 <p>This project is operated by an independent digital creator working under the pseudonym "GBOYOACHC".</p>
@@ -1753,12 +2364,784 @@
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div class="tool-loading" id="toolLoading">
+        <div class="tool-spinner"></div>
+        <div style="color: var(--signal); font-family: 'IBM Plex Mono', monospace; margin-top: 15px;">
+            Loading...
+        </div>
+    </div>
+
     <script>
-        // ===== CREATE SUBTLE STARS =====
+        // ===== TOOL MANAGEMENT =====
+        function toggleGBTools() {
+            const menu = document.getElementById('gbtoolsMenu');
+            menu.classList.toggle('active');
+            
+            if (menu.classList.contains('active')) {
+                setTimeout(() => {
+                    document.addEventListener('click', closeGBToolsOutside);
+                }, 10);
+            } else {
+                document.removeEventListener('click', closeGBToolsOutside);
+            }
+        }
+
+        function closeGBToolsOutside(event) {
+            const menu = document.getElementById('gbtoolsMenu');
+            const button = document.getElementById('gbtoolsBtn');
+            
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.classList.remove('active');
+                document.removeEventListener('click', closeGBToolsOutside);
+            }
+        }
+
+        function openToolPage(toolId) {
+            document.getElementById('gbtoolsMenu').classList.remove('active');
+            document.removeEventListener('click', closeGBToolsOutside);
+            
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('galleryPage').style.display = 'none';
+            document.querySelectorAll('.tool-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            const toolPage = document.getElementById(toolId + 'ToolPage');
+            if (toolPage) {
+                toolPage.style.display = 'block';
+                
+                const starsId = toolId + 'Stars';
+                const starsContainer = document.getElementById(starsId);
+                if (starsContainer) {
+                    starsContainer.innerHTML = '';
+                    createStars(starsId);
+                }
+                
+                // Initialize tool-specific functionality
+                switch(toolId) {
+                    case 'cipher':
+                        initCipherTool();
+                        break;
+                    case 'eggye':
+                        initEggye();
+                        break;
+                    case 'usam':
+                        initUSam();
+                        break;
+                    case 'sixtysevenchan':
+                        init67chan();
+                        break;
+                }
+            }
+        }
+
+        function closeToolPage() {
+            document.querySelectorAll('.tool-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById('mainPage').style.display = 'block';
+        }
+
+        // ===== EGGYE TOOL =====
+        let eggyeCharts = {};
+        let eggyeData = {};
+
+        function initEggye() {
+            setupEggyeCharts();
+            fetchEggyeData();
+            setInterval(fetchEggyeData, 60000); // Update every minute
+            
+            // Setup search
+            document.getElementById('eggyeSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchEggye();
+            });
+        }
+
+        function setupEggyeCharts() {
+            const chartConfig = {
+                type: 'line',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { display: false } },
+                    elements: { point: { radius: 0 }, line: { borderWidth: 2, tension: 0.4 } }
+                }
+            };
+
+            const charts = ['btc', 'eth', 'sp500', 'eur', 'gold', 'tsla'];
+            charts.forEach(chartId => {
+                const ctx = document.getElementById(chartId + 'Chart').getContext('2d');
+                eggyeCharts[chartId] = new Chart(ctx, {
+                    ...chartConfig,
+                    data: {
+                        labels: Array(20).fill(''),
+                        datasets: [{
+                            data: Array(20).fill(0),
+                            borderColor: '#FF6B00',
+                            backgroundColor: 'rgba(255, 107, 0, 0.1)',
+                            fill: true
+                        }]
+                    }
+                });
+            });
+        }
+
+        async function fetchEggyeData() {
+            try {
+                // Fetch crypto data from CoinGecko (no API key needed)
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+                const data = await response.json();
+                
+                if (data.bitcoin) {
+                    updateEggyeCard('btc', data.bitcoin.usd, data.bitcoin.usd_24h_change);
+                }
+                if (data.ethereum) {
+                    updateEggyeCard('eth', data.ethereum.usd, data.ethereum.usd_24h_change);
+                }
+                
+                // Simulate other market data
+                updateEggyeCard('sp500', 5000 + Math.random() * 200 - 100, Math.random() * 2 - 1);
+                updateEggyeCard('eur', 0.92 + Math.random() * 0.04 - 0.02, Math.random() * 0.5 - 0.25);
+                updateEggyeCard('gold', 2050 + Math.random() * 50 - 25, Math.random() * 2 - 1);
+                updateEggyeCard('tsla', 180 + Math.random() * 40 - 20, Math.random() * 4 - 2);
+                
+                document.getElementById('eggyeUpdate').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+            } catch (error) {
+                console.error('Error fetching eggye data:', error);
+                // Use simulated data
+                simulateEggyeData();
+            }
+        }
+
+        function updateEggyeCard(cardId, price, change) {
+            const priceElement = document.getElementById(cardId + 'Price');
+            const changeElement = document.getElementById(cardId + 'Change');
+            
+            if (cardId === 'eur') {
+                priceElement.textContent = price.toFixed(4);
+            } else if (cardId === 'sp500') {
+                priceElement.textContent = Math.round(price);
+            } else {
+                priceElement.textContent = '$' + price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            }
+            
+            const isPositive = change >= 0;
+            changeElement.textContent = (isPositive ? '+' : '') + change.toFixed(2) + '%';
+            changeElement.className = 'card-change ' + (isPositive ? 'change-up' : 'change-down');
+            
+            // Update chart
+            if (eggyeCharts[cardId]) {
+                const chart = eggyeCharts[cardId];
+                chart.data.datasets[0].data.shift();
+                chart.data.datasets[0].data.push(price);
+                chart.update('none');
+            }
+        }
+
+        function simulateEggyeData() {
+            const simulatedData = {
+                btc: { price: 43000 + Math.random() * 5000 - 2500, change: Math.random() * 10 - 5 },
+                eth: { price: 2300 + Math.random() * 500 - 250, change: Math.random() * 8 - 4 },
+                sp500: { price: 5100 + Math.random() * 100 - 50, change: Math.random() * 2 - 1 },
+                eur: { price: 0.92 + Math.random() * 0.04 - 0.02, change: Math.random() * 2 - 1 },
+                gold: { price: 2050 + Math.random() * 50 - 25, change: Math.random() * 2 - 1 },
+                tsla: { price: 180 + Math.random() * 40 - 20, change: Math.random() * 6 - 3 }
+            };
+            
+            Object.entries(simulatedData).forEach(([cardId, data]) => {
+                updateEggyeCard(cardId, data.price, data.change);
+            });
+        }
+
+        async function searchEggye(query) {
+            if (typeof query === 'string') {
+                document.getElementById('eggyeSearch').value = query;
+            }
+            
+            const searchTerm = document.getElementById('eggyeSearch').value.trim();
+            if (!searchTerm) return;
+            
+            showLoading();
+            const resultsDiv = document.getElementById('eggyeResults');
+            const contentDiv = document.getElementById('eggyeResultsContent');
+            
+            resultsDiv.style.display = 'block';
+            
+            try {
+                // Try to search for cryptocurrency
+                if (searchTerm.toUpperCase().match(/BTC|ETH|XRP|ADA|SOL/)) {
+                    const cryptoId = searchTerm.toLowerCase();
+                    const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd&include_24hr_change=true`);
+                    const data = await response.json();
+                    
+                    if (data[cryptoId]) {
+                        contentDiv.innerHTML = `
+                            <div class="result-item">
+                                <div class="result-title">${searchTerm.toUpperCase()} - Cryptocurrency</div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 2rem; color: var(--signal); margin-bottom: 10px;">$${data[cryptoId].usd.toLocaleString()}</div>
+                                        <div class="${data[cryptoId].usd_24h_change >= 0 ? 'change-up' : 'change-down'}" style="display: inline-block;">
+                                            24h Change: ${data[cryptoId].usd_24h_change.toFixed(2)}%
+                                        </div>
+                                    </div>
+                                    <button class="tool-search-button" onclick="alert('Tracking added for ${searchTerm}')">Track</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else {
+                    // Simulate stock/forex search
+                    const simulatedResult = {
+                        price: Math.random() * 1000 + 50,
+                        change: Math.random() * 10 - 5,
+                        type: searchTerm.includes('/') ? 'Forex Pair' : 'Stock'
+                    };
+                    
+                    contentDiv.innerHTML = `
+                        <div class="result-item">
+                            <div class="result-title">${searchTerm.toUpperCase()} - ${simulatedResult.type}</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 2rem; color: var(--signal); margin-bottom: 10px;">$${simulatedResult.price.toFixed(2)}</div>
+                                    <div class="${simulatedResult.change >= 0 ? 'change-up' : 'change-down'}" style="display: inline-block;">
+                                        Daily Change: ${simulatedResult.change.toFixed(2)}%
+                                    </div>
+                                </div>
+                                <button class="tool-search-button" onclick="alert('Tracking added for ${searchTerm}')">Track</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <div class="result-item">
+                        <div class="result-title">Search Results for "${searchTerm}"</div>
+                        <div style="color: var(--dust);">
+                            <p>Market data for "${searchTerm}" is currently unavailable.</p>
+                            <p>Try searching for: BTC, ETH, AAPL, TSLA, EUR/USD, or GOLD</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            hideLoading();
+        }
+
+        // ===== uSAM TOOL =====
+        let usamCharts = {};
+
+        function initUSam() {
+            setupUsamCharts();
+            fetchUsamData();
+            
+            // Setup search
+            document.getElementById('usamSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchUsam();
+            });
+        }
+
+        function setupUsamCharts() {
+            const chartConfig = {
+                type: 'line',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { display: false } },
+                    elements: { point: { radius: 0 }, line: { borderWidth: 2, tension: 0.4 } }
+                }
+            };
+
+            const charts = ['spending', 'sentiment', 'economic'];
+            charts.forEach(chartId => {
+                const ctx = document.getElementById(chartId + 'Chart').getContext('2d');
+                usamCharts[chartId] = new Chart(ctx, {
+                    ...chartConfig,
+                    data: {
+                        labels: Array(12).fill(''),
+                        datasets: [{
+                            data: Array(12).fill(0),
+                            borderColor: '#0088FF',
+                            backgroundColor: 'rgba(0, 136, 255, 0.1)',
+                            fill: true
+                        }]
+                    }
+                });
+            });
+        }
+
+        function fetchUsamData() {
+            // Simulate government data
+            const fedNews = 15 + Math.floor(Math.random() * 10);
+            document.getElementById('fedNewsCount').textContent = fedNews;
+            
+            const bills = 120 + Math.floor(Math.random() * 50);
+            document.getElementById('billsCount').textContent = bills;
+            
+            const spending = 1.2 + Math.random() * 0.5;
+            document.getElementById('spendingAmount').textContent = '$' + spending.toFixed(1) + 'T';
+            updateChartData(usamCharts.spending, spending * 100);
+            
+            const sentiment = 50 + Math.random() * 20 - 10;
+            document.getElementById('sentimentScore').textContent = sentiment.toFixed(0);
+            updateChartData(usamCharts.sentiment, sentiment);
+            
+            const covidCases = 10000 + Math.floor(Math.random() * 50000);
+            document.getElementById('covidCases').textContent = covidCases.toLocaleString();
+            
+            const unemployment = 3.5 + Math.random() * 2;
+            document.getElementById('unemploymentRate').textContent = unemployment.toFixed(1) + '%';
+            updateChartData(usamCharts.economic, unemployment);
+            
+            document.getElementById('usamUpdate').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function updateChartData(chart, newValue) {
+            if (!chart) return;
+            chart.data.datasets[0].data.shift();
+            chart.data.datasets[0].data.push(newValue);
+            chart.update('none');
+        }
+
+        async function searchUsam(query) {
+            if (typeof query === 'string') {
+                document.getElementById('usamSearch').value = query;
+            }
+            
+            const searchTerm = document.getElementById('usamSearch').value.trim();
+            if (!searchTerm) return;
+            
+            showLoading();
+            const resultsDiv = document.getElementById('usamResults');
+            const contentDiv = document.getElementById('usamResultsContent');
+            
+            resultsDiv.style.display = 'block';
+            
+            try {
+                // Simulate government data search
+                const topics = [
+                    "Federal Reserve Policy",
+                    "Climate Change Legislation",
+                    "Healthcare Reform",
+                    "Tax Policy",
+                    "Education Funding",
+                    "Infrastructure Bill"
+                ];
+                
+                const filteredTopics = topics.filter(topic => 
+                    topic.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                
+                let resultsHTML = '';
+                if (filteredTopics.length > 0) {
+                    filteredTopics.forEach(topic => {
+                        resultsHTML += `
+                            <div class="result-item">
+                                <div class="result-title">${topic}</div>
+                                <div style="color: var(--dust); margin: 10px 0;">
+                                    <p>Government data and analysis available for this topic.</p>
+                                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                                        <span style="background: rgba(0, 136, 255, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem;">Legislation</span>
+                                        <span style="background: rgba(0, 136, 255, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem;">Public Data</span>
+                                        <span style="background: rgba(0, 136, 255, 0.1); padding: 5px 10px; border-radius: 2px; font-size: 0.8rem;">Media Coverage</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    resultsHTML = `
+                        <div class="result-item">
+                            <div class="result-title">No exact matches found for "${searchTerm}"</div>
+                            <div style="color: var(--dust);">
+                                <p>Try searching for broader government topics like:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li>Federal Budget</li>
+                                    <li>Healthcare Policy</li>
+                                    <li>Economic Data</li>
+                                    <li>Legislation Tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                contentDiv.innerHTML = resultsHTML;
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <div class="result-item">
+                        <div class="result-title">Search Error</div>
+                        <div style="color: var(--dust);">
+                            <p>Unable to access government databases at this time.</p>
+                            <p>Try again later or search for a different topic.</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            hideLoading();
+        }
+
+        // ===== 67chan TOOL =====
+        let researchCharts = {};
+
+        function init67chan() {
+            setupResearchCharts();
+            fetchResearchData();
+            
+            // Setup search
+            document.getElementById('researchSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchResearch();
+            });
+        }
+
+        function setupResearchCharts() {
+            const chartConfig = {
+                type: 'line',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { display: false } },
+                    elements: { point: { radius: 0 }, line: { borderWidth: 2, tension: 0.4 } }
+                }
+            };
+
+            const charts = ['math', 'crypto'];
+            charts.forEach(chartId => {
+                const ctx = document.getElementById(chartId + 'Chart').getContext('2d');
+                researchCharts[chartId] = new Chart(ctx, {
+                    ...chartConfig,
+                    data: {
+                        labels: Array(10).fill(''),
+                        datasets: [{
+                            data: Array(10).fill(0),
+                            borderColor: '#AA00FF',
+                            backgroundColor: 'rgba(170, 0, 255, 0.1)',
+                            fill: true
+                        }]
+                    }
+                });
+            });
+        }
+
+        async function fetchResearchData() {
+            try {
+                // Simulate research data counts
+                document.getElementById('physicsPapers').textContent = 3 + Math.floor(Math.random() * 5);
+                document.getElementById('csPapers').textContent = 4 + Math.floor(Math.random() * 6);
+                document.getElementById('mathPapers').textContent = 2 + Math.floor(Math.random() * 4);
+                document.getElementById('bioPapers').textContent = 5 + Math.floor(Math.random() * 7);
+                document.getElementById('philPapers').textContent = 1 + Math.floor(Math.random() * 3);
+                document.getElementById('cryptoPapers').textContent = 3 + Math.floor(Math.random() * 4);
+                
+                // Update charts
+                updateChartData(researchCharts.math, Math.random() * 100);
+                updateChartData(researchCharts.crypto, Math.random() * 100);
+                
+                document.getElementById('researchUpdate').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+            } catch (error) {
+                console.error('Error fetching research data:', error);
+            }
+        }
+
+        async function searchResearch(query) {
+            if (typeof query === 'string') {
+                document.getElementById('researchSearch').value = query;
+            }
+            
+            const searchTerm = document.getElementById('researchSearch').value.trim();
+            if (!searchTerm) return;
+            
+            showLoading();
+            const resultsDiv = document.getElementById('researchResults');
+            const contentDiv = document.getElementById('researchResultsContent');
+            
+            resultsDiv.style.display = 'block';
+            
+            try {
+                // Try to search arXiv
+                const response = await fetch(`https://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(searchTerm)}&max_results=3&sortBy=relevance`);
+                const text = await response.text();
+                
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, 'text/xml');
+                const entries = xml.getElementsByTagName('entry');
+                
+                let resultsHTML = '';
+                if (entries.length > 0) {
+                    for (let i = 0; i < Math.min(entries.length, 3); i++) {
+                        const entry = entries[i];
+                        const title = entry.getElementsByTagName('title')[0]?.textContent || 'Untitled Paper';
+                        const summary = entry.getElementsByTagName('summary')[0]?.textContent || 'No abstract available';
+                        const authors = Array.from(entry.getElementsByTagName('author')).map(a => 
+                            a.getElementsByTagName('name')[0]?.textContent
+                        ).filter(Boolean).join(', ');
+                        
+                        resultsHTML += `
+                            <div class="result-item">
+                                <div class="result-title">${title.substring(0, 100)}${title.length > 100 ? '...' : ''}</div>
+                                <div style="color: var(--dust); margin: 10px 0;">
+                                    <div style="margin-bottom: 10px;">
+                                        <strong>Authors:</strong> ${authors.substring(0, 80)}${authors.length > 80 ? '...' : ''}
+                                    </div>
+                                    <div>
+                                        <strong>Abstract:</strong> ${summary.substring(0, 200)}${summary.length > 200 ? '...' : ''}
+                                    </div>
+                                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                                        <button class="tool-search-button" style="padding: 5px 15px; font-size: 0.8rem;">Save</button>
+                                        <button class="tool-search-button" style="padding: 5px 15px; font-size: 0.8rem; background: transparent; border-color: var(--dust); color: var(--dust);">Cite</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultsHTML = `
+                        <div class="result-item">
+                            <div class="result-title">No research papers found for "${searchTerm}"</div>
+                            <div style="color: var(--dust);">
+                                <p>Try searching for broader research topics like:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li>Machine Learning</li>
+                                    <li>Quantum Computing</li>
+                                    <li>Climate Science</li>
+                                    <li>Artificial Intelligence</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                contentDiv.innerHTML = resultsHTML;
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <div class="result-item">
+                        <div class="result-title">Search Results for "${searchTerm}"</div>
+                        <div style="color: var(--dust);">
+                            <p>Simulated research results for "${searchTerm}":</p>
+                            <div style="margin-top: 15px;">
+                                <div style="background: rgba(170, 0, 255, 0.05); padding: 15px; border-left: 3px solid #AA00FF; margin-bottom: 10px;">
+                                    <div style="font-weight: bold; color: #AA00FF;">Recent Advances in ${searchTerm}</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">Author et al., 2023 • Journal of Research</div>
+                                </div>
+                                <div style="background: rgba(170, 0, 255, 0.05); padding: 15px; border-left: 3px solid #AA00FF;">
+                                    <div style="font-weight: bold; color: #AA00FF;">Theoretical Foundations of ${searchTerm}</div>
+                                    <div style="font-size: 0.9rem; margin-top: 5px;">Researcher et al., 2023 • Academic Press</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            hideLoading();
+        }
+
+        // ===== CIPHER TOOL =====
+        function initCipherTool() {
+            const methodSelect = document.getElementById('cipherMethod');
+            methodSelect.addEventListener('change', function() {
+                const method = this.value;
+                document.getElementById('caesarShift').style.display = method === 'caesar' ? 'flex' : 'none';
+                document.getElementById('vigenereKey').style.display = method === 'vigenere' ? 'flex' : 'none';
+            });
+            
+            document.getElementById('cipherInput').value = '';
+            document.getElementById('cipherOutput').value = '';
+        }
+
+        function processCipher() {
+            const input = document.getElementById('cipherInput').value;
+            const method = document.getElementById('cipherMethod').value;
+            const action = document.getElementById('cipherAction').value;
+            
+            if (!method) {
+                document.getElementById('cipherOutput').value = 'Select a cipher method first';
+                return;
+            }
+            
+            if (!input.trim()) {
+                document.getElementById('cipherOutput').value = 'Enter text to process';
+                return;
+            }
+            
+            let result = '';
+            
+            switch(method) {
+                case 'caesar':
+                    const shift = parseInt(document.getElementById('shiftAmount').value) || 3;
+                    result = caesarCipher(input, shift, action === 'encode');
+                    break;
+                case 'atbash':
+                    result = atbashCipher(input);
+                    break;
+                case 'rot13':
+                    result = rot13Cipher(input);
+                    break;
+                case 'vigenere':
+                    const key = document.getElementById('vigenereKeyInput').value.toUpperCase() || 'SIGNAL';
+                    result = vigenereCipher(input, key, action === 'encode');
+                    break;
+                case 'base64':
+                    try {
+                        result = action === 'encode' ? btoa(input) : atob(input);
+                    } catch {
+                        result = 'Invalid Base64 input';
+                    }
+                    break;
+                case 'binary':
+                    result = action === 'encode' ? textToBinary(input) : binaryToText(input);
+                    break;
+                case 'hex':
+                    result = action === 'encode' ? textToHex(input) : hexToText(input);
+                    break;
+                case 'morse':
+                    result = action === 'encode' ? textToMorse(input) : morseToText(input);
+                    break;
+                default:
+                    result = 'Select a cipher method';
+            }
+            
+            document.getElementById('cipherOutput').value = result;
+        }
+
+        // Cipher functions
+        function caesarCipher(text, shift, encode) {
+            if (!encode) shift = 26 - shift;
+            return text.split('').map(char => {
+                if (char.match(/[A-Z]/)) {
+                    return String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65);
+                } else if (char.match(/[a-z]/)) {
+                    return String.fromCharCode(((char.charCodeAt(0) - 97 + shift) % 26) + 97);
+                }
+                return char;
+            }).join('');
+        }
+
+        function atbashCipher(text) {
+            return text.split('').map(char => {
+                if (char.match(/[A-Z]/)) {
+                    return String.fromCharCode(155 - char.charCodeAt(0));
+                } else if (char.match(/[a-z]/)) {
+                    return String.fromCharCode(219 - char.charCodeAt(0));
+                }
+                return char;
+            }).join('');
+        }
+
+        function rot13Cipher(text) {
+            return caesarCipher(text, 13, true);
+        }
+
+        function vigenereCipher(text, key, encode) {
+            let result = '';
+            let keyIndex = 0;
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char.match(/[A-Z]/)) {
+                    const shift = key[keyIndex % key.length].charCodeAt(0) - 65;
+                    result += String.fromCharCode(((char.charCodeAt(0) - 65 + (encode ? shift : 26 - shift)) % 26) + 65);
+                    keyIndex++;
+                } else if (char.match(/[a-z]/)) {
+                    const shift = key[keyIndex % key.length].toLowerCase().charCodeAt(0) - 97;
+                    result += String.fromCharCode(((char.charCodeAt(0) - 97 + (encode ? shift : 26 - shift)) % 26) + 97);
+                    keyIndex++;
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+
+        function textToBinary(text) {
+            return text.split('').map(char => {
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            }).join(' ');
+        }
+
+        function binaryToText(binary) {
+            try {
+                return binary.split(' ').map(bin => {
+                    return String.fromCharCode(parseInt(bin, 2));
+                }).join('');
+            } catch {
+                return 'Invalid binary input';
+            }
+        }
+
+        function textToHex(text) {
+            return text.split('').map(char => {
+                return char.charCodeAt(0).toString(16).padStart(2, '0');
+            }).join(' ');
+        }
+
+        function hexToText(hex) {
+            try {
+                return hex.split(' ').map(hexChar => {
+                    return String.fromCharCode(parseInt(hexChar, 16));
+                }).join('');
+            } catch {
+                return 'Invalid hex input';
+            }
+        }
+
+        function textToMorse(text) {
+            const morseCode = {
+                'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+                'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+                'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+                'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+                'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
+                '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...',
+                '8': '---..', '9': '----.', ' ': '/'
+            };
+            return text.toUpperCase().split('').map(char => {
+                return morseCode[char] || char;
+            }).join(' ');
+        }
+
+        function morseToText(morse) {
+            const morseCode = {
+                '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F',
+                '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L',
+                '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R',
+                '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X',
+                '-.--': 'Y', '--..': 'Z', '-----': '0', '.----': '1', '..---': '2',
+                '...--': '3', '....-': '4', '.....': '5', '-....': '6', '--...': '7',
+                '---..': '8', '----.': '9', '/': ' '
+            };
+            return morse.split(' ').map(code => {
+                return morseCode[code] || code;
+            }).join('');
+        }
+
+        function clearCipher() {
+            document.getElementById('cipherInput').value = '';
+            document.getElementById('cipherOutput').value = '';
+        }
+
+        function copyCipherResult() {
+            const output = document.getElementById('cipherOutput');
+            output.select();
+            document.execCommand('copy');
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Copied';
+            setTimeout(() => btn.textContent = originalText, 2000);
+        }
+
+        // ===== UTILITY FUNCTIONS =====
         function createStars(containerId) {
             const starsContainer = document.getElementById(containerId);
-            const starCount = 150;
+            if (!starsContainer) return;
             
+            const starCount = 150;
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
@@ -1780,271 +3163,98 @@
                 
                 if (Math.random() > 0.8) {
                     star.style.backgroundColor = 'rgba(255, 107, 0, 0.7)';
-                } else if (Math.random() > 0.9) {
-                    star.style.backgroundColor = 'rgba(255, 255, 200, 0.9)';
                 }
                 
                 starsContainer.appendChild(star);
             }
         }
-        
-        // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars('stars');
-            createStars('galleryStars');
-            
-            const totalContributions = 41390.00;
-            const progressPercent = (totalContributions / 1167393) * 100;
-            document.getElementById('progress').style.width = `${progressPercent}%`;
-            
-            // Initialize popup close functionality
-            setupPopupClose();
-            setupTermsPopupClose();
-            setupImagePopupClose();
-            setupNotificationPopupClose();
-        });
 
-        // ===== SETUP POPUP CLOSE FUNCTIONALITY =====
-        function setupPopupClose() {
-            const eggPopup = document.getElementById('eggPopup');
-            eggPopup.addEventListener('click', function(event) {
-                if (event.target === this) {
-                    closeEggPopup();
-                }
-            });
-            
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && eggPopup.style.display === 'flex') {
-                    closeEggPopup();
-                }
-            });
+        function showLoading() {
+            document.getElementById('toolLoading').style.display = 'flex';
         }
-        
-        // ===== SETUP TERMS POPUP CLOSE FUNCTIONALITY =====
-        function setupTermsPopupClose() {
-            const termsPopup = document.getElementById('termsModal');
-            termsPopup.addEventListener('click', function(event) {
-                if (event.target === this) {
-                    closeTerms();
-                }
-            });
-            
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && termsPopup.style.display === 'flex') {
-                    closeTerms();
-                }
-            });
+
+        function hideLoading() {
+            document.getElementById('toolLoading').style.display = 'none';
         }
-        
-        // ===== SETUP IMAGE POPUP CLOSE FUNCTIONALITY =====
-        function setupImagePopupClose() {
-            const imagePopup = document.getElementById('imagePopup');
-            imagePopup.addEventListener('click', function(event) {
-                if (event.target === this) {
-                    closeImagePopup();
-                }
-            });
-            
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && imagePopup.style.display === 'flex') {
-                    closeImagePopup();
-                }
-            });
+
+        // ===== MAIN PAGE FUNCTIONS =====
+        function scrollToAddresses() {
+            document.getElementById('addresses').scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // ===== SETUP NOTIFICATION POPUP CLOSE FUNCTIONALITY =====
-        function setupNotificationPopupClose() {
-            const notificationPopup = document.getElementById('notificationModal');
-            notificationPopup.addEventListener('click', function(event) {
-                if (event.target === this) {
-                    closeNotification();
-                }
-            });
-            
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape' && notificationPopup.style.display === 'flex') {
-                    closeNotification();
-                }
+
+        function copyAddress(addressId, button) {
+            const address = document.getElementById(addressId).textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied';
+                button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '';
+                }, 2000);
             });
         }
 
-        // ===== PAGE NAVIGATION =====
         function openGallery(e) {
             e.preventDefault();
             document.getElementById('mainPage').style.display = 'none';
             document.getElementById('galleryPage').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            createStars('galleryStars');
         }
 
         function closeGallery() {
             document.getElementById('galleryPage').style.display = 'none';
             document.getElementById('mainPage').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ===== IMAGE POPUP FUNCTIONS =====
         function showImagePopup(imageName, aramaicText) {
-            const imagePopup = document.getElementById('imagePopup');
-            const popupAramaicText = document.getElementById('popupAramaicText');
-            
-            // Set Aramaic text
-            popupAramaicText.innerHTML = aramaicText;
-            
-            // Show popup
-            imagePopup.style.display = 'flex';
+            document.getElementById('popupAramaicText').innerHTML = aramaicText;
+            document.getElementById('imagePopup').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
         function closeImagePopup() {
-            const imagePopup = document.getElementById('imagePopup');
-            imagePopup.style.display = 'none';
+            document.getElementById('imagePopup').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // ===== NOTIFICATION FUNCTIONS =====
         function showNotification() {
-            const notificationModal = document.getElementById('notificationModal');
-            notificationModal.style.display = 'flex';
+            document.getElementById('notificationModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
         function closeNotification() {
-            const notificationModal = document.getElementById('notificationModal');
-            notificationModal.style.display = 'none';
+            document.getElementById('notificationModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // ===== EGG POPUP FUNCTIONS =====
-        function showEggPopup() {
-            const eggPopup = document.getElementById('eggPopup');
-            eggPopup.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeEggPopup() {
-            const eggPopup = document.getElementById('eggPopup');
-            eggPopup.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // ===== TERMS MODAL FUNCTIONS =====
         function showTerms() {
-            const termsModal = document.getElementById('termsModal');
-            termsModal.style.display = 'flex';
+            document.getElementById('termsModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
         function closeTerms() {
-            const termsModal = document.getElementById('termsModal');
-            termsModal.style.display = 'none';
+            document.getElementById('termsModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // ===== EXISTING FUNCTIONS =====
-        function scrollToAddresses() {
-            const addressSection = document.getElementById('addresses');
-            addressSection.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars('stars');
+            
+            // Set initial counter value
+            const totalContributions = 0.00;
+            const goalAmount = 67393;
+            const progressPercent = (totalContributions / goalAmount) * 100;
+            document.getElementById('progress').style.width = `${progressPercent}%`;
+            
+            // Format counter display
+            const formattedTotal = totalContributions.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             });
-            
-            // Add subtle pulse to egg on click
-            const egg = document.querySelector('.egg-container');
-            egg.style.transform = 'translateY(-8px) scale(1.05)';
-            
-            // Enhanced crack pulse on click
-            const crackLines = document.querySelectorAll('.crack-line');
-            crackLines.forEach(line => {
-                line.style.animation = 'none';
-                void line.offsetWidth;
-                line.style.animation = null;
-                line.style.opacity = '1';
-                line.style.boxShadow = '0 0 20px var(--signal), 0 0 40px rgba(255, 107, 0, 0.8)';
-            });
-            
-            setTimeout(() => {
-                egg.style.transform = 'translateY(-8px)';
-                crackLines.forEach(line => {
-                    line.style.opacity = '';
-                    line.style.boxShadow = '';
-                });
-            }, 500);
-        }
-
-        // ===== COPY ADDRESS FUNCTION - FIXED =====
-        function copyAddress(addressId, button) {
-            const addressElement = document.getElementById(addressId);
-            const address = addressElement.textContent;
-            
-            // Create a temporary textarea to copy from
-            const textArea = document.createElement('textarea');
-            textArea.value = address;
-            textArea.style.position = 'fixed';
-            textArea.style.opacity = '0';
-            document.body.appendChild(textArea);
-            textArea.select();
-            textArea.setSelectionRange(0, 99999); // For mobile devices
-            
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    const originalText = button.textContent;
-                    button.textContent = 'Copied';
-                    button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
-                    
-                    addressElement.style.backgroundColor = 'rgba(255, 107, 0, 0.08)';
-                    addressElement.style.borderColor = 'rgba(255, 107, 0, 0.2)';
-                    
-                    // Create subtle star effect
-                    const star = document.createElement('div');
-                    star.style.position = 'fixed';
-                    star.style.width = '8px';
-                    star.style.height = '8px';
-                    star.style.background = 'var(--signal)';
-                    star.style.borderRadius = '50%';
-                    star.style.opacity = '0';
-                    star.style.zIndex = '1000';
-                    star.style.pointerEvents = 'none';
-                    
-                    const rect = button.getBoundingClientRect();
-                    star.style.left = `${rect.left + rect.width/2}px`;
-                    star.style.top = `${rect.top + rect.height/2}px`;
-                    
-                    document.body.appendChild(star);
-                    
-                    // Animate star
-                    star.animate([
-                        { opacity: 0, transform: 'scale(0) translateY(0)' },
-                        { opacity: 1, transform: 'scale(1) translateY(-20px)' },
-                        { opacity: 0, transform: 'scale(0.5) translateY(-40px)' }
-                    ], {
-                        duration: 1000,
-                        easing: 'ease-out'
-                    });
-                    
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.style.backgroundColor = '';
-                        addressElement.style.backgroundColor = '';
-                        addressElement.style.borderColor = '';
-                        star.remove();
-                    }, 2000);
-                } else {
-                    button.textContent = 'Failed';
-                    setTimeout(() => {
-                        button.textContent = 'Copy';
-                    }, 2000);
-                }
-            } catch (err) {
-                console.error('Copy failed:', err);
-                button.textContent = 'Error';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 2000);
-            } finally {
-                document.body.removeChild(textArea);
-            }
-        }
+            document.getElementById('counter').innerHTML = `$${formattedTotal}<button class="notification-btn" onclick="showNotification()">!</button>`;
+        });
     </script>
 </body>
 </html>
