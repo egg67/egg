@@ -527,17 +527,22 @@
         }
         
         .main-text {
-            color: var(--dust);
-            font-size: 1.25rem;
+            color: var(--signal);
+            font-size: 1.4rem;
             line-height: 1.7;
             margin-bottom: 30px;
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: 0.5px;
-            text-align: left;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
         }
         
         .main-text p {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid rgba(255, 107, 0, 0.1);
+            background: rgba(255, 107, 0, 0.03);
+            border-radius: 2px;
         }
         
         /* ===== GBOYOACHC TEXT WITH LINE ===== */
@@ -563,6 +568,7 @@
         
         .gboyoachc-text:hover {
             opacity: 0.8;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
         }
         
         .gboyoachc-line {
@@ -1181,6 +1187,10 @@
             .gallery-item {
                 height: 350px;
             }
+            
+            .main-text {
+                font-size: 1.2rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1208,6 +1218,10 @@
             .gallery-item {
                 height: 300px;
             }
+            
+            .main-text {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -1230,7 +1244,7 @@
                 </div>
                 <div class="aramaic-text">ܐܬܓܠܝ</div>
                 <div class="counter-section">
-                    <div class="counter-label">Current Signal</div>
+                    <div class="counter-label">CURRENT ALIGNMENT</div>
                     <div class="counter-display" id="counter">$0.00<button class="notification-btn" onclick="showNotification()">!</button></div>
                     <div class="progress-container">
                         <div class="progress">
@@ -1238,11 +1252,15 @@
                         </div>
                     </div>
                     <div class="goal-section">
-                        <div class="current-goal">Progress</div>
+                        <div class="current-goal">MEASURED</div>
                         <div class="goal-number">$67,393</div>
                     </div>
+                    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: var(--signal); letter-spacing: 0.1em; margin: 25px 0; opacity: 0.7;">
+                        Alignment is measured.<br>
+                        Progress determines what comes next.
+                    </div>
                     <div class="scroll-indicator" onclick="scrollToAddresses()">
-                        <span>Contribute</span>
+                        <span>Position</span>
                         <div class="scroll-arrow">↓</div>
                     </div>
                 </div>
@@ -1251,27 +1269,27 @@
         <div class="separator">• • •</div>
         <div class="main-text-section">
             <div class="main-text">
-                <p>Something is always in motion here, even when the surface appears still.</p>
-                <p>What you are seeing is not a beginning, and not an ending. It is a moment within an ongoing process, patterns forming, dissolving, and returning in altered shapes. No single view contains the whole. No fragment stands alone.</p>
-                <p>This space gathers traces.</p>
-                <p>Images, symbols, structures, and silences pass through it. Some remain visible for a time. Others fade, leaving only the impression that something once moved there. Meaning is not fixed in advance. It condenses slowly, like breath on glass, and vanishes just as easily.</p>
-                <p>Nothing here asks to be believed.<br>
-                Nothing insists on being understood.</p>
-                <p>Attention is the only door.</p>
-                <p>Those who linger may begin to notice repetitions, subtle echoes between forms, intervals that feel less accidental than they first appeared. Whether these connections are discovered or imagined is part of the same unfolding. The work does not separate the two.</p>
-                <p>This is not a place of conclusions. It is a place of emergence.</p>
-                <p>What appears today may shift tomorrow. What seems silent may later reveal structure. The visible layer is only one surface among many, and even that surface is never still.</p>
-                <p>Some encounter this space briefly, as a passing signal. Others return, sensing that something is changing just beyond the edge of perception.</p>
-                <p>There is no single correct way to move through it. Only presence alters what is seen.</p>
-                <p>The rest continues, with or without witnesses.</p>
+                <p>Your payment is not a donation. It is entry into the Alignment.</p>
+                <p>This threshold represents access to what emerges when the system reaches critical mass.</p>
+                <p>Every transaction is permanently recorded as structural participation in what unfolds next.</p>
+                <p>Those who align now become part of the foundation. What follows will reference this moment.</p>
+                <p>This is measured continuation, not a request for support.</p>
             </div>
         </div>
         <div class="separator">• • •</div>
         <div class="terms-section">
-            <button class="terms-btn" onclick="showTerms()">Contribution Terms</button>
+            <button class="terms-btn" onclick="showTerms()">Participation Record</button>
         </div>
         <div class="separator">• • •</div>
         <div class="address-section" id="addresses">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--signal); letter-spacing: 0.1em; margin-bottom: 10px;">
+                    ENTER ALIGNMENT
+                </div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; color: var(--dust); letter-spacing: 0.1em; opacity: 0.7;">
+                    Choose position. Recorded permanently.
+                </div>
+            </div>
             <div class="address-grid">
                 <div class="address-item">
                     <div class="chain-name">Bitcoin (Taproot)</div>
@@ -1309,10 +1327,10 @@
         </div>
         <footer>
             <div class="footer-text">
-                Transactions are permanent. Addresses are recorded. There is nothing else.
+                Alignment is permanent. Position is recorded. The system continues.
             </div>
             <div style="margin-top: 30px; opacity: 0.3; font-size: 0.7rem; letter-spacing: 0.2em;">
-                RECORDED • PERMANENT • OBSERVED
+                RECORDED • PERMANENT • MEASURED
             </div>
         </footer>
     </div>
@@ -1405,14 +1423,14 @@
     <div class="notification-modal" id="notificationModal">
         <div class="notification-content">
             <button class="notification-close" onclick="closeNotification()">×</button>
-            <div class="notification-title">UPDATE SCHEDULE</div>
+            <div class="notification-title">MEASUREMENT SCHEDULE</div>
             <div class="notification-text">
-                <p>The progress counter will be updated according to the following schedule:</p>
-                <p>• First update: <span class="highlight">10/3/2026</span></p>
-                <p>• Second update: <span class="highlight">1/4/2026</span></p>
-                <p>• Subsequent updates: <span class="highlight">Every ten days thereafter</span></p>
+                <p>Alignment measurement follows this schedule:</p>
+                <p>• First measurement: <span class="highlight">10/3/2026</span></p>
+                <p>• Second measurement: <span class="highlight">1/4/2026</span></p>
+                <p>• Subsequent measurements: <span class="highlight">Every ten days thereafter</span></p>
             </div>
-            <button class="terms-btn" onclick="closeNotification()" style="width: 200px; margin: 0 auto;">Understood</button>
+            <button class="terms-btn" onclick="closeNotification()" style="width: 200px; margin: 0 auto;">Recorded</button>
         </div>
     </div>
 
@@ -1420,20 +1438,30 @@
         <div class="terms-content">
             <button class="terms-close" onclick="closeTerms()">×</button>
             <div class="terms-text">
-                <h3>IMPORTANT NOTICE</h3>
-                <p>This is a voluntary contribution platform supporting an independent digital art and philosophical exploration project. Contributions fund ongoing creative work and are treated as voluntary contributions with no expectation of financial return, profit, or ownership. No products, services, or investment opportunities are being offered. Cryptocurrency transactions are irreversible and may fluctuate in value.</p>
-                <p>• • •</p>
-                <p>This is a platform for supporting philosophical and artistic exploration.</p>
-                <p>Your contributions directly fund the creation of digital art, research, and conceptual development.</p>
-                <p>We believe in transparent creative processes and documenting the journey of ideas.</p>
-                <p>Every contribution helps sustain this ongoing work and allows for deeper exploration.</p>
-                <p>Participation is voluntary and represents support for artistic and philosophical inquiry.</p>
-                <p>All contributions are recorded as part of the project's historical documentation.</p>
-                <p>This is not a commercial venture—it is an exploration of ideas through digital medium.</p>
-                <p>Your support helps create works that examine meaning, pattern, and connection in digital spaces.</p>
-                <h3>LEGAL DISCLAIMER</h3>
-                <p>Contributions are voluntary and support artistic and philosophical work. No financial returns, profits, dividends, or ownership interests are offered or implied. This is not an investment opportunity. All contributions are final and non-refundable. The project goal represents a creative target for sustained development, not a financial guarantee. Participation is at your own discretion with no promised outcomes. Cryptocurrency transactions are irreversible and may fluctuate in value.</p>
-                <p>This project is operated by an independent digital creator working under the pseudonym "GBOYOACHC".</p>
+                <h3>PARTICIPATION RECORD</h3>
+
+<p>Participation in this system is voluntary and symbolic.</p>
+
+<p>No financial return, profit, ownership, dividend, or investment interest is offered or implied. This is not an investment, fundraising activity, or commercial venture.</p>
+
+<p>Any transfer of digital assets is a voluntary action representing personal participation only. All cryptocurrency transactions are irreversible and subject to market and network volatility.</p>
+
+<p>Participation creates no contractual rights, guarantees, expectations, or obligations beyond the permanent recording of participation itself.</p>
+
+<p>• • •</p>
+
+<p>This system measures alignment within an ongoing structural and philosophical exploration.</p>
+
+<p>Participation records position within the system. All positions are permanently recorded as structural elements.</p>
+
+<p>Measurement follows an internal schedule. The system continues regardless of participation.</p>
+
+<h3>STRUCTURAL NOTICE</h3>
+
+<p>All participation is final and irreversible. The measurement threshold represents structural continuation only and does not imply financial value or future outcome.</p>
+
+<p>This system operates under the structural identifier “GBOYOACHC”.</p>
+
             </div>
         </div>
     </div>
@@ -1467,7 +1495,7 @@
                     const originalBorder = button.style.borderColor;
                     const originalBackground = button.style.backgroundColor;
                     
-                    button.textContent = 'Copied!';
+                    button.textContent = 'Copied';
                     button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
                     button.style.borderColor = '#00FF00';
                     button.style.color = '#00FF00';
@@ -1514,12 +1542,12 @@
             const originalText = button.textContent;
             
             if (success) {
-                button.textContent = 'Copied!';
+                button.textContent = 'Copied';
                 button.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
                 button.style.borderColor = '#00FF00';
                 button.style.color = '#00FF00';
             } else {
-                button.textContent = 'Select & Copy';
+                button.textContent = 'Copy';
                 button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
                 button.style.borderColor = '#FF6B00';
                 button.style.color = '#FF6B00';
