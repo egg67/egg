@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GBOYOACHC</title>
+    <title>GBOYOACHC • alignment</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:wght@400;500&family=IBM+Plex+Mono:wght@300;400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -39,6 +39,28 @@
         ::selection {
             background: var(--signal);
             color: var(--void);
+        }
+        
+        /* ===== REMOVE WHITE LOGO GLITCH ===== */
+        body::before,
+        body::after,
+        .main-content::before,
+        .main-content::after,
+        .gallery-page::before,
+        .gallery-page::after,
+        .hero-section::before,
+        .hero-section::after {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        
+        img[src*="logo"], 
+        img[alt*="logo"], 
+        a[href*="logo"] {
+            display: none !important;
         }
         
         /* ===== SUBTLE STAR BACKGROUND ===== */
@@ -705,175 +727,116 @@
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.9rem;
             opacity: 0.5;
+            z-index: 10;
         }
         
-        /* ===== EGG POP-UP MODAL ===== */
-        .egg-popup {
+        /* ===== CUSTOM POPUP MODAL ===== */
+        .custom-popup {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 3000;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.3s ease-out;
+            padding: 20px;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .egg-popup-content {
+        .custom-popup-content {
             text-align: center;
-            padding: 40px 30px;
-            max-width: 500px;
-            width: 90%;
-            background: rgba(10, 10, 10, 0.8);
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
             border: 1px solid rgba(255, 107, 0, 0.2);
             border-radius: 2px;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .egg-popup-container {
-            margin: 0 auto 30px auto;
-            position: relative;
-            cursor: default;
-            width: 140px;
-            height: 186px;
-        }
-        
-        .egg-popup-container .egg {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            margin: 0 auto;
-        }
-        
-        .egg-popup-container .egg-body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 25%, rgba(20, 20, 20, 0.9) 0%, transparent 60%),
-                radial-gradient(circle at 70% 65%, rgba(40, 40, 40, 0.5) 0%, transparent 60%),
-                linear-gradient(145deg, #0a0a0a 0%, #050505 50%, #0a0a0a 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 
-                inset 0 -30px 70px rgba(0, 0, 0, 0.95),
-                inset 0 30px 60px rgba(255, 255, 255, 0.04),
-                inset 0 0 80px rgba(255, 107, 0, 0.07),
-                0 0 30px rgba(0, 0, 0, 0.8),
-                0 10px 40px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(80, 80, 80, 0.2);
-            overflow: hidden;
-        }
-        
-        .egg-popup-container .egg-glow {
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, 
-                rgba(255, 107, 0, 0.2) 0%, 
-                rgba(255, 107, 0, 0.08) 40%,
-                transparent 70%);
-            border-radius: 50%;
-            filter: blur(15px);
-            z-index: 1;
-            animation: eggGlowPulse 4s infinite ease-in-out;
-        }
-        
-        .egg-popup-container .crack {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-        }
-        
-        .egg-popup-container .crack-line {
-            position: absolute;
-            height: 1.5px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                var(--signal) 10%, 
-                var(--signal) 90%, 
-                transparent 100%);
-            filter: blur(0.8px);
-            animation: crackPulse 3s infinite ease-in-out;
-            opacity: 0.8;
-        }
-        
-        .egg-popup-container .crack-line:nth-child(1) {
-            top: 30%;
-            transform: rotate(0deg);
-            width: 90%;
-            left: 5%;
-            animation-delay: 0s;
-        }
-        
-        .egg-popup-container .crack-line:nth-child(2) {
-            top: 50%;
-            transform: rotate(0deg);
-            width: 85%;
-            left: 7%;
-            animation-delay: 0.3s;
-        }
-        
-        .egg-popup-container .crack-line:nth-child(3) {
-            top: 70%;
-            transform: rotate(0deg);
-            width: 80%;
-            left: 10%;
-            animation-delay: 0.6s;
-        }
-        
-        /* Greek Text Styling */
-        .greek-text {
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--signal);
-            font-size: 1.8rem;
-            letter-spacing: 0.05em;
-            line-height: 1.4;
-            text-shadow: 0 0 20px rgba(255, 107, 0, 0.6);
-            margin-bottom: 10px;
-            font-weight: 400;
-        }
-        
-        /* Close button for the popup */
-        .popup-close {
+        .custom-popup-close {
             position: absolute;
             top: 15px;
             right: 20px;
             color: var(--signal);
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
             background: none;
             border: none;
             font-family: 'IBM Plex Mono', monospace;
             line-height: 1;
             padding: 0;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            z-index: 2001;
+            z-index: 3001;
         }
         
-        .popup-close:hover {
+        .custom-popup-close:hover {
             color: var(--starlight);
             transform: scale(1.1);
         }
         
-        /* ===== IMAGE POPUP MODAL ===== */
+        .popup-image {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        
+        .popup-audio {
+            width: 100%;
+            margin: 30px 0;
+        }
+        
+        .popup-audio audio {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255, 107, 0, 0.2);
+        }
+        
+        .popup-error {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--signal);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            padding: 40px;
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            background: rgba(255, 107, 0, 0.03);
+            margin: 30px 0;
+        }
+        
+        .popup-download-btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--signal);
+            color: var(--signal);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 30px 0 20px;
+            text-transform: uppercase;
+        }
+        
+        .popup-download-btn:hover {
+            background: rgba(255, 107, 0, 0.1);
+            border-color: rgba(255, 107, 0, 0.8);
+        }
+        
+        /* ===== ORIGINAL IMAGE POPUP (for images 5-9) ===== */
         .image-popup {
             display: none;
             position: fixed;
@@ -929,7 +892,6 @@
             transform: scale(1.1);
         }
         
-        /* Aramaic Text - Larger and centered */
         .image-aramaic-text {
             color: var(--signal);
             font-size: 2.2rem;
@@ -946,7 +908,6 @@
             text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
         }
         
-        /* ===== ORANGE LOCK BUTTON STYLES ===== */
         .lock-button-container {
             margin: 20px 0 10px 0;
             width: 100%;
@@ -975,12 +936,6 @@
             background: rgba(255, 107, 0, 0.03);
         }
         
-        .lock-button:hover {
-            background: rgba(255, 107, 0, 0.08);
-            border-color: rgba(255, 107, 0, 0.8);
-            box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
-        }
-        
         .lock-icon {
             font-size: 2rem;
             margin-right: 15px;
@@ -988,6 +943,40 @@
         
         .lock-text {
             font-size: 1.2rem;
+        }
+        
+        /* ===== EGG POP-UP MODAL ===== */
+        .egg-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .egg-popup-content {
+            text-align: center;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 90%;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .egg-popup-container {
+            margin: 0 auto 30px auto;
+            position: relative;
+            cursor: default;
+            width: 140px;
+            height: 186px;
         }
         
         /* ===== NOTIFICATION MODAL ===== */
@@ -1059,10 +1048,6 @@
             text-align: left;
             margin-bottom: 30px;
             opacity: 0.8;
-        }
-        
-        .notification-text p {
-            margin-bottom: 15px;
         }
         
         .highlight {
@@ -1191,6 +1176,11 @@
             .main-text {
                 font-size: 1.2rem;
             }
+            
+            .popup-error {
+                font-size: 1.2rem;
+                padding: 30px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1226,7 +1216,7 @@
     </style>
 </head>
 <body>
-    <!-- MAIN PAGE ONLY - No GBtools -->
+    <!-- MAIN PAGE ONLY -->
     <div id="mainPage">
         <div class="stars" id="stars"></div>
         <div class="main-content">
@@ -1335,7 +1325,7 @@
         </footer>
     </div>
 
-    <!-- GALLERY PAGE -->
+    <!-- GALLERY PAGE - ORIGINAL 9 IMAGES PRESERVED -->
     <div class="gallery-page" id="galleryPage">
         <div class="stars" id="galleryStars"></div>
         <button class="back-button" onclick="closeGallery()">← BACK</button>
@@ -1346,38 +1336,55 @@
             </div>
         </div>
         <div class="gallery-grid">
-            <div class="gallery-item" onclick="showImagePopup('a.png', 'ܡܘܚܐ ܕܪܗܛ ܩܕܡ ܢܦܫܗ<br>ܒܢܐ ܟܘܪܣܝܐ ܡܢ ܩܠ̈ܐ ܘܛܠ̈ܐ<br>ܘܐܝܟ ܢܒܝܐ ܕܨܐܚ ܠܗ ܗܘ ܫܡܥ')">
+            <!-- 1st IMAGE - ORIGINAL a.png preserved. Click opens popup with 1.jpg -->
+            <div class="gallery-item" onclick="openCustomPopup(1)">
                 <div class="image-number">01</div>
                 <img src="https://i.postimg.cc/B68hQNp7/a.png" alt="a" class="gallery-image">
             </div>
-            <div class="gallery-item" onclick="showImagePopup('evidence.png', 'ܨܘܪܬܐ ܬܠܝܐ ܒܟܠ ܐܘܢܐ<br>ܕܠܐ ܬܛܥܐ ܟܐܦܐ ܡܢ ܡܢ ܩܐܡ<br>ܐܦ ܫܬܝܩܘܬܐ ܬܩܘܡ ܐܝܟ ܚܝܠܐ')">
+            
+            <!-- 2nd IMAGE - ORIGINAL evidence.png preserved. Click opens popup with audio -->
+            <div class="gallery-item" onclick="openCustomPopup(2)">
                 <div class="image-number">02</div>
                 <img src="https://i.postimg.cc/QMY43vQc/evidence.png" alt="evidence" class="gallery-image">
             </div>
-            <div class="gallery-item" onclick="showImagePopup('is.png', 'ܫܡܐ ܕܐܫܬܒܩ ܐܝܟ ܪܝܚܐ ܒܗܝܟܠܐ<br>ܬܪ̈ܥܐ ܐܬܐܚܕܘ ܐܒܠ ܐܐܪ ܥܕܟܝܠ ܙܥ<br>ܟܐܦ̈ܐ ܕܐܝܬ ܠܗܝܢ ܕܘܟܪܢܐ')">
+            
+            <!-- 3rd IMAGE - ORIGINAL is.png preserved. Click opens popup with hash download -->
+            <div class="gallery-item" onclick="openCustomPopup(3)">
                 <div class="image-number">03</div>
                 <img src="https://i.postimg.cc/ZR1w93DT/is.png" alt="is" class="gallery-image">
             </div>
-            <div class="gallery-item" onclick="showImagePopup('not.png', 'ܩܠܐ ܕܐܬܥܒܕ ܡܢ ܫܢ̈ܝܐ ܣܓܝ̈ܐܐ<br>ܩܐܡ ܒܐܬܪܐ ܕܬܚܘܡ̈ܐ ܡܫܬܚܠܦܝܢ<br>ܫܘܠܛܢܐ ܡܣܝܒ ܫܝܒܬܐ ܕܠܐ ܚܙܝܢ')">
+            
+            <!-- 4th IMAGE - ORIGINAL not.png preserved. Click opens popup with error sentence -->
+            <div class="gallery-item" onclick="openCustomPopup(4)">
                 <div class="image-number">04</div>
                 <img src="https://i.postimg.cc/3RyLJ995/not.png" alt="not" class="gallery-image">
             </div>
+            
+            <!-- 5th IMAGE - Unchanged: Syriac + lock -->
             <div class="gallery-item" onclick="showImagePopup('show.png', 'ܚܙܘܬܐ ܕܟܘܟܒ̈ܐ ܒܥܝܢ̈ܘܗܝ<br>ܐܒܠ ܐܝܕ̈ܘܗܝ ܥܕܟܝܠ ܒܢܘܪܐ<br>ܟܠ ܟܘܟܒܐ ܕܠܗܛ ܐܦ ܐܟܠ')">
                 <div class="image-number">05</div>
                 <img src="https://i.postimg.cc/sXBnDKKF/show.png" alt="show" class="gallery-image">
             </div>
+            
+            <!-- 6th IMAGE - Unchanged: Syriac + lock -->
             <div class="gallery-item" onclick="showImagePopup('this.png', 'ܡܓܕܠܐ ܕܕܗܒܐ ܣܠܩ ܒܩܠ̈ܐ<br>ܟܠ ܙܓܓܐ ܡܚܙܐ ܠܗ ܚܕ ܐܦܐ<br>ܐܒܠ ܙܓܓ̈ܐ ܕܟܝܢ ܟܪܝܗܝܢ ܒܠܒܗ')">
                 <div class="image-number">06</div>
                 <img src="https://i.postimg.cc/PxBSLZFJ/this.png" alt="this" class="gallery-image">
             </div>
+            
+            <!-- 7th IMAGE - Unchanged: Syriac + lock -->
             <div class="gallery-item" onclick="showImagePopup('this-is.png', 'ܢܘܗܪܐ ܪܗܛ ܒܬܪ ܐܦܐ ܕܥܠܡܐ<br>ܩܕܡ ܕܐܬܟܬܒ ܣܦܪܐ ܕܗܝ<br>ܫܡܐ ܐܬܪܫܡ ܒܝܕ̈ܐ ܕܠܐ ܚܙܝܢ')">
                 <div class="image-number">07</div>
                 <img src="https://i.postimg.cc/G2BMhzzR/this-is.png" alt="this-is" class="gallery-image">
             </div>
+            
+            <!-- 8th IMAGE - Unchanged: Syriac + lock -->
             <div class="gallery-item" onclick="showImagePopup('6.png', 'ܡܠܐ ܗܘܐ ܐܝܟ ܢܘܪܐ ܒܠܒܐ ܕܕܪܐ<br>ܠܒܫ ܩܪܒܐ ܐܝܟ ܬܟܫܝܛܐ<br>ܩܠܗ ܐܙܠ ܪܚܝܩ ܝܬܝܪ ܡܢ ܚܝ̈ܘܗܝ')">
                 <div class="image-number">08</div>
                 <img src="https://i.postimg.cc/8PxNrjVj/6.png" alt="6" class="gallery-image">
             </div>
+            
+            <!-- 9th IMAGE - Unchanged: Syriac + lock -->
             <div class="gallery-item" onclick="showImagePopup('7.png', 'ܦܬܚ ܟܘ̈ܬܐ ܠܥܠܡܐ ܒܚܟܡܬܗ<br>ܘܗܫܐ ܡܣܬܟܠܝܢ ܒܙܓܓܐ ܕܒܢܐ<br>ܟܕ ܢܘܗܪܐ ܪܒܐ ܛܠܠ̈ܐ ܢܦܠܝܢ')">
                 <div class="image-number">09</div>
                 <img src="https://i.postimg.cc/ZKX4yChh/7.png" alt="7" class="gallery-image">
@@ -1388,7 +1395,29 @@
         </div>
     </div>
 
-    <!-- MODALS -->
+    <!-- CUSTOM POPUP FOR IMAGES 1-4 -->
+    <div class="custom-popup" id="customPopup">
+        <div class="custom-popup-content">
+            <button class="custom-popup-close" onclick="closeCustomPopup()">×</button>
+            <div id="popupDynamicContent"></div>
+        </div>
+    </div>
+
+    <!-- ORIGINAL IMAGE POPUP (for images 5-9) -->
+    <div class="image-popup" id="imagePopup">
+        <div class="image-popup-content">
+            <button class="image-popup-close" onclick="closeImagePopup()">×</button>
+            <div class="image-aramaic-text" id="popupAramaicText"></div>
+            <div class="lock-button-container">
+                <button class="lock-button">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <span class="lock-text">ܚܬܝܡ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EGG POPUP -->
     <div class="egg-popup" id="eggPopup">
         <div class="egg-popup-content">
             <button class="popup-close" onclick="closeEggPopup()">×</button>
@@ -1407,19 +1436,7 @@
         </div>
     </div>
 
-    <div class="image-popup" id="imagePopup">
-        <div class="image-popup-content">
-            <button class="image-popup-close" onclick="closeImagePopup()">×</button>
-            <div class="image-aramaic-text" id="popupAramaicText"></div>
-            <div class="lock-button-container">
-                <button class="lock-button">
-                    <i class="fas fa-lock lock-icon"></i>
-                    <span class="lock-text">ܚܬܝܡ</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
+    <!-- NOTIFICATION MODAL -->
     <div class="notification-modal" id="notificationModal">
         <div class="notification-content">
             <button class="notification-close" onclick="closeNotification()">×</button>
@@ -1434,34 +1451,23 @@
         </div>
     </div>
 
+    <!-- TERMS MODAL -->
     <div class="terms-modal" id="termsModal">
         <div class="terms-content">
             <button class="terms-close" onclick="closeTerms()">×</button>
             <div class="terms-text">
                 <h3>PARTICIPATION RECORD</h3>
-
-<p>Participation in this system is voluntary and symbolic.</p>
-
-<p>No financial return, profit, ownership, dividend, or investment interest is offered or implied. This is not an investment, fundraising activity, or commercial venture.</p>
-
-<p>Any transfer of digital assets is a voluntary action representing personal participation only. All cryptocurrency transactions are irreversible and subject to market and network volatility.</p>
-
-<p>Participation creates no contractual rights, guarantees, expectations, or obligations beyond the permanent recording of participation itself.</p>
-
-<p>• • •</p>
-
-<p>This system measures alignment within an ongoing structural and philosophical exploration.</p>
-
-<p>Participation records position within the system. All positions are permanently recorded as structural elements.</p>
-
-<p>Measurement follows an internal schedule. The system continues regardless of participation.</p>
-
-<h3>STRUCTURAL NOTICE</h3>
-
-<p>All participation is final and irreversible. The measurement threshold represents structural continuation only and does not imply financial value or future outcome.</p>
-
-<p>This system operates under the structural identifier “GBOYOACHC”.</p>
-
+                <p>Participation in this system is voluntary and symbolic.</p>
+                <p>No financial return, profit, ownership, dividend, or investment interest is offered or implied. This is not an investment, fundraising activity, or commercial venture.</p>
+                <p>Any transfer of digital assets is a voluntary action representing personal participation only. All cryptocurrency transactions are irreversible and subject to market and network volatility.</p>
+                <p>Participation creates no contractual rights, guarantees, expectations, or obligations beyond the permanent recording of participation itself.</p>
+                <p>• • •</p>
+                <p>This system measures alignment within an ongoing structural and philosophical exploration.</p>
+                <p>Participation records position within the system. All positions are permanently recorded as structural elements.</p>
+                <p>Measurement follows an internal schedule. The system continues regardless of participation.</p>
+                <h3>STRUCTURAL NOTICE</h3>
+                <p>All participation is final and irreversible. The measurement threshold represents structural continuation only and does not imply financial value or future outcome.</p>
+                <p>This system operates under the structural identifier "GBOYOACHC".</p>
             </div>
         </div>
     </div>
@@ -1476,63 +1482,48 @@
             const addressElement = document.getElementById(addressId);
             const address = addressElement.textContent;
             
-            // Create a temporary textarea element
             const textarea = document.createElement('textarea');
             textarea.value = address;
             textarea.style.position = 'fixed';
             textarea.style.opacity = '0';
             document.body.appendChild(textarea);
             
-            // Select and copy
             textarea.select();
-            textarea.setSelectionRange(0, 99999); // For mobile devices
+            textarea.setSelectionRange(0, 99999);
             
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
-                    // Show success feedback
                     const originalText = button.textContent;
-                    const originalBorder = button.style.borderColor;
-                    const originalBackground = button.style.backgroundColor;
-                    
                     button.textContent = 'Copied';
                     button.style.backgroundColor = 'rgba(255, 107, 0, 0.15)';
                     button.style.borderColor = '#00FF00';
                     button.style.color = '#00FF00';
                     
-                    // Reset after 2 seconds
                     setTimeout(() => {
                         button.textContent = originalText;
-                        button.style.backgroundColor = originalBackground;
-                        button.style.borderColor = originalBorder;
+                        button.style.backgroundColor = '';
+                        button.style.borderColor = '';
                         button.style.color = 'var(--signal)';
                     }, 2000);
-                    
-                    console.log('Address copied:', address);
                 } else {
-                    // Fallback if execCommand fails
                     fallbackCopyText(address, button);
                 }
             } catch (err) {
-                console.error('Copy failed:', err);
                 fallbackCopyText(address, button);
             } finally {
-                // Clean up
                 document.body.removeChild(textarea);
             }
         }
 
         function fallbackCopyText(text, button) {
-            // Try modern clipboard API first
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(() => {
                     showCopyFeedback(button, true);
-                }).catch(err => {
-                    console.error('Clipboard API failed:', err);
+                }).catch(() => {
                     showCopyFeedback(button, false);
                 });
             } else {
-                // Last resort - alert the address
                 alert('Please manually copy this address:\n\n' + text);
                 showCopyFeedback(button, false);
             }
@@ -1553,7 +1544,6 @@
                 button.style.color = '#FF6B00';
             }
             
-            // Reset after 2 seconds
             setTimeout(() => {
                 button.textContent = originalText;
                 button.style.backgroundColor = '';
@@ -1562,10 +1552,15 @@
             }, 2000);
         }
 
+        // ===== GALLERY FUNCTIONS - FIXED SCROLL POSITION =====
         function openGallery(e) {
             e.preventDefault();
             document.getElementById('mainPage').style.display = 'none';
-            document.getElementById('galleryPage').style.display = 'block';
+            const galleryPage = document.getElementById('galleryPage');
+            galleryPage.style.display = 'block';
+            // Force scroll to top
+            galleryPage.scrollTop = 0;
+            window.scrollTo(0, 0);
             createStars('galleryStars');
         }
 
@@ -1574,6 +1569,78 @@
             document.getElementById('mainPage').style.display = 'block';
         }
 
+        // ===== CUSTOM POPUP FOR IMAGES 1-4 =====
+        function openCustomPopup(imageId) {
+            const popup = document.getElementById('customPopup');
+            const contentDiv = document.getElementById('popupDynamicContent');
+            
+            // Clear previous content
+            contentDiv.innerHTML = '';
+            
+            if (imageId === 1) {
+                // First image popup: Show 1.jpg, NO download button
+                const img = document.createElement('img');
+                img.src = 'https://i.postimg.cc/RhJDfhms/1.jpg';
+                img.alt = 'Signal 1';
+                img.className = 'popup-image';
+                contentDiv.appendChild(img);
+                
+            } else if (imageId === 2) {
+                // Second image popup: Audio player, NO download button
+                const audioContainer = document.createElement('div');
+                audioContainer.className = 'popup-audio';
+                
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                audio.style.width = '100%';
+                
+                const source = document.createElement('source');
+                source.src = 'https://github.com/yourusername/yourrepo/raw/main/2.wav'; // REPLACE WITH YOUR ACTUAL GITHUB URL
+                source.type = 'audio/wav';
+                
+                audio.appendChild(source);
+                audioContainer.appendChild(audio);
+                contentDiv.appendChild(audioContainer);
+                
+            } else if (imageId === 3) {
+                // Third image popup: Downloadable text file, NO preview of hash
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'popup-download-btn';
+                downloadBtn.innerHTML = '<i class="fas fa-download" style="margin-right: 10px;"></i>DOWNLOAD .TXT';
+                
+                downloadBtn.onclick = function() {
+                    const hash = '4b43b0aee35624cd95b910189b3dc231';
+                    const blob = new Blob([hash], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'GBOYOACHC_hash.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                };
+                
+                contentDiv.appendChild(downloadBtn);
+                
+            } else if (imageId === 4) {
+                // Fourth image popup: Error sentence
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'popup-error';
+                errorDiv.textContent = 'error</html>600-700';
+                contentDiv.appendChild(errorDiv);
+            }
+            
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCustomPopup() {
+            document.getElementById('customPopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== ORIGINAL IMAGE POPUP (for images 5-9) =====
         function showImagePopup(imageName, aramaicText) {
             document.getElementById('popupAramaicText').innerHTML = aramaicText;
             document.getElementById('imagePopup').style.display = 'flex';
@@ -1585,6 +1652,7 @@
             document.body.style.overflow = 'auto';
         }
 
+        // ===== OTHER MODAL FUNCTIONS =====
         function showNotification() {
             document.getElementById('notificationModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -1605,10 +1673,16 @@
             document.body.style.overflow = 'auto';
         }
 
+        function closeEggPopup() {
+            document.getElementById('eggPopup').style.display = 'none';
+        }
+
         // ===== STAR BACKGROUND =====
         function createStars(containerId) {
             const starsContainer = document.getElementById(containerId);
             if (!starsContainer) return;
+            
+            starsContainer.innerHTML = '';
             
             const starCount = 150;
             for (let i = 0; i < starCount; i++) {
@@ -1642,18 +1716,28 @@
         document.addEventListener('DOMContentLoaded', () => {
             createStars('stars');
             
-            // Set initial counter value
             const totalContributions = 0.00;
             const goalAmount = 67393;
             const progressPercent = (totalContributions / goalAmount) * 100;
             document.getElementById('progress').style.width = `${progressPercent}%`;
             
-            // Format counter display
             const formattedTotal = totalContributions.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
             document.getElementById('counter').innerHTML = `$${formattedTotal}<button class="notification-btn" onclick="showNotification()">!</button>`;
+            
+            // REMOVE ANY WHITE LOGO GLITCH - force hide any potential stray elements
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(el => {
+                const style = window.getComputedStyle(el);
+                if (el.tagName === 'IMG' && el.alt && el.alt.toLowerCase().includes('logo')) {
+                    el.style.display = 'none';
+                }
+                if (el.classList.contains('fa') || el.classList.contains('fas') || el.classList.contains('far')) {
+                    // Keep Font Awesome icons, they're fine
+                }
+            });
         });
     </script>
 </body>
