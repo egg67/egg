@@ -685,7 +685,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-         /* ===== 7 ===== */
+        
         .gallery-item {
             position: relative;
             overflow: hidden;
@@ -1331,7 +1331,7 @@
             </div>
         </div>
         <div class="gallery-grid">
-            <!-- 1st IMAGE - ORIGINAL a.png preserved. Click opens popup with 1.jpg -->
+            <!-- 1st IMAGE - ORIGINAL a.png preserved. Click opens popup with 1.jpg from GitHub repo -->
             <div class="gallery-item" onclick="openCustomPopup(1)">
                 <div class="image-number">01</div>
                 <img src="https://i.postimg.cc/B68hQNp7/a.png" alt="a" class="gallery-image">
@@ -1572,23 +1572,20 @@
             contentDiv.innerHTML = '';
             
             if (imageId === 1) {
-                // First image popup: Show 1.jpg
+                // FIRST IMAGE: 1.jpg from GitHub repo
                 const img = document.createElement('img');
-                img.src = 'https://i.postimg.cc/RhJDfhms/1.jpg';
+                img.src = 'https://raw.githubusercontent.com/egg67/egg/refs/heads/main/1.jpg';
                 img.alt = 'Signal 1';
                 img.className = 'popup-image';
                 contentDiv.appendChild(img);
                 
             } else if (imageId === 2) {
                 // SECOND IMAGE: AUDIO PLAYER + DOWNLOAD BUTTON
-                // Using your GitHub Pages hosted WAV file
                 const audioUrl = 'https://egg67.github.io/egg/2.wav';
                 
-                // Create audio container
                 const audioContainer = document.createElement('div');
                 audioContainer.className = 'popup-audio';
                 
-                // Create audio element
                 const audio = document.createElement('audio');
                 audio.controls = true;
                 audio.style.width = '100%';
@@ -1599,7 +1596,6 @@
                 
                 audio.appendChild(source);
                 
-                // Fallback text
                 const fallbackText = document.createElement('p');
                 fallbackText.style.color = 'var(--dust)';
                 fallbackText.style.fontFamily = 'IBM Plex Mono, monospace';
@@ -1611,10 +1607,9 @@
                 audioContainer.appendChild(fallbackText);
                 contentDiv.appendChild(audioContainer);
                 
-                // CREATE DOWNLOAD BUTTON
                 const downloadBtn = document.createElement('a');
                 downloadBtn.href = audioUrl;
-                downloadBtn.download = '2.wav';  // This forces download
+                downloadBtn.download = '2.wav';
                 downloadBtn.className = 'popup-download-btn';
                 downloadBtn.innerHTML = '<i class="fas fa-download" style="margin-right: 10px;"></i>DOWNLOAD WAV';
                 downloadBtn.style.marginTop = '20px';
@@ -1747,10 +1742,9 @@
             });
             document.getElementById('counter').innerHTML = `$${formattedTotal}<button class="notification-btn" onclick="showNotification()">!</button>`;
             
-            // REMOVE ANY WHITE LOGO GLITCH - force hide any potential stray elements
+            // REMOVE ANY WHITE LOGO GLITCH
             const allElements = document.querySelectorAll('*');
             allElements.forEach(el => {
-                const style = window.getComputedStyle(el);
                 if (el.tagName === 'IMG' && el.alt && el.alt.toLowerCase().includes('logo')) {
                     el.style.display = 'none';
                 }
