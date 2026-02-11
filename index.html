@@ -795,24 +795,13 @@
         
         .popup-audio {
             width: 100%;
-            margin: 30px 0;
+            margin: 20px 0;
         }
         
         .popup-audio audio {
             width: 100%;
             background: transparent;
             border: 1px solid rgba(255, 107, 0, 0.2);
-        }
-        
-        .popup-error {
-            font-family: 'IBM Plex Mono', monospace;
-            color: var(--signal);
-            font-size: 1.5rem;
-            letter-spacing: 0.1em;
-            padding: 40px;
-            border: 1px solid rgba(255, 107, 0, 0.3);
-            background: rgba(255, 107, 0, 0.03);
-            margin: 30px 0;
         }
         
         .popup-download-btn {
@@ -827,13 +816,24 @@
             transition: all 0.3s;
             cursor: pointer;
             font-family: 'IBM Plex Mono', monospace;
-            margin: 30px 0 20px;
+            margin: 20px 0 10px;
             text-transform: uppercase;
         }
         
         .popup-download-btn:hover {
             background: rgba(255, 107, 0, 0.1);
             border-color: rgba(255, 107, 0, 0.8);
+        }
+        
+        .popup-error {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--signal);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            padding: 40px;
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            background: rgba(255, 107, 0, 0.03);
+            margin: 30px 0;
         }
         
         /* ===== ORIGINAL IMAGE POPUP (for images 5-9) ===== */
@@ -1176,11 +1176,6 @@
             .main-text {
                 font-size: 1.2rem;
             }
-            
-            .popup-error {
-                font-size: 1.2rem;
-                padding: 30px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -1312,7 +1307,6 @@
                 <div class="gboyoachc-line"></div>
             </div>
         </div>
-        <!-- (7) -->
         <div class="coordinates">
             31.77686464752928, 35.235649411249824
         </div>
@@ -1343,7 +1337,7 @@
                 <img src="https://i.postimg.cc/B68hQNp7/a.png" alt="a" class="gallery-image">
             </div>
             
-            <!-- 2nd IMAGE - ORIGINAL evidence.png preserved. Click opens popup with audio -->
+            <!-- 2nd IMAGE - ORIGINAL evidence.png preserved. Click opens popup with audio player + download button -->
             <div class="gallery-item" onclick="openCustomPopup(2)">
                 <div class="image-number">02</div>
                 <img src="https://i.postimg.cc/QMY43vQc/evidence.png" alt="evidence" class="gallery-image">
@@ -1553,13 +1547,12 @@
             }, 2000);
         }
 
-        // ===== GALLERY FUNCTIONS - FIXED SCROLL POSITION =====
+        // ===== GALLERY FUNCTIONS =====
         function openGallery(e) {
             e.preventDefault();
             document.getElementById('mainPage').style.display = 'none';
             const galleryPage = document.getElementById('galleryPage');
             galleryPage.style.display = 'block';
-            // Force scroll to top
             galleryPage.scrollTop = 0;
             window.scrollTo(0, 0);
             createStars('galleryStars');
@@ -1579,7 +1572,7 @@
             contentDiv.innerHTML = '';
             
             if (imageId === 1) {
-                // First image popup: Show 1.jpg, NO download button
+                // First image popup: Show 1.jpg
                 const img = document.createElement('img');
                 img.src = 'https://i.postimg.cc/RhJDfhms/1.jpg';
                 img.alt = 'Signal 1';
@@ -1587,25 +1580,50 @@
                 contentDiv.appendChild(img);
                 
             } else if (imageId === 2) {
-                // Second image popup: Audio player, NO download button
+                // SECOND IMAGE: AUDIO PLAYER + DOWNLOAD BUTTON
+                // Using your GitHub Pages hosted WAV file
+                const audioUrl = 'https://egg67.github.io/egg/2.wav';
+                
+                // Create audio container
                 const audioContainer = document.createElement('div');
                 audioContainer.className = 'popup-audio';
                 
+                // Create audio element
                 const audio = document.createElement('audio');
                 audio.controls = true;
                 audio.style.width = '100%';
                 
                 const source = document.createElement('source');
-                source.src = '2.wav';  // Local file path
+                source.src = audioUrl;
                 source.type = 'audio/wav';
                 
                 audio.appendChild(source);
-                audio.load();
+                
+                // Fallback text
+                const fallbackText = document.createElement('p');
+                fallbackText.style.color = 'var(--dust)';
+                fallbackText.style.fontFamily = 'IBM Plex Mono, monospace';
+                fallbackText.style.fontSize = '0.8rem';
+                fallbackText.style.marginTop = '10px';
+                fallbackText.textContent = 'AUDIO SIGNAL • 44.1kHz • WAV';
+                
                 audioContainer.appendChild(audio);
+                audioContainer.appendChild(fallbackText);
                 contentDiv.appendChild(audioContainer);
                 
+                // CREATE DOWNLOAD BUTTON
+                const downloadBtn = document.createElement('a');
+                downloadBtn.href = audioUrl;
+                downloadBtn.download = '2.wav';  // This forces download
+                downloadBtn.className = 'popup-download-btn';
+                downloadBtn.innerHTML = '<i class="fas fa-download" style="margin-right: 10px;"></i>DOWNLOAD WAV';
+                downloadBtn.style.marginTop = '20px';
+                downloadBtn.style.display = 'inline-block';
+                
+                contentDiv.appendChild(downloadBtn);
+                
             } else if (imageId === 3) {
-                // Third image popup: Downloadable text file, NO preview of hash, filename is "txt"
+                // Third image popup: Downloadable text file
                 const downloadBtn = document.createElement('button');
                 downloadBtn.className = 'popup-download-btn';
                 downloadBtn.innerHTML = '<i class="fas fa-download" style="margin-right: 10px;"></i>DOWNLOAD .TXT';
@@ -1616,7 +1634,7 @@
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = 'txt'; // Filename is now just "txt" without extension
+                    a.download = 'txt';
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
@@ -1735,9 +1753,6 @@
                 const style = window.getComputedStyle(el);
                 if (el.tagName === 'IMG' && el.alt && el.alt.toLowerCase().includes('logo')) {
                     el.style.display = 'none';
-                }
-                if (el.classList.contains('fa') || el.classList.contains('fas') || el.classList.contains('far')) {
-                    // Keep Font Awesome icons, they're fine
                 }
             });
         });
