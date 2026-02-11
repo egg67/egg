@@ -1312,6 +1312,7 @@
                 <div class="gboyoachc-line"></div>
             </div>
         </div>
+        <!-- (7) -->
         <div class="coordinates">
             31.77686464752928, 35.235649411249824
         </div>
@@ -1595,7 +1596,7 @@
                 audio.style.width = '100%';
                 
                 const source = document.createElement('source');
-                source.src = 'https://github.com/yourusername/yourrepo/raw/main/2.wav'; // REPLACE WITH YOUR ACTUAL GITHUB URL
+                source.src = 'https://raw.githubusercontent.com/egg67/egg/main/2.wav';
                 source.type = 'audio/wav';
                 
                 audio.appendChild(source);
@@ -1603,7 +1604,7 @@
                 contentDiv.appendChild(audioContainer);
                 
             } else if (imageId === 3) {
-                // Third image popup: Downloadable text file, NO preview of hash
+                // Third image popup: Downloadable text file, NO preview of hash, filename is "txt"
                 const downloadBtn = document.createElement('button');
                 downloadBtn.className = 'popup-download-btn';
                 downloadBtn.innerHTML = '<i class="fas fa-download" style="margin-right: 10px;"></i>DOWNLOAD .TXT';
@@ -1614,7 +1615,7 @@
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = 'GBOYOACHC_hash.txt';
+                    a.download = 'txt'; // Filename is now just "txt" without extension
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
