@@ -836,7 +836,7 @@
             margin: 30px 0;
         }
         
-        /* ===== ORIGINAL IMAGE POPUP (for images 5-9) ===== */
+        /* ===== NEW POPUP STYLES FOR IMAGES 5-9 ===== */
         .image-popup {
             display: none;
             position: fixed;
@@ -854,9 +854,10 @@
         
         .image-popup-content {
             text-align: center;
-            padding: 50px 40px;
-            max-width: 700px;
-            width: 100%;
+            padding: 30px;
+            max-width: 600px;
+            width: auto;
+            min-width: 300px;
             background: rgba(10, 10, 10, 0.95);
             border: 1px solid rgba(255, 107, 0, 0.15);
             border-radius: 2px;
@@ -864,12 +865,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
         
         .image-popup-close {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 10px;
+            right: 15px;
             color: var(--signal);
             font-size: 2rem;
             cursor: pointer;
@@ -892,57 +894,71 @@
             transform: scale(1.1);
         }
         
-        .image-aramaic-text {
+        .popup-aramaic-text {
             color: var(--signal);
-            font-size: 2.2rem;
-            margin: 40px 0 60px 0;
+            font-size: 1.3rem;
+            margin: 20px;
             font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 0.05em;
-            line-height: 1.8;
+            letter-spacing: 0.02em;
+            line-height: 1.6;
             text-align: center;
-            max-width: 600px;
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+            max-width: 500px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            text-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
         }
         
-        .lock-button-container {
-            margin: 20px 0 10px 0;
-            width: 100%;
-            max-width: 300px;
+        .popup-empty {
+            min-height: 100px;
+            min-width: 200px;
+            margin: 20px;
         }
         
-        .lock-button {
-            background: transparent;
-            border: 1px solid var(--signal);
+        .popup-braille {
+            font-size: 4rem;
             color: var(--signal);
-            padding: 18px 50px;
-            font-size: 1.4rem;
-            letter-spacing: 0.1em;
-            text-decoration: none;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            font-family: 'Cormorant Garamond', serif;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 107, 0, 0.03);
+            margin: 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            text-shadow: 0 0 20px var(--signal-glow);
+            line-height: 1;
         }
         
-        .lock-icon {
+        .popup-numbers {
             font-size: 2rem;
-            margin-right: 15px;
+            color: var(--signal);
+            margin: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px var(--signal-glow);
+            word-break: break-all;
         }
         
-        .lock-text {
-            font-size: 1.2rem;
+        .popup-vector-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .pen-character {
+            font-size: 8rem;
+            color: var(--signal);
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1;
+            text-shadow: 0 0 30px var(--signal-glow);
+            transform: rotate(0deg);
+            display: inline-block;
+        }
+        
+        .mf-text {
+            font-size: 4rem;
+            color: var(--signal);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            letter-spacing: 5px;
+            text-shadow: 0 0 30px var(--signal-glow);
         }
         
         /* ===== EGG POP-UP MODAL ===== */
@@ -1176,6 +1192,27 @@
             .main-text {
                 font-size: 1.2rem;
             }
+            
+            .popup-aramaic-text {
+                font-size: 1.1rem;
+            }
+            
+            .popup-braille {
+                font-size: 3rem;
+            }
+            
+            .popup-numbers {
+                font-size: 1.5rem;
+                letter-spacing: 3px;
+            }
+            
+            .mf-text {
+                font-size: 3rem;
+            }
+            
+            .pen-character {
+                font-size: 6rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1206,6 +1243,27 @@
             
             .main-text {
                 font-size: 1.1rem;
+            }
+            
+            .popup-aramaic-text {
+                font-size: 1rem;
+            }
+            
+            .popup-braille {
+                font-size: 2.5rem;
+            }
+            
+            .popup-numbers {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .mf-text {
+                font-size: 2.5rem;
+            }
+            
+            .pen-character {
+                font-size: 4rem;
             }
         }
     </style>
@@ -1355,32 +1413,32 @@
                 <img src="https://i.postimg.cc/3RyLJ995/not.png" alt="not" class="gallery-image">
             </div>
             
-            <!-- 5th IMAGE - Unchanged: Syriac + lock -->
-            <div class="gallery-item" onclick="showImagePopup('show.png', 'ܚܙܘܬܐ ܕܟܘܟܒ̈ܐ ܒܥܝܢ̈ܘܗܝ<br>ܐܒܠ ܐܝܕ̈ܘܗܝ ܥܕܟܝܠ ܒܢܘܪܐ<br>ܟܠ ܟܘܟܒܐ ܕܠܗܛ ܐܦ ܐܟܠ')">
+            <!-- 5th IMAGE - NEW: Aramaic text (smaller) -->
+            <div class="gallery-item" onclick="showImage5Popup()">
                 <div class="image-number">05</div>
                 <img src="https://i.postimg.cc/sXBnDKKF/show.png" alt="show" class="gallery-image">
             </div>
             
-            <!-- 6th IMAGE - Unchanged: Syriac + lock -->
-            <div class="gallery-item" onclick="showImagePopup('this.png', 'ܡܓܕܠܐ ܕܕܗܒܐ ܣܠܩ ܒܩܠ̈ܐ<br>ܟܠ ܙܓܓܐ ܡܚܙܐ ܠܗ ܚܕ ܐܦܐ<br>ܐܒܠ ܙܓܓ̈ܐ ܕܟܝܢ ܟܪܝܗܝܢ ܒܠܒܗ')">
+            <!-- 6th IMAGE - NEW: Empty popup (no square) -->
+            <div class="gallery-item" onclick="showImage6Popup()">
                 <div class="image-number">06</div>
                 <img src="https://i.postimg.cc/PxBSLZFJ/this.png" alt="this" class="gallery-image">
             </div>
             
-            <!-- 7th IMAGE - Unchanged: Syriac + lock -->
-            <div class="gallery-item" onclick="showImagePopup('this-is.png', 'ܢܘܗܪܐ ܪܗܛ ܒܬܪ ܐܦܐ ܕܥܠܡܐ<br>ܩܕܡ ܕܐܬܟܬܒ ܣܦܪܐ ܕܗܝ<br>ܫܡܐ ܐܬܪܫܡ ܒܝܕ̈ܐ ܕܠܐ ܚܙܝܢ')">
+            <!-- 7th IMAGE - NEW: 7082+U -->
+            <div class="gallery-item" onclick="showImage7Popup()">
                 <div class="image-number">07</div>
                 <img src="https://i.postimg.cc/G2BMhzzR/this-is.png" alt="this-is" class="gallery-image">
             </div>
             
-            <!-- 8th IMAGE - Unchanged: Syriac + lock -->
-            <div class="gallery-item" onclick="showImagePopup('6.png', 'ܡܠܐ ܗܘܐ ܐܝܟ ܢܘܪܐ ܒܠܒܐ ܕܕܪܐ<br>ܠܒܫ ܩܪܒܐ ܐܝܟ ܬܟܫܝܛܐ<br>ܩܠܗ ܐܙܠ ܪܚܝܩ ܝܬܝܪ ܡܢ ܚܝ̈ܘܗܝ')">
+            <!-- 8th IMAGE - NEW: 45 45 45 45 46 -->
+            <div class="gallery-item" onclick="showImage8Popup()">
                 <div class="image-number">08</div>
                 <img src="https://i.postimg.cc/8PxNrjVj/6.png" alt="6" class="gallery-image">
             </div>
             
-            <!-- 9th IMAGE - Unchanged: Syriac + lock -->
-            <div class="gallery-item" onclick="showImagePopup('7.png', 'ܦܬܚ ܟܘ̈ܬܐ ܠܥܠܡܐ ܒܚܟܡܬܗ<br>ܘܗܫܐ ܡܣܬܟܠܝܢ ܒܙܓܓܐ ܕܒܢܐ<br>ܟܕ ܢܘܗܪܐ ܪܒܐ ܛܠܠ̈ܐ ܢܦܠܝܢ')">
+            <!-- 9th IMAGE - NEW: Pen character ✎ + MF -->
+            <div class="gallery-item" onclick="showImage9Popup()">
                 <div class="image-number">09</div>
                 <img src="https://i.postimg.cc/ZKX4yChh/7.png" alt="7" class="gallery-image">
             </div>
@@ -1398,17 +1456,11 @@
         </div>
     </div>
 
-    <!-- ORIGINAL IMAGE POPUP (for images 5-9) -->
+    <!-- NEW IMAGE POPUP (for images 5-9) -->
     <div class="image-popup" id="imagePopup">
         <div class="image-popup-content">
             <button class="image-popup-close" onclick="closeImagePopup()">×</button>
-            <div class="image-aramaic-text" id="popupAramaicText"></div>
-            <div class="lock-button-container">
-                <button class="lock-button">
-                    <i class="fas fa-lock lock-icon"></i>
-                    <span class="lock-text">ܚܬܝܡ</span>
-                </button>
-            </div>
+            <div id="popupContent"></div>
         </div>
     </div>
 
@@ -1655,10 +1707,75 @@
             document.body.style.overflow = 'auto';
         }
 
-        // ===== ORIGINAL IMAGE POPUP (for images 5-9) =====
-        function showImagePopup(imageName, aramaicText) {
-            document.getElementById('popupAramaicText').innerHTML = aramaicText;
-            document.getElementById('imagePopup').style.display = 'flex';
+        // ===== NEW POPUP FUNCTIONS FOR IMAGES 5-9 =====
+        function showImage5Popup() {
+            const popup = document.getElementById('imagePopup');
+            const contentDiv = document.getElementById('popupContent');
+            
+            contentDiv.innerHTML = `
+                <div class="popup-aramaic-text">
+                    ܠܐ ܐܢܐ ܡܠܬܐ،<br>
+                    ܐܠܐ ܝܗܒ ܐܢܐ ܐܐܪܐ ܠܡܠܐ̈.<br>
+                    <br>
+                    ܠܐ ܐܢܐ ܡܢܝܢܐ،<br>
+                    ܐܠܐ ܡܫܚ ܐܢܐ ܠܡܐ ܕܥܒܪ.<br>
+                    <br>
+                    ܠܐ ܐܢܐ ܩܠܐ،<br>
+                    ܐܠܐ ܒܠܥܕܝ ܢܦܠܝܢ ܣܓܝܐܬܐ ܕܩܠܐ̈.
+                </div>
+            `;
+            
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showImage6Popup() {
+            const popup = document.getElementById('imagePopup');
+            const contentDiv = document.getElementById('popupContent');
+            
+            // Empty popup - just a div with no content and no square
+            contentDiv.innerHTML = `<div class="popup-empty"></div>`;
+            
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showImage7Popup() {
+            const popup = document.getElementById('imagePopup');
+            const contentDiv = document.getElementById('popupContent');
+            
+            contentDiv.innerHTML = `
+                <div class="popup-braille">7082+U</div>
+            `;
+            
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showImage8Popup() {
+            const popup = document.getElementById('imagePopup');
+            const contentDiv = document.getElementById('popupContent');
+            
+            contentDiv.innerHTML = `
+                <div class="popup-numbers">45 45 45 45 46</div>
+            `;
+            
+            popup.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showImage9Popup() {
+            const popup = document.getElementById('imagePopup');
+            const contentDiv = document.getElementById('popupContent');
+            
+            contentDiv.innerHTML = `
+                <div class="popup-vector-container">
+                    <span class="pen-character">✎</span>
+                    <span class="mf-text">MF</span>
+                </div>
+            `;
+            
+            popup.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
